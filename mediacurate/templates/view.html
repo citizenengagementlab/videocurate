@@ -22,7 +22,7 @@
 </div>
 
 <div id="reviews">
-  {% render_comment_list for media %}
+  {% if media%}{% render_comment_list for media %}{%endif%}
 </div>
 {%endblock%}
 
