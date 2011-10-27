@@ -257,7 +257,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 }
 #secondary {
 	.column(4);
-	min-height: 400px;
+	height: 500px;
 	
 }
 #pagefooter {
@@ -270,8 +270,11 @@ table { border-collapse: collapse; border-spacing: 0; }
    Primary styles
    Author: Benjamin Wilkins
    ========================================================================== */
+html {
+	background-color: #FCFCFC;
+}
 
-a {
+a:link, a:visited {
 	color: @darkred;
 	text-decoration: none;
 }
@@ -322,6 +325,7 @@ a:active, a:hover {
 #banner {
 	form {
 		text-align: center;
+		padding-top: 20px;
 		color: @dark;
 
 		legend {
@@ -339,10 +343,40 @@ a:active, a:hover {
 			&[type="text"] {
 				width: 50%;
 			}
+			&[type="submit"]:hover {
+				background-color: lighten(@red, 45%)
+			}
 		}
 	}
 }
-
+#secondary {
+	position: relative;
+	h3 {
+		text-align: center;
+		.column(2,4);
+		position: absolute;
+		top: 0;
+		left: 50%;
+		a {
+		display:block;
+		padding-top: 20px;
+		padding-bottom: 17px;
+		border-bottom: 1px solid @darkred;
+		}
+	}
+	h3:first-child {
+		left: 0;
+	}
+	ul {
+		padding: 0;
+		margin: 0;
+		position: absolute;
+		margin-top: 55px;
+		border-top: 1px solid @darkred;
+		overflow: auto;
+		width: 100%;
+	}
+}
 
 /* =============================================================================
    Non-semantic helper classes

@@ -3,7 +3,6 @@
    Josh Levinger
    Citizen Engagement Laboratory
 */
-
 $(document).ready(
 	function() {
 		//set embed width to 100%
@@ -12,6 +11,14 @@ $(document).ready(
 		if ( window.location.href.match(/\/add/) ) {
 			$("#banner").hide();
 		}
+		
+		//Control tabs in secondary content
+		$("#latest").css({"left": $("#latest").width()});
+		//Click handler
+		$("#secondary>h3>a").click(function(e){
+			e.preventDefault();
+			var target = $(this).attr("href");
+			$("#secondary ul").animate({"left": 0});
+		});
 	}
 );
-if (true) {};
