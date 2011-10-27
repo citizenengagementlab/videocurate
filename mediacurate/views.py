@@ -22,8 +22,11 @@ def home(request):
             main = Media.objects.order_by('total_upvotes','date_added')[0]
         except IndexError:
             main = None
-    latest = Media.objects.order_by('date_added').exclude(id=main.id)[:5]
-    popular = Media.objects.order_by('total_upvotes').exclude(id=main.id)[:5]
+
+    if(main):
+        #there's at least one, we can pull the other feeds
+        latest = Media.objects.order_by('date_added').exclude(id=main.id)[:5]
+        popular = Media.objects.order_by('total_upvotes').exclude(id=main.id)[:5]
     
     return render_to_response('view.html',
         {'title':'The best source for #occupy videos',
