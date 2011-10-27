@@ -27,8 +27,8 @@
 {%endblock%}
 
 {%block aside %}
-<h3>Popular</h3>
-<ul>
+<h3><a href="#popular">Popular</a></h3>
+<ul id="popular">
 {% for media in popular%}
 <li>
   <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
@@ -38,8 +38,8 @@
 {%endfor%}
 </ul>
 
-<h3>Latest</h3>
-<ul>
+<h3><a href="#latest">Latest</a></h3>
+<ul id="latest">
 {% for media in latest%}
 <li>
   <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
