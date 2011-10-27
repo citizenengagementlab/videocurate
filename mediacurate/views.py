@@ -21,12 +21,14 @@ def home(request):
         try:
             main = Media.objects.order_by('total_upvotes','date_added')[0]
         except IndexError:
-            main = None
+            #there's nothing in the db yet, render a blank page
+            return render_to_response('view.html',
+                   {'title':'The best source for #occupy videos',
+                   'message':'Add some videos and start curating'},
+                   context_instance=RequestContext(request))
 
-    if(main):
-        #there's at least one, we can pull the other feeds
-        latest = Media.objects.order_by('date_added').exclude(id=main.id)[:5]
-        popular = Media.objects.order_by('total_upvotes').exclude(id=main.id)[:5]
+    latest = Media.objects.order_by('date_added').exclude(id=main.id)[:5]
+    popular = Media.objects.order_by('total_upvotes').exclude(id=main.id)[:5]
     
     return render_to_response('view.html',
         {'title':'The best source for #occupy videos',
