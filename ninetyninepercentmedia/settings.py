@@ -19,8 +19,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '99percentmedia.db',     # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -115,5 +115,9 @@ INSTALLED_APPS = (
 )
 try:    
     from settings_private import *
-except:
-    raise ImportException('unable to find settings_private.py')
+except ImportError:
+    print '''Can't find settings_private.py
+    Proceeding with default values for DATABASES, SECRET_KEY, and EMBEDLY_KEY
+    You probably want to define your own'''
+    SECRET_KEY = 'seekr3t_5e7'
+    EMBEDLY_KEY = ''
