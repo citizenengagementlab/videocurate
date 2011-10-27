@@ -33,7 +33,14 @@
 			</form>
 		</div>
 	</header>
-	<div class="center"><section id="banner">Banner</section></div>
+	<div class="center">
+		<section id="banner">
+			<form action="/add/">
+				<label for="embed_url"></label><input type="text" name="embed_url" id="embed_url" />
+				<input type="submit" value="Add &raquo;"/>
+			</form>
+		</section>
+	</div>
 	<div class="center">
 		<section id="main">{%block content%}{%endblock%}</section>
 		<aside id="secondary">{%block aside%}{%endblock%}</aside>
