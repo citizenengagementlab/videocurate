@@ -28,24 +28,25 @@
 
 {%block aside %}
 <h3><a href="#popular">Popular</a></h3>
-<ul id="popular">
-{% for media in popular%}
-<li>
-  <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
-  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>
-  <div class="info">{{media.description}}<br>{{media.views|intcomma}} views {{media.total_upvotes}} <img src="{{MEDIA_URL}}images/upfist_small.png"/></div>
-  </li>
-{%endfor%}
-</ul>
-
 <h3><a href="#latest">Latest</a></h3>
-<ul id="latest">
-{% for media in latest%}
-<li>
-  <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
-  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>
-  <div class="info">{{media.description}}<br>{{media.views|intcomma}} views {{media.total_upvotes}} <img src="{{MEDIA_URL}}images/upfist_small.png"/></div>
-</li>
-{%endfor%}
-</ul>
+<div class="slide">
+	<ul id="popular">
+	{% for media in popular%}
+	<li>
+	  <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
+	  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>
+	  <div class="info">{{media.description}}<br>{{media.views|intcomma}} views {{media.total_upvotes}} <img src="{{MEDIA_URL}}images/upfist_small.png"/></div>
+	  </li>
+	{%endfor%}
+	</ul>
+	<ul id="latest">
+	{% for media in latest%}
+	<li>
+	  <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
+	  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>
+	  <div class="info">{{media.description}}<br>{{media.views|intcomma}} views {{media.total_upvotes}} <img src="{{MEDIA_URL}}images/upfist_small.png"/></div>
+	</li>
+	{%endfor%}
+	</ul>
+</div>
 {%endblock%}
