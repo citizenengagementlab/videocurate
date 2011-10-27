@@ -14,7 +14,7 @@ $(document).ready(function onload(){
     if (theURL == "") { $("label[for=id_url]").addClass("error"); return false; }
     else { $("label[for=id_url]").removeClass("error"); }
     $("#preview").show();
-    $.post("/embed/cache/",{url:theURL,maxwidth:"600"},
+    $.post("/embed/cache/",{url:theURL,maxwidth:"620"},
       function embedly_callback(data) {
         if (DEBUG) console.log('embedly callback');
         if (DEBUG) console.log(data);
