@@ -249,24 +249,20 @@ table { border-collapse: collapse; border-spacing: 0; }
 	.column(12);
 	margin-top: -80px;
 	height: 200px;
-	background: #f5f5f5;
 }
 #main {
 	.column(8);
 	min-height: 400px;
-	background: #f5f5f5;
 	
 }
 #secondary {
 	.column(4);
 	min-height: 400px;
-	background: #f5f5f5;
 	
 }
 #pagefooter {
 	.column(12);
 	height: 50px;
-	background: #f5f5f5;
 }
 /* @end     Layout */
 
@@ -284,6 +280,9 @@ a:active, a:hover {
 }
 
 #topbar {
+	#logo a:hover {
+		border: none;
+	}
 	form {
 		legend {
 			display: none;
@@ -315,6 +314,30 @@ a:active, a:hover {
 			padding: 10px;
 			a {
 				text-align: center;
+			}
+		}
+	}
+}
+
+#banner {
+	form {
+		text-align: center;
+		color: @dark;
+
+		legend {
+			font-family: serif;
+			font-style: italic;
+			font-size: 3em;
+			padding: 15px;
+		}
+		input {
+			font-size: 1.5em;
+			padding: 10px 15px;
+			background: #FFF;
+			border: 1px solid @light;
+			border-radius: 5px;
+			&[type="text"] {
+				width: 50%;
 			}
 		}
 	}
