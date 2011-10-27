@@ -18,7 +18,10 @@ def home(request):
     if Media.objects.filter(featured=True).count() > 0:
         main = Media.objects.filter(featured=True).latest()
     else:
-        main = Media.objects.order_by('total_upvotes','date_added')[0]
+        try:
+            main = Media.objects.order_by('total_upvotes','date_added')[0]
+        except IndexError:
+            main = None
     latest = Media.objects.order_by('date_added').exclude(id=main.id)[:5]
     popular = Media.objects.order_by('total_upvotes').exclude(id=main.id)[:5]
     
@@ -81,7 +84,7 @@ def add(request):
             media_dict = {
                 'date_uploaded':date_uploaded,
                 'title':form.cleaned_data['title'],
-                'slug':slugify(form.cleaned_data['title']),
+                'slug':slugify(form.cleaned_data['title'])[:50],
                 'location':location,
                 'url':form.cleaned_data['url'],
                 'embed':embed,
