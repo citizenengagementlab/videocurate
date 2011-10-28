@@ -32,11 +32,11 @@ class AddForm(BetterForm):
                     'classes':['']}
             ),
             ('More',{'fields':('name','review'),
-                    'description':"Enter your review. This helps us categorize the content.",
+                    'description':"Enter your review. This helps us categorize the content.<br>This is optional",
                     'classes':['review']}
             ),
             ('Metadata',{'fields':('author_name','author_url','resolution','views','license','date_uploaded'),
-                    'description':"Extra data we could determine from the provider.<br>Not editable.",
+                    'description':"Extra data we could determine from the provider.<br>This is not editable",
                     'classes':['hidden']}
             ),
         )
