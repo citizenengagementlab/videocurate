@@ -109,6 +109,7 @@ INSTALLED_APPS = (
     'tagging',
     'tagging_autocomplete',
     'form_utils',
+    'django_countries',
     
     #internal apps
     'mediacurate',

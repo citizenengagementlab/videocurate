@@ -7,3 +7,4 @@ django-tagging
 django-tagging-autocomplete
 django-form-utils
 svn+http://django-tagging-autocomplete.googlecode.com/svn/trunk/
+django-countries

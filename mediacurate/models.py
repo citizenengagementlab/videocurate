@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.localflavor.us.models import USStateField
+from django_countries import CountryField
 #from django.contrib.gis.db import models as geo_models
 from django.contrib.auth.models import User
 from django.contrib.comments.models import Comment
@@ -10,14 +12,20 @@ from django.core.urlresolvers import reverse
 
 class Location(models.Model):
     name = models.CharField(max_length=255)
-    url = models.URLField(blank=True) #for occupy locations derived by meetup feed
+    state = USStateField(null=True,blank=True)
+    country = CountryField(null=True,blank=True)
+    #dont require geodjango, use simple floats instead
+    lat = models.FloatField(null=True,blank=True)
+    lon = models.FloatField(null=True,blank=True)
+    url = models.URLField(null=True,blank=True) #for occupy locations
     
     def __unicode__(self):
         return self.name
     
-    #if we want to use geodjango
+    # if we want to use geodjango, for more complicated queries like proximity
+    # unncessecary for initial launch
 #    latlon = geo_models.PointField(srid=4326)
-#    objects = geo_models.GeoManager()   
+#    objects = geo_models.GeoManager()
 
 LICENSE_CHOICES = (
     ('CC','Creative Commons'),

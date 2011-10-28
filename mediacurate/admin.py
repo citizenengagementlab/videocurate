@@ -14,6 +14,11 @@ class MediaAdmin(admin.ModelAdmin):
         ('Host',{'fields':('url','embed','date_uploaded','resolution','license','views')}),
     )
 
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('name','state','country','url')
+    list_filter = ('state','country')
+    ordering = ('state',)
+    search_fields = ('name',)
 
 admin.site.register(Media,MediaAdmin)
-admin.site.register(Location)
+admin.site.register(Location,LocationAdmin)

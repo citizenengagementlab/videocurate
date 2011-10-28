@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.views.decorators.http import require_POST
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
+from django.db.models import Q
 from datetime import datetime
 import dateutil.parser
 
@@ -59,11 +60,15 @@ def search(request,slug):
 
 def location_autocomplete_list(request):
     #return list of locations in db, #occupy first
-    try:
-        locations = Location.objects.filter(name__istartswith=request.GET['q']).values_list('name', flat=True)
-    except MultiValueDictKeyError:
-        pass	
-    return HttpResponse('\n'.join(locations), mimetype='text/plain')
+    query = request.GET['q']
+    occupy_locations = Location.objects.filter(Q(name__istartswith="Occupy "+query)).values_list('name', flat=True)
+    locations = Location.objects.filter(Q(name__istartswith=query)).values_list('name', flat=True)
+    
+    if len(occupy_locations) > 0:
+        response_str = '\n'.join(occupy_locations) + '\n' + '\n'.join(locations)
+    else:
+        response_str = '\n'.join(locations)
+    return HttpResponse(response_str, mimetype='text/plain')
     
 def add(request):
     form = AddForm()
