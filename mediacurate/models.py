@@ -75,7 +75,17 @@ class Media(models.Model):
 
 secretballot.enable_voting_on(Media)
 secretballot.enable_voting_on(Comment)
-  
+ 
+flag_reasons = (
+    ('INAPP','Inappropriate'),
+    ('OFFNS','Offensive'),
+    ('SPAM','Spam'),
+)
+class Flag(models.Model):
+    date_added = models.DateTimeField(auto_now_add=True)
+    media = models.ForeignKey(Media)
+    reason = models.CharField(max_length=5,choices=flag_reasons)
+
 #class Assignment(models.Model):
 #    date_added = models.DateTimeField(auto_now_add=True)
 #    requester = models.ForeignKey(User) 

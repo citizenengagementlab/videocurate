@@ -34,32 +34,24 @@
 {%endblock%}
 
 {%block aside %}
-<h3><a href="#popular">Popular</a></h3>
-<h3><a href="#latest">Latest</a></h3>
+
+{%for tab in tabs%}
+<h3><a href="#{{tab.name|lower}}">{{tab.name}}</a></h3>
+{%endfor%}
 <div class="slide">
-	<ul id="popular">
-	{% for media in popular%}
-	<li class="group">
-	  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>
-	  <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
-	  <div class="info"><span class="media_description">{{media.description}}</span>
-	  					<span class="media_views">{{media.views|intcomma}} views</span>
-	  					{%comment%} {{media.total_upvotes}}  <span class="media_votes"><img src="{{MEDIA_URL}}images/upfist_small.png"/></span> {%endcomment%}
-	  </div>
-	</li>
-	{%endfor%}
-	</ul>
-	<ul id="latest">
-	{% for media in latest%}
-	<li class="group">
-	  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>
-	  <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
-	  <div class="info"><span class="media_description">{{media.description}}</span>
-	  					<span class="media_views">{{media.views|intcomma}} views</span>
-	  					{%comment%} {{media.total_upvotes}}  <span class="media_votes"><img src="{{MEDIA_URL}}images/upfist_small.png"/></span> {%endcomment%}
-	  </div>
-	</li>
-	{%endfor%}
-	</ul>
+{%for tab in tabs%}
+  <ul id="{{tab.name|lower}}">
+    {%for media in tab.list %}
+    <li class="group">
+  	  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>
+  	  <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
+  	  <div class="info"><span class="media_description">{{media.description}}</span>
+  	  					{%if media.views%}<span class="media_views">{{media.views|intcomma}} views</span>{%endif%}
+  	  					{%comment%} {{media.total_upvotes}}  <span class="media_votes"><img src="{{MEDIA_URL}}images/upfist_small.png"/></span> {%endcomment%}
+  	  </div>
+  	</li>
+  	{%endfor%}
+{%endfor%}
 </div>
+
 {%endblock%}
