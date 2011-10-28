@@ -33,7 +33,7 @@ $(document).ready(function onload(){
   
   $("input#addform_submit").click(function() {
     //do some validation client side, so we don't have to reload the page for missing fields
-    required_fields = ["url","title","location","name","review","tags"]
+    required_fields = ["url","title","location","tags"]
     has_error = false;
     for (i in required_fields) {
       selector = "id_"+required_fields[i];

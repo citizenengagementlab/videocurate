@@ -5,6 +5,7 @@ from django.views.decorators.http import require_POST
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.db.models import Q
+from django.contrib import messages
 from datetime import datetime
 import dateutil.parser
 
@@ -35,12 +36,6 @@ def home(request):
         {'title':'The best source for #occupy videos',
         'media':main,'popular':popular,'latest':latest},
         context_instance=RequestContext(request))
-    
-def latest(request,offset=None):
-    return HttpResponse("latest not yet implemented")
-
-def popular(request,offset=None):
-    return HttpResponse("popular not yet implemented")
 
 def view_by_id(request,id):
     media = get_object_or_404(Media,id=id)
@@ -78,7 +73,6 @@ def add(request):
         if form.is_valid():
             #create the objects with form.cleaned_data
             #can't use form.save() here, because it's not a modelform...
-            print "form.cleaned_data",form.cleaned_data
             
             location,new = Location.objects.get_or_create(name=form.cleaned_data['location'])
             embed = SavedEmbed.objects.get(url=form.cleaned_data['url'])
@@ -105,26 +99,24 @@ def add(request):
                 'views':form.cleaned_data['views'],
                 'tags':form.cleaned_data['tags'],
             }
-            print "media_dict",media_dict
             media = Media(**media_dict)
-            print "media obj",media
             media.save()
             
-            comment_dict = {
-                'user_name':form.cleaned_data['name'],
-                'comment':form.cleaned_data['review'],
-                'submit_date':datetime.now(),
-                'ip_address':request.META['REMOTE_ADDR'],
-                'content_type':ContentType.objects.get(app_label="mediacurate",model="media"),
-                'object_pk':media.pk,
-                'site_id':1 #assuming we're only using one site
-            }
-            print "comment_dict",comment_dict
-            review = Comment(**comment_dict)
-            review.save()
-            message = "Thanks for adding <a href='%s'>%s</a>. Want to add another?" % (media.get_absolute_url(), media.title)
-            #give the user a new form
-            form = AddForm()
+            if form.cleaned_data['name'] and form.cleaned_data['review']:
+                comment_dict = {
+                    'user_name':form.cleaned_data['name'],
+                    'comment':form.cleaned_data['review'],
+                    'submit_date':datetime.now(),
+                    'ip_address':request.META['REMOTE_ADDR'],
+                    'content_type':ContentType.objects.get(app_label="mediacurate",model="media"),
+                    'object_pk':media.pk,
+                    'site_id':1 #assuming we're only using one site
+                }
+                review = Comment(**comment_dict)
+                review.save()
+            messages.success(request, "Thanks for adding <a href='%s'>%s</a>. Want to add another?" % (media.get_absolute_url(), media.title))
+            #redirect, so we can clear url parameters
+            return HttpResponseRedirect('/add')
     return render_to_response('add.html',
                             {'form':form,
                             'message':message},

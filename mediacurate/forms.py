@@ -13,8 +13,8 @@ class AddForm(BetterForm):
     #author_url = forms.CharField(widget=forms.widgets.HiddenInput())
     author_url = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}))
     
-    name = forms.CharField(required=True)
-    review = forms.CharField(widget=forms.widgets.Textarea(),required=True)
+    name = forms.CharField(required=False)
+    review = forms.CharField(widget=forms.widgets.Textarea(),required=False)
     tags = forms.CharField(widget=TagAutocomplete,required=False)
     
     date_uploaded = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
@@ -27,16 +27,16 @@ class AddForm(BetterForm):
                     'description':'Paste the URL to preview',
                     'classes':['']}
             ),
-            ('Info',{'fields':('title','location','author_name','author_url'),
-                    'description':"These fields are required",
+            ('Info',{'fields':('title','location','tags',),
+                    'description':"Where was this taken, and what is it about?<br>These fields are required",
                     'classes':['']}
             ),
-            ('More',{'fields':('name','review','tags',),
+            ('More',{'fields':('name','review'),
                     'description':"Enter your review. This helps us categorize the content.",
                     'classes':['review']}
             ),
-            ('Hidden',{'fields':('resolution','views','license','date_uploaded'),
-                    'description':"These fields are hidden",
+            ('Metadata',{'fields':('author_name','author_url','resolution','views','license','date_uploaded'),
+                    'description':"Extra data we could determine from the provider.<br>Not editable.",
                     'classes':['hidden']}
             ),
         )

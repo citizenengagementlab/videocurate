@@ -18,13 +18,15 @@
 {%endblock%}
 
 {%block content%}
-  {% if message %}
-  <div id="message">
-  {{message|safe}}
-  </div>
-  {%endif%}
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
   
-  <h2>Add Form </h2>
+  <h2>Add Form</h2>
   
   <form id="addform" action="" method="POST">
     {% csrf_token %}
