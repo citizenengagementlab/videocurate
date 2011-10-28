@@ -356,10 +356,19 @@ a:active, a:hover {
 		top: 0;
 		left: 50%;
 		a {
-		display:block;
-		padding-top: 20px;
-		padding-bottom: 17px;
-		border-bottom: 1px solid @darkred;
+			display:block;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			margin-top: 15px;
+			margin-bottom: 12px;
+			border: none;
+			-moz-transition: all 200ms;
+			-webkit-transition: all 200ms;
+			transition: all 200ms;
+			&.active, &:hover {
+				background: #EEE;
+				border-radius: 5px;
+			}
 		}
 	}
 	h3:first-child {

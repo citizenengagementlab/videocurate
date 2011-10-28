@@ -19,21 +19,32 @@ $(document).ready(
 		slider
 			.css({"width": "200%", "position": "relative"})
 			.children("ul")
-				.css({"width": "50%", "float": "left"});
+				.css({"width": "50%", "float": "left"})
+				.parents("#secondary")
+				.children("h3:first-child")
+				.children("a")
+				.addClass("active");
 
 		//Click handler
 		$("#secondary>h3>a").click(function(e){
 			e.preventDefault();
-			var target = $(this).attr("href");
-			switch (target) {
-				case "#popular":
-					slider.animate({ "left": 0 });
-					break;
-				case "#latest":
-					slider.animate({ "left": 0-(slider.width()/2) });
-					break;
-				default:
-					return false;
+			if ($(this).hasClass("active")) {
+				return false;
+			} else {
+				$("#secondary>h3>a.active").removeClass("active");
+				var target = $(this);
+				target.addClass("active");
+				var link = target.attr("href");
+				switch (link) {
+					case "#popular":
+						slider.animate({ "left": 0 });
+						break;
+					case "#latest":
+						slider.animate({ "left": 0-(slider.width()/2) });
+						break;
+					default:
+						return false;
+				}
 			}
 		});
 	}
