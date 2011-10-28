@@ -9,9 +9,33 @@ $(document).ready(
 	function() {
 		//set embed width to 100%
 		$("#embed").children().attr("width", "100%")
+				
 		//hide banner section on add page
 		if ( window.location.href.match(/\/add/) ) {
 			$("#banner").hide();
+		}
+		//Copy GET Request URL to proper field on add page.		
+		function getEmbedUrl(){
+			var urlExplode = window.location.href.split("?");
+			var getMap;
+			if (getMap = urlExplode[1]) {
+				var keyVals = getMap.split("&");
+				var getVariables;
+				for (var i = 0; i < keyVals.length; i++) {
+					getVariable = keyVals[i].split("=");
+					if (getVariable[0]==="embed_url"){
+						return unescape(getVariable[1]);
+					}
+				}	
+			}
+		}
+		if ( window.location.href.match(/\/add/) ) {
+			var embed_url = getEmbedUrl();
+			if (embed_url) {
+				$("#id_url").val(embed_url);
+				$("#id_preview_button").click()
+					.hide();
+			}
 		}
 		
 		//setup slider
