@@ -55,7 +55,7 @@ def view_by_slug(request,id,slug):
         {'media':media},
         context_instance=RequestContext(request))
     
-def search(request,slug):
+def search(request):
     return HttpResponse("search not yet implemented")
 
 def location_autocomplete_list(request):

@@ -1,4 +1,5 @@
 {%extends "base.html"%}
+{% load tagging_tags %}
 {% load comments %}
 {% load humanize %}
 
@@ -15,9 +16,15 @@
 
 <div id="info">
   <ul>
-    <li>Vote</li>
+    <li>Vote <a href="/view/vote/{{media.id}}/1/">up</a></li>
     <li>Flag</li>
-    <li>Tag</li>
+    <li>Tags:
+      {% tags_for_object media as tags %}
+      <ul>
+        {%for tag in tags %}
+        <li>{{tag}}</li>
+        {%endfor%}
+      </li>
   </ul>
 </div>
 
