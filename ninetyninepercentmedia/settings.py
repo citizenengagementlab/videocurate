@@ -113,6 +113,13 @@ INSTALLED_APPS = (
     'mediacurate',
     
 )
+
+# debug toolbar
+INTERNAL_IPS = ('127.0.0.1','75.101.48.104')
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False
+}
+
 try:    
     from settings_private import *
 except ImportError:

@@ -51,7 +51,7 @@ def cache_embed(request):
     else:
        oembed = client.oembed(url)
     if oembed.error:
-        return HttpResponseServerError('Error embedding %s.\n %s' % (url,oembed.error))
+        return HttpResponseServerError('Error embedding %s.\n %s' % url)
 
     #save result to database
     row, created = SavedEmbed.objects.get_or_create(url=url, maxwidth=maxwidth,
