@@ -277,7 +277,7 @@ a:link, a:visited {
 	text-decoration: none;
 }
 a:active, a:hover {
-	border-bottom: 1px dotted @darkred;
+	text-decoration: underline;
 }
 
 /**
@@ -423,8 +423,23 @@ a:active, a:hover {
 		position: relative;
 		margin-top: 55px;
 		border-top: 1px solid @darkred;
-		overflow: auto;
+		list-style: none;
 		width: 100%;
+		li {
+			padding: 10px 0;
+			border-bottom: 1px solid @light;
+			a, h4, .info {
+				float:left;
+			}
+			a:first-child {
+				padding: 0 10px 10px 0;
+			}
+			h4 {
+				width: 60%;
+				margin: 0;
+				padding: 0;
+			}
+		}
 	}
 }
 
