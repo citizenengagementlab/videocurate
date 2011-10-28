@@ -7,6 +7,9 @@
 
 $(document).ready(
 	function() {
+	  //location autocomplete
+    $("#location").autocomplete("/locations/list/", { multiple: false });
+	  
 		//set embed width to 100%
 		$("#embed").children().attr("width", "100%")
 				
