@@ -280,6 +280,50 @@ a:active, a:hover {
 	border-bottom: 1px dotted @darkred;
 }
 
+/**
+ * 	Form Styles
+ */
+
+form {
+	legend {
+		color: @light;
+		display: block;
+		border-bottom: 1px solid @light;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	.description {
+		margin: 0;
+		padding: 10px 0;
+	}
+	ul {
+		list-style: none;
+		margin-left: 0;
+		padding-left: 0;
+	}
+	label {
+		width: 75px;
+		display: inline-block;
+	}
+	input, textarea, select {
+		width:  250px;
+		display: inline-block;
+		margin-left: 80px;
+		padding: 5px;
+		margin-bottom: 10px;
+		border: 1px solid @light;
+	}
+	label+input, label+textarea, label+select {
+		margin-left: 0;
+	}
+	input[type="submit"], 
+	input[type="button"] {
+		width: auto;
+		background: #FFF;
+	}
+	
+}
+
 #topbar {
 	#logo a:hover {
 		border: none;
