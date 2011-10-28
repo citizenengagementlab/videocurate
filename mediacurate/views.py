@@ -29,7 +29,7 @@ def home(request):
                    'message':'Add some videos and start curating'},
                    context_instance=RequestContext(request))
 
-    latest = Media.objects.order_by('date_added').exclude(id=main.id)[:5]
+    latest = Media.objects.order_by('-date_added').exclude(id=main.id)[:5]
     popular = Media.objects.order_by('total_upvotes').exclude(id=main.id)[:5]
     
     return render_to_response('view.html',
