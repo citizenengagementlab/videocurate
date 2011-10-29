@@ -37,19 +37,23 @@
   </ul>
 </div>
 
-<div id="reviews">
+<div id="reviews" class="group">
   {% if media%}{% render_comment_list for media %}{%endif%}
 </div>
 {%endblock%}
 
 {%block aside %}
 
+<ul class="tabs group">
 {%for tab in tabs%}
-<h3><a href="#{{tab.name|lower}}">{{tab.name}}</a></h3>
+	<li class="tab">
+		<h3><a href="#{{tab.name|lower}}">{{tab.name}}</a></h3>
+	</li>
 {%endfor%}
-<div class="slide">
+</ul>
+<div class="slide group">
 {%for tab in tabs%}
-  <ul id="{{tab.name|lower}}">
+  <ul id="{{tab.name|lower}}" class="group">
     {%for media in tab.list %}
     <li class="group">
   	  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>

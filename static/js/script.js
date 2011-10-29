@@ -43,35 +43,29 @@ $(document).ready(
 		
 		//setup slider
 		var slider = $("#secondary .slide");
+		var groups = slider.children("ul");
 		slider
-			.css({"width": "200%", "position": "relative"})
+			.css({"width": (groups.length * 100).toString() + "%", "position": "relative"})
 			.children("ul")
-				.css({"width": "50%", "float": "left"})
+				.css({"width": slider.parent().width(), "float": "left"})
 				.parents("#secondary")
-				.children("h3:first-child")
+				.children(".tabs")
+				.children(".tab:first-child")
+				.children("h3")
 				.children("a")
 				.addClass("active");
 
 		//Click handler
-		$("#secondary>h3>a").click(function(e){
+		$("#secondary .tabs h3>a").click(function(e){
 			e.preventDefault();
 			if ($(this).hasClass("active")) {
 				return false;
 			} else {
-				$("#secondary>h3>a.active").removeClass("active");
+				$("#secondary .tabs a.active").removeClass("active");
 				var target = $(this);
 				target.addClass("active");
-				var link = target.attr("href");
-				switch (link) {
-					case "#popular":
-						slider.animate({ "left": 0 });
-						break;
-					case "#latest":
-						slider.animate({ "left": 0-(slider.width()/2) });
-						break;
-					default:
-						return false;
-				}
+				var position = $(target.attr("href")).position();
+				slider.animate({ "left": 0 - position.left });
 			}
 		});
 	}

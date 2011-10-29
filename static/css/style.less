@@ -392,9 +392,7 @@ a:active, a:hover {
 		color: @dark;
 
 		legend {
-			font-family: serif;
-			font-style: italic;
-			font-size: 3em;
+			font-size: 2em;
 			padding: 0 0 15px;
 		}
 		input {
@@ -413,36 +411,41 @@ a:active, a:hover {
 }
 #secondary {
 	position: relative;
-	h3 {
-		text-align: center;
-		.column(2,4);
-		position: absolute;
-		top: 0;
-		left: 50%;
-		a {
-			display:block;
-			padding-top: 5px;
-			padding-bottom: 5px;
-			margin-top: 15px;
-			margin-bottom: 12px;
-			border: none;
-			-moz-transition: all 200ms;
-			-webkit-transition: all 200ms;
-			transition: all 200ms;
-			&.active, &:hover {
-				background: #EEE;
-				border-radius: 5px;
+	.tabs {
+		list-style: none;
+		margin:0;
+		padding:0;
+		li.tab {
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			width: 33.3333%;
+			margin-bottom: 10px;
+			float:left;
+			h3 {
+				text-align: center;
+				margin: 0;
+				padding: 0;
+				a {
+					display:inline-block;
+					padding: 5px 0;
+					width: 95%;
+					border: none;
+					-moz-transition: all 200ms;
+					-webkit-transition: all 200ms;
+					transition: all 200ms;
+					&.active, &:hover {
+						background: #EEE;
+						border-radius: 5px;
+					}
+				}
 			}
 		}
 	}
-	h3:first-child {
-		left: 0;
-	}
-	ul {
+	ul#latest, ul#related, ul#popular {
 		padding: 0;
 		margin: 0;
 		position: relative;
-		margin-top: 55px;
 		border-top: 1px solid @darkred;
 		list-style: none;
 		width: 100%;
