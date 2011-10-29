@@ -1,4 +1,4 @@
-DEBUG = false;
+DEBUG = true;
 
 $(document).ready(function onload(){
   //enable the preview button
@@ -18,14 +18,23 @@ $(document).ready(function onload(){
       function embedly_callback(data) {
         if (DEBUG) console.log('embedly callback');
         if (DEBUG) console.log(data);
-        $('#preview #preview_html').html(data.html);
-        $('#addform #id_title').val(data.title);
-        $('#addform #id_author_name').val(data.author_name);
-        $('#addform #id_author_url').val(data.author_url);
-        $('#addform #id_resolution').val(data.width+'x'+data.height);
-        $('#preview #preview_description').html(data.description);
-        thirdparty_extras(data);
-        $("#preview .spinner").hide();
+        
+        if(data.cache != "none") {
+          if (DEBUG) console.log('already have the video');
+          
+          var message = "Sweet video; it's so good, we already have a copy. Want to add your review and tags "
+           + "<a href='/search?url="+escape(data.original_url)+"'>here</a>?";
+          $('#preview #preview_html').html(message);
+        } else {
+          $('#preview #preview_html').html(data.html);
+          $('#addform #id_title').val(data.title);
+          $('#addform #id_author_name').val(data.author_name);
+          $('#addform #id_author_url').val(data.author_url);
+          $('#addform #id_resolution').val(data.width+'x'+data.height);
+          $('#preview #preview_description').html(data.description);
+          thirdparty_extras(data);
+        }
+          $("#preview .spinner").hide();
       }
     );
     return false;

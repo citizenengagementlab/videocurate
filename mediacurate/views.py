@@ -61,7 +61,32 @@ def view_by_slug(request,id,slug):
         context_instance=RequestContext(request))
     
 def search(request):
-    return HttpResponse("search not yet implemented")
+    #simple search
+    #TODO: look into using haystack or django-filter
+    allowed_params = {'keyword':{'field':'title','lookup':'__icontains'},
+                      'location':{'field':'location__name','lookup':'__startswith'},
+                      'tag':{'field':'tags','lookup':'__icontains'},
+                      'date':{'field':'date_uploaded','lookup':''},
+                      'url':{'field':'url','lookup':'__exact'}
+                     }
+    query = {} #will be passed to filter
+    query_display = [] #for template display
+    for (param,filters) in allowed_params.items():
+        if request.GET.get(param):
+            val = request.GET.get(param)
+            lookup_string = filters['field']+filters['lookup']
+            query[lookup_string] = val
+            
+            query_display.append("%s: %s" % (param,val))
+    if len(query.keys()) == 0:
+        #so we don't return all items
+        results = None
+    else:
+        results = Media.objects.filter(**query)
+    
+    return render_to_response('search.html',
+        {'query':', '.join(query_display),'results':results},
+        context_instance=RequestContext(request))
 
 def location_autocomplete_list(request):
     #return list of locations in db, #occupy first
@@ -81,6 +106,16 @@ def add(request):
     if request.method == "POST":
         form = AddForm(request.POST)
         if form.is_valid():
+            #first, check to see if it already exists
+            try:
+                exists = Media.objects.get(url=form.cleaned_data['url'])
+                messages.info(request, "Thanks for adding that video. It's so good, we already have a copy. Want to add your review and tags?")
+                #redirect, so we can clear url parameters
+                return HttpResponseRedirect(exists.get_absolute_url())
+            except Media.DoesNotExist:
+                #it's new, continue with the form
+                pass
+            
             #create the objects with form.cleaned_data
             #can't use form.save() here, because it's not a modelform...
             

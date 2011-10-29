@@ -13,8 +13,8 @@ $(document).ready(
 		//set embed width to 100%
 		$("#embed").children().attr("width", "100%")
 				
-		//hide banner section on add page
-		if ( window.location.href.match(/\/add/) ) {
+		//hide banner section on add or search pages
+		if ( window.location.href.match(/\/add|search/) ) {
 			$("#banner").hide();
 		}
 		//Copy GET Request URL to proper field on add page.		
