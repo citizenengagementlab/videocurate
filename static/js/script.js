@@ -8,7 +8,7 @@
 $(document).ready(
 	function() {
 	  //location autocomplete
-    $("#location").autocomplete("/locations/list/", { multiple: false });
+    $("#location").autocomplete("/locations/list/", { multiple: false, width:185 });
 	  
 		//set embed width to 100%
 		$("#embed").children().attr("width", "100%")
