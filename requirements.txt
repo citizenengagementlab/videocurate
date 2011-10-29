@@ -1,8 +1,8 @@
 django>=1.3
 python-dateutil==1.5
-git+https://github.com/embedly/embedly-python.git
-git+https://github.com/sunlightlabs/django-secretballot.git
-git+https://github.com/bradjasper/django-jsonfield.git
+-e git://github.com/embedly/embedly-python.git#egg=embedly-python
+-e git://github.com/sunlightlabs/django-secretballot.git#egg=secretballot
+-e git://github.com/bradjasper/django-jsonfield.git#egg=jsonfield
 django-tagging
 django-tagging-autocomplete
 django-form-utils
