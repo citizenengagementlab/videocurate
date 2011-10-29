@@ -235,19 +235,28 @@ table { border-collapse: collapse; border-spacing: 0; }
 	}
 }
 
-#logo a {
-		background: transparent url(../images/99percentlogo.png) no-repeat top center;
+#logo {
+	position: relative;
+	a {
+		background: transparent url(../images/99percentlogo.png) no-repeat 0px -2px;
 		display: block;
-		height: 150px;
-		width: 141px;
+		height: 80px;
+		width: 75px;
 		text-indent: -9999px;
-}
-#tagline {
-	display: none;
+	}
+	#tagline {
+		color: #F5F5F5;
+		font-size: .5em;
+		position: absolute;
+		top: 18px;
+		left: 85px;
+		.red {
+			color: @red;
+		}
+	}
 }
 #banner {
 	.column(12);
-	margin-top: -80px;
 	height: 200px;
 }
 #main {
@@ -365,16 +374,22 @@ a:active, a:hover {
 }
 
 #banner {
+	p {
+		color: #999;
+		font-size: 1.3em;
+		.column(5,12);
+		margin-left: 0;
+		padding-right: 90px;
+	}
 	form {
-		text-align: center;
-		padding-top: 20px;
+		.column(6,12);
 		color: @dark;
 
 		legend {
 			font-family: serif;
 			font-style: italic;
 			font-size: 3em;
-			padding: 15px;
+			padding: 0 0 15px;
 		}
 		input {
 			font-size: 1.5em;
