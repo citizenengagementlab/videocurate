@@ -34,6 +34,7 @@
         <fieldset class="{{ fieldset.classes }}">
         {% if fieldset.legend %}
           <legend>{{ fieldset.legend }}</legend>
+          {{fieldset.extra}}
         {% endif %}
         {% if fieldset.description %}
           <p class="description">{{ fieldset.description }}</p>
@@ -46,6 +47,7 @@
             <li{{ field.row_attrs }} {% if field.errors %}class="error"{%endif%}>
               {{ field.label_tag }}
               {{ field }}
+              <div class="help_text">{{ field.help_text}}</div>
             </li>
           {% endif %}
           {% if fieldset.name == "URL" %}

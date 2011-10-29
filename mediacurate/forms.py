@@ -7,15 +7,15 @@ from mediacurate.models import Media
 class AddForm(BetterForm):
     '''Used on the add page. Includes first review.'''
     url = forms.URLField()
-    title = forms.CharField()
+    title = forms.CharField(help_text="If the current title is confusing or not descriptive, please edit it.")
     location = forms.CharField(widget=LocationAutocomplete)
     author_name = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}))
     #author_url = forms.CharField(widget=forms.widgets.HiddenInput())
     author_url = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}))
     
-    name = forms.CharField(required=False)
-    review = forms.CharField(widget=forms.widgets.Textarea(),required=False)
-    tags = forms.CharField(widget=TagAutocomplete,required=False)
+    name = forms.CharField(required=False,help_text="Tell us who you are.")
+    review = forms.CharField(widget=forms.widgets.Textarea(),required=False,help_text="The more information you provide, the more useful it is to others. What made you want to add this to the collection? Is there a particularly good portion that viewers should watch out for?")
+    tags = forms.CharField(widget=TagAutocomplete,required=False,help_text="Use existing tags before creating new ones.")
     
     date_uploaded = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
     resolution = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
@@ -27,16 +27,16 @@ class AddForm(BetterForm):
                     'description':'Paste the URL to preview',
                     'classes':['']}
             ),
-            ('Info',{'fields':('title','location','tags',),
-                    'description':"Where was this taken, and what is it about?<br>These fields are required",
+            ('Basic Information <b>(Required)</b>',{'fields':('title','location','tags',),
+                    'description':"Where was this taken, and what is it about?",
                     'classes':['']}
             ),
-            ('More',{'fields':('name','review'),
-                    'description':"Enter your review. This helps us categorize the content.<br>This is optional",
+            ('Review <b>(Optional)</b>',{'fields':('name','review'),
+                    'description':"Please enter a review. It helps others to know what to look for, and helps us categorize the content.",
                     'classes':['review']}
             ),
-            ('Metadata',{'fields':('author_name','author_url','resolution','views','license','date_uploaded'),
-                    'description':"Extra data we could determine from the provider.<br>This is not editable",
+            ('Data <b>(Not Editable)</b>',{'fields':('author_name','author_url','resolution','views','license','date_uploaded'),
+                    'description':"This is information we pull from the host site.",
                     'classes':['hidden']}
             ),
         )

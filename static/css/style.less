@@ -3,6 +3,7 @@
 @darkred: #A40004;
 @dark: #333;
 @light: #ddd;
+@gray: #aaa;
 
 
 /*
@@ -295,15 +296,20 @@ a:active, a:hover {
 #main {
 	form {
 		legend {
-			color: @light;
+			color: @gray;
+			font-weight:bold;
 			display: block;
 			border-bottom: 1px solid @light;
 			width: 100%;
 			margin-bottom: 10px;
+			b { font-weight:normal; }
 		}
 		.description {
 			margin: 0;
 			padding: 10px 0;
+		}
+		.help_text {
+		  margin: 0 0 10px 80px;
 		}
 		ul {
 			list-style: none;
