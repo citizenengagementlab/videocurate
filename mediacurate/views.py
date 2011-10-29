@@ -1,4 +1,4 @@
-from django.http import HttpResponse,HttpResponseRedirect,HttpResponseServerError
+from django.http import HttpResponse,HttpResponseRedirect,HttpResponseServerError,HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.views.decorators.http import require_POST
@@ -13,7 +13,7 @@ from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
 
 from embeds.models import SavedEmbed
-from mediacurate.models import Media,Location
+from mediacurate.models import Media,Location,Flag
 from mediacurate.forms import AddForm
 
 def home(request):
@@ -59,7 +59,19 @@ def view_by_slug(request,id,slug):
     return render_to_response('view.html',
         {'media':media,'tabs':tabs},
         context_instance=RequestContext(request))
-    
+
+#@require_POST
+def flag(request,id):
+    if not request.GET.get('reason'):
+        return HttpResponseBadRequest('reason is required')
+    try:
+        media = Media.objects.get(id=id)
+    except Media.DoesNotExist:
+        return HttpResponseBadRequest("no media with that id")
+    flag = Flag(media=media,reason=request.GET.get('reason'))
+    flag.save()
+    return HttpResponse('flagged!');
+
 def search(request):
     #simple search
     #TODO: look into using haystack or django-filter

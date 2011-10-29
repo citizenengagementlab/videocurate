@@ -25,13 +25,13 @@
 
 <div id="info">
   <ul>
-    <li>Vote <a href="/view/vote/{{media.id}}/1/">up</a></li>
-    <li>Flag</li>
+    <li><a href="/view/vote/{{media.id}}/1/" class="upvote">Vote up</a></li>
+    <li><a href="/flag/{{media.id}}/" class="flag">Flag</a></li>
     <li>Tags:
       {% tags_for_object media as tags %}
-      <ul>
+      <ul class="tags">
         {%for tag in tags %}
-        <li>{{tag}}</li>
+        <li><a href="/search?tag={{tag}}">{{tag}}</a></li>
         {%endfor%}
       </li>
   </ul>
@@ -64,7 +64,7 @@
   	  </div>
   	</li>
   	{%empty%}
-  	Nothing yet, check back later, or add more.
+  	Nothing yet: check back later, or add more.
   	{%endfor%}
   </ul>
 {%endfor%}

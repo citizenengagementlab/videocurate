@@ -85,6 +85,9 @@ class Flag(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     media = models.ForeignKey(Media)
     reason = models.CharField(max_length=5,choices=flag_reasons)
+    
+    def __unicode__(self):
+        return "%s - %s" % (self.get_reason_display(),self.media)
 
 #class Assignment(models.Model):
 #    date_added = models.DateTimeField(auto_now_add=True)

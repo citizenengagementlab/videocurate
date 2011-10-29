@@ -19,6 +19,10 @@ class LocationAdmin(admin.ModelAdmin):
     list_filter = ('state','country')
     ordering = ('state',)
     search_fields = ('name',)
+    
+class FlagAdmin(admin.ModelAdmin):
+    list_display = ('reason','media','date_added')
 
 admin.site.register(Media,MediaAdmin)
 admin.site.register(Location,LocationAdmin)
+admin.site.register(Flag,FlagAdmin)

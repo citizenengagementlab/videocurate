@@ -10,6 +10,39 @@ $(document).ready(
 	  //location autocomplete
     $("#location").autocomplete("/locations/list/", { multiple: false, width:185 });
 	  
+	  //upvoting
+	  $('.upvote').click(function() {
+	    num_votes = $.get(this.href,{},function vote_callback(result) {
+	      //console.log(result);
+	      //how do you get the initially selected object here?
+	      //$('.upvote').html(result.num_votes+" votes");
+	      $('.upvote').css('color','green');
+	    })
+	    return false;
+	  });
+	  
+	  //flagging
+	  $('.flag').click(function() {
+	    if ($(this).next('.flag_type').length) { return false; }
+	    $("<select class='flag_type'><option value='NONE'>Why?</option>"
+	      + "<option value='INAPP'>Inappropriate</option>" 
+	      + "<option value='OFFNS'>Offensive</option>" 
+	      + "<option value='SPAM'>Spam</option></select>").insertAfter(this);
+	      $('select.flag_type').change(function() {
+	        val = $('select.flag_type option:selected').val();
+	        console.log('flag '+val);
+	        url = $('.flag')[0].href;
+	        console.log(url);
+	        $.get(url,{reason:val},function flag_callback(result) {
+	          console.log('flag_callback');
+	          console.log(result);
+	          $('select.flag_type').hide();
+      	    $('.flag').html('Flagged').css('color','green');
+	        });
+    	  });
+    return false;
+	  });
+	  
 		//set embed width to 100%
 		$("#embed").children().attr("width", "100%")
 				
