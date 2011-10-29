@@ -28,6 +28,7 @@ $(document).ready(function onload(){
           $('#preview #preview_html').html(message);
         } else {
           $('#preview #preview_html').html(data.html);
+          $('#addform #id_url').val(data.url);
           $('#addform #id_title').val(data.title);
           $('#addform #id_author_name').val(data.author_name);
           $('#addform #id_author_url').val(data.author_url);

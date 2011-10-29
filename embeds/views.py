@@ -18,14 +18,7 @@ from embeds.templatetags.embed_filters import make_cache_key
 USER_AGENT = 'Mozilla/5.0 (compatible; django-embedly/0.2; ' \
         '+http://github.com/BayCitizen/)'
         
-def cache_embed(request):
-    if not request.POST:
-        return HttpResponseBadRequest("cache_embed requires POST")
-    url = request.POST.get('url')
-    if not url:
-        return HttpResponseBadRequest("POST a url, and I'll happily cache it")
-    maxwidth = request.POST.get('maxwidth')
-    
+def cache_embed(request,url,maxwidth):
     #try memcache first
     key = make_cache_key(url, maxwidth)
     cached_response = cache.get(key)

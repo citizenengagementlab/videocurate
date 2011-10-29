@@ -6,7 +6,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
-    (r'^embed/', include('embeds.urls')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^', include('mediacurate.urls')),
 )

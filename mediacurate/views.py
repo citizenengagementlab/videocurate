@@ -8,11 +8,14 @@ from django.db.models import Q
 from django.contrib import messages
 from datetime import datetime
 import dateutil.parser
+import json
+import urlparse,copy
 
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
 
 from embeds.models import SavedEmbed
+from embeds.views import cache_embed
 from mediacurate.models import Media,Location,Flag
 from mediacurate.forms import AddForm
 
@@ -111,6 +114,36 @@ def location_autocomplete_list(request):
     else:
         response_str = '\n'.join(locations)
     return HttpResponse(response_str, mimetype='text/plain')
+
+def embed_cache(request):
+    #check if the url is already a media object first, before hitting embeds for it
+    if not request.POST:
+        return HttpResponseBadRequest("check_exists requires POST")
+    url = request.POST.get('url')
+    if not url:
+        return HttpResponseBadRequest("POST a url, and I'll happily check for it")
+    
+    #strip extra parameters from common sites to avoid duplicates
+    parsed = urlparse.urlparse(url)
+    #youtube
+    if (parsed.netloc == "www.youtube.com") or (parsed.netloc == "youtu.be"):
+        qs = urlparse.parse_qs(parsed.query)
+        v = qs['v'][0]
+        url = urlparse.urlunparse(('http', #ignore https
+                                   parsed.netloc,
+                                   parsed.path,
+                                   parsed.params,
+                                   'v='+v, #only save the video id
+                                   parsed.fragment))
+    #vimeo
+        
+    
+    try:
+        m = Media.objects.get(url=url)
+        print "exists"
+        return HttpResponse(json.dumps({'exists':'true'}), mimetype="application/json")
+    except Media.DoesNotExist:
+        return cache_embed(request,url,request.POST.get('maxwidth'))
     
 def add(request):
     form = AddForm()
