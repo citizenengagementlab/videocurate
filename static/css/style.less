@@ -315,6 +315,10 @@ a:active, a:hover {
 			list-style: none;
 			margin-left: 0;
 			padding-left: 0;
+			li.required > label:after {
+				content:" *";
+				color:red;
+			}
 		}
 		label {
 			width: 75px;
@@ -334,7 +338,19 @@ a:active, a:hover {
 		input[type="submit"], 
 		input[type="button"] {
 			width: auto;
-			background: #FFF;
+			background: @red;
+			color:white;
+		}
+		fieldset.hidden {
+		    input {
+		        border:none;
+		        background:transparent;
+		        margin-bottom:0;
+		    }
+		}
+		.show_hidden {
+		    color:@light;
+		    &:hover {color:@red;}
 		}
 		
 	}

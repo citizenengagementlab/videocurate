@@ -15,7 +15,7 @@ class AddForm(BetterForm):
     
     name = forms.CharField(required=False,help_text="Tell us who you are.")
     review = forms.CharField(widget=forms.widgets.Textarea(),required=False,help_text="The more information you provide, the more useful it is to others. What made you want to add this to the collection? Is there a particularly good portion that viewers should watch out for?")
-    tags = forms.CharField(widget=TagAutocomplete,required=False,help_text="Use existing tags before creating new ones.")
+    tags = forms.CharField(widget=TagAutocomplete,required=True,help_text="Use existing tags before creating new ones.")
     
     date_uploaded = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
     resolution = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
@@ -31,12 +31,12 @@ class AddForm(BetterForm):
                     'description':"Where was this taken, and what is it about?",
                     'classes':['']}
             ),
-            ('Review <b>(Optional)</b>',{'fields':('name','review'),
-                    'description':"Please enter a review. It helps others to know what to look for, and helps us categorize the content.",
-                    'classes':['review']}
-            ),
             ('Data <b>(Not Editable)</b>',{'fields':('author_name','author_url','resolution','views','license','date_uploaded'),
                     'description':"This is information we pull from the host site.",
                     'classes':['hidden']}
+            ),
+            ('Review <b>(Optional)</b>',{'fields':('name','review'),
+                    'description':"Please enter a review. It helps others to know what to look for, and helps us categorize the content.",
+                    'classes':['review']}
             ),
         )

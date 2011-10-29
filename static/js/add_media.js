@@ -40,6 +40,20 @@ $(document).ready(function onload(){
     return false;
   });
   
+  //hide metadata by default
+  $('<a href="#" class="show_hidden">Show Metadata</a>').insertBefore('fieldset.hidden');
+  $('.show_hidden').toggle(function() {
+      $(this).next('.hidden').show();
+      $(this).html('Hide Metadata');
+      return false;
+    },function() {
+      $(this).next('.hidden').hide();
+      $(this).html('Show Metadata');
+      return false;
+    });
+  $('fieldset.hidden').hide();
+  
+  
   $("input#addform_submit").click(function() {
     //do some validation client side, so we don't have to reload the page for missing fields
     required_fields = ["url","title","location","tags"]
@@ -101,8 +115,8 @@ function vimeo_extras(data) {
   vimeo_extra = $.ajax({url:vimeo_url,
                       dataType:'jsonp',
                       success: function vimeo_callback(response,status,jqXHR) {
-                        console.log('vimeo callback');
-                        console.log(response);
+                        if (DEBUG) console.log('vimeo callback');
+                        if (DEBUG) console.log(response);
                         item = response[0];
                         append_extras({
                           views:item.stats_number_of_plays,
