@@ -60,9 +60,11 @@
   	  <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
   	  <div class="info"><span class="media_description">{{media.description}}</span>
   	  					{%if media.views%}<span class="media_views">{{media.views|intcomma}} views</span>{%endif%}
-  	  					{%comment%} {{media.total_upvotes}}  <span class="media_votes"><img src="{{MEDIA_URL}}images/upfist_small.png"/></span> {%endcomment%}
+  	  					
   	  </div>
   	</li>
+  	{%empty%}
+  	Nothing yet, check back later, or add more.
   	{%endfor%}
   </ul>
 {%endfor%}
