@@ -47,13 +47,13 @@
 <ul class="tabs group">
 {%for tab in tabs%}
 	<li class="tab">
-		<h3><a href="#{{tab.name|lower}}">{{tab.name}}</a></h3>
+		<h3><a href="#{{tab.name|slugify}}">{{tab.name}}</a></h3>
 	</li>
 {%endfor%}
 </ul>
 <div class="slide group">
 {%for tab in tabs%}
-  <ul id="{{tab.name|lower}}" class="group">
+  <ul id="{{tab.name|slugify}}" class="group">
     {%for media in tab.list %}
     <li class="group">
   	  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>
