@@ -32,6 +32,10 @@ def home(request):
     latest = Media.objects.order_by('-date_added').exclude(id=main.id)[:5]
     popular = Media.objects.order_by('total_upvotes').exclude(id=main.id)[:5]
     related = Media.objects.filter(location=main.location,date_uploaded=main.date_uploaded).exclude(id=main.id).order_by('-date_added')[:5]
+    if len(related) == 0:
+        for tag in main.tags:
+            if len(related) < 5:
+                related += Media.objects.filter(tags__contains=tag)
     tabs = [{'name':'Latest','list':latest},
             {'name':'Popular','list':popular},
             {'name':'Related','list':related}]
