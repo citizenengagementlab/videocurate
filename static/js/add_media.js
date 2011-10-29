@@ -19,11 +19,12 @@ $(document).ready(function onload(){
         if (DEBUG) console.log('embedly callback');
         if (DEBUG) console.log(data);
         
-        if(data.cache != "none") {
+        if(data.exists) {
           if (DEBUG) console.log('already have the video');
           
           var message = "Sweet video; it's so good, we already have a copy. Want to add your review and tags "
-           + "<a href='/search?url="+escape(data.original_url)+"'>here</a>?";
+           + "<a href='/search?url="+escape(data.original_url)+"'>here</a>?" 
+           + "<br>Or <a href='#' id='clear'>clear the fields</a> and start again.";
           $('#preview #preview_html').html(message);
         } else {
           $('#preview #preview_html').html(data.html);
@@ -31,7 +32,7 @@ $(document).ready(function onload(){
           $('#addform #id_author_name').val(data.author_name);
           $('#addform #id_author_url').val(data.author_url);
           $('#addform #id_resolution').val(data.width+'x'+data.height);
-          $('#preview #preview_description').html(data.description);
+          $('#preview #preview_description').html("<b>Original Description:</b> "+data.description);
           thirdparty_extras(data);
         }
           $("#preview .spinner").hide();
