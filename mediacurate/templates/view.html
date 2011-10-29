@@ -6,6 +6,15 @@
 {%block title%}{%if title%}{{title}}{%else%}{{media.title}}{%endif%}{%endblock%}
 
 {%block content%}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <h1>
   {{media.title}}
 </h1>
