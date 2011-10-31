@@ -37,9 +37,9 @@ LICENSE_CHOICES = (
 class Media(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     date_uploaded = models.DateTimeField()
-    title = models.CharField(max_length=100) #youtube limits to 100 characters
+    title = models.CharField(max_length=100,db_index=True) #youtube limits to 100 characters
     slug = models.SlugField()
-    location = models.ForeignKey(Location)
+    location = models.ForeignKey(Location,db_index=True)
     
     url = models.URLField()
     embed = models.ForeignKey(SavedEmbed)
@@ -50,7 +50,7 @@ class Media(models.Model):
     license = models.CharField(choices = LICENSE_CHOICES, max_length=10, default="UNK")
     views = models.IntegerField(help_text="views at original provider",blank=True,null=True)
     
-    tags = TagField(blank=True)
+    tags = TagField(blank=True,db_index=True)
     featured = models.BooleanField(default=False,help_text="make this appear on the homepage")
     
     class Meta:
