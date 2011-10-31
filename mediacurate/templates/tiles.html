@@ -7,7 +7,7 @@
 <div id="tiles">
 <ul>
   {% for l in locations %}
-	<li>
+	<li {% if forloop.counter|divisibleby:"6" %}style="clear:left"{%endif%}>
 	  <h4><a href="/search?location={{l.name|urlencode}}">{{l.name}}</a></h4>
 	  <div class="info">{{l.num_media|intcomma}} video{{l.num_media|pluralize}}</div>
   </li>
