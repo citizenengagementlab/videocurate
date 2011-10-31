@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.views.decorators.http import require_POST
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.contrib import messages
 from datetime import datetime
 import dateutil.parser
@@ -36,7 +36,7 @@ def home(request):
     popular = Media.objects.order_by('total_upvotes').exclude(id=main.id)[:5]
     
     stats = {'media_count':Media.objects.count(),
-            'location_count':Location.objects.count()}
+            'location_count':Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0).count()}
     
     tabs = [{'name':'Latest','list':latest},
             {'name':'Popular','list':popular},]
@@ -60,7 +60,7 @@ def view_by_slug(request,id,slug):
     same_day = Media.objects.filter(date_uploaded=media.date_uploaded).order_by('-date_added').exclude(id=media.id)[:5]
     
     stats = {'media_count':Media.objects.count(),
-            'location_count':Location.objects.count()}
+            'location_count':Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0).count()}
     tabs = [{'name':'Nearby','list':nearby,'link':'/search?'},
             {'name':'Same Day','list':same_day,'link':'/search?'}]
     
