@@ -4,6 +4,7 @@
    Citizen Engagement Laboratory
 */
 
+DEBUG = true;
 
 $(document).ready(
 	function() {
@@ -13,7 +14,7 @@ $(document).ready(
 	  //upvoting
 	  $('.upvote').click(function() {
 	    num_votes = $.get(this.href,{},function vote_callback(result) {
-	      //console.log(result);
+	      if (DEBUG)console.log(result);
 	      //how do you get the initially selected object here?
 	      //$('.upvote').html(result.num_votes+" votes");
 	      $('.upvote').css('color','green');
@@ -30,12 +31,12 @@ $(document).ready(
 	      + "<option value='SPAM'>Spam</option></select>").insertAfter(this);
 	      $('select.flag_type').change(function() {
 	        val = $('select.flag_type option:selected').val();
-	        console.log('flag '+val);
+	        if (DEBUG) console.log('flag '+val);
 	        url = $('.flag')[0].href;
-	        console.log(url);
+	        if (DEBUG) console.log(url);
 	        $.get(url,{reason:val},function flag_callback(result) {
-	          console.log('flag_callback');
-	          console.log(result);
+	          if (DEBUG) console.log('flag_callback');
+	          if (DEBUG) console.log(result);
 	          $('select.flag_type').hide();
       	    $('.flag').html('Flagged').css('color','green');
 	        });
@@ -45,6 +46,16 @@ $(document).ready(
 	  
 		//set embed width to 100%
 		$("#embed").children().attr("width", "100%")
+		
+		//frontpage add link
+		//don't pass embed url if none entered
+		$("#banner_add input[type=submit]").click(function(event) { 
+		  if ($("#embed_url").val() == "") {
+		    event.preventDefault();
+		    window.location.assign('/add');
+		    //don't use replace, that breaks the back button
+		  }
+		});
 				
 		//hide banner section on add or search pages
 		if ( window.location.href.match(/\/add|search/) ) {

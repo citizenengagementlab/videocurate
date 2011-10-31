@@ -289,6 +289,9 @@ a:link, a:visited {
 a:active, a:hover {
 	text-decoration: underline;
 }
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
+	margin-top: 0;
+}
 
 /**
  * 	Form Styles
@@ -340,6 +343,8 @@ a:active, a:hover {
 			width: auto;
 			background: @red;
 			color:white;
+			clear: both;
+			min-width: 75px;
 		}
 		fieldset.hidden {
 		    margin-left:80px;
@@ -416,6 +421,7 @@ a:active, a:hover {
 		font-size: 1.3em;
 		.column(5,12);
 		margin-left: 0;
+		margin-right: 0;
 		padding-right: 90px;
 	}
 	form {
