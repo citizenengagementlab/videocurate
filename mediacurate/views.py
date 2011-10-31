@@ -9,7 +9,7 @@ from django.contrib import messages
 from datetime import datetime
 import dateutil.parser
 import json
-import urlparse,copy
+import urlparse
 
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
