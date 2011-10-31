@@ -33,21 +33,19 @@
 </div>
 
 <div id="info">
-  <ul>
-    <li>Tags:
+  <span class="label">Tags:</span>
       {% tags_for_object media as tags %}
       <ul class="tags">
         {%for tag in tags %}
-        <li><a href="/search?tag={{tag}}">{{tag}}</a></li>
+        <li class="tag"><a href="/search?tag={{tag}}">{{tag}}</a></li>
         {%endfor%}
-      </li>
-  </ul>
+      </ul>
 </div>
 
 <div id="reviews" class="group">
   {% render_comment_list for media %}
   
-  Add your own review:
+  <span class="label">Add your own review:</span>
   {% render_comment_form for media %}
 </div>
 {%else%}
@@ -77,7 +75,7 @@
   	  </div>
   	</li>
   	{%empty%}
-  	Nothing yet: check back later, or add more.
+  	<p class="noresults">Nothing yet: check back later, or add more.</p>
   	{%endfor%}
   </ul>
 {%endfor%}
