@@ -191,7 +191,7 @@ def add(request):
             media = Media(**media_dict)
             media.save()
             
-            if form.cleaned_data['name'] and form.cleaned_data['review']:
+            if form.cleaned_data['review']:
                 comment_dict = {
                     'user_name':form.cleaned_data['name'],
                     'comment':form.cleaned_data['review'],

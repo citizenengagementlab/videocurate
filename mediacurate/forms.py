@@ -7,8 +7,10 @@ from mediacurate.models import Media
 class AddForm(BetterForm):
     '''Used on the add page. Includes first review.'''
     url = forms.URLField()
-    title = forms.CharField(help_text="If the current title is confusing or not descriptive, please edit it.")
-    location = forms.CharField(widget=LocationAutocomplete)
+    title = forms.CharField(help_text="If the current title is confusing or not descriptive, please edit it.",
+        error_messages={'required':'A title is required.'})
+    location = forms.CharField(widget=LocationAutocomplete,
+        error_messages={'required':'Please enter a location.'})
     author_name = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}))
     #author_url = forms.CharField(widget=forms.widgets.HiddenInput())
     author_url = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}))
@@ -40,3 +42,20 @@ class AddForm(BetterForm):
                     'classes':['review']}
             ),
         )
+    
+    def clean(self):
+        "If comment added, name required."
+        cleaned_data = self.cleaned_data
+        name = cleaned_data.get("name")
+        review = cleaned_data.get("review")
+
+        if review and not name:
+            msg = u"If leaving a review, a name is required"
+            self._errors["name"] = self.error_class([msg])
+            del cleaned_data["name"]
+        if name and not review:
+            msg = "Do you want to enter a review now?"
+            self._errors["review"] = self.error_class([msg])
+            del cleaned_data["review"]
+            
+        return cleaned_data

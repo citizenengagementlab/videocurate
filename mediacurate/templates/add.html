@@ -29,7 +29,6 @@
   
   <form id="addform" action="" method="POST">
     {% csrf_token %}
-  {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
       {% for fieldset in form.fieldsets %}
         <fieldset class="{{ fieldset.classes }}">
         {% if fieldset.legend %}
@@ -48,6 +47,7 @@
               {{ field.label_tag }}
               {{ field }}
               <div class="help_text">{{ field.help_text}}</div>
+              {{field.errors}}
             </li>
           {% endif %}
           
@@ -64,6 +64,7 @@
         </ul>
         </fieldset>
       {% endfor %}
+      {%if form.errors%}<div class="errors">{{form.errors}}</div>{%endif%}
       <input id="addform_submit" type="submit" value="submit"/>
     </form>
 {%endblock%}
