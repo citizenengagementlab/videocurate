@@ -19,7 +19,9 @@
 <h1>
   {{media.title}}
 </h1>
-<h2><a href="/search?location={{media.location.name|urlencode}}">{{media.location}}</a>. Originally posted on <a href="{{media.embed.response.original_url}}">{{media.embed.response.provider_name}}</a> by <a href="{{media.author_url}}">{{media.author_name}}</a></h2>
+<p>
+	<a href="/search?location={{media.location.name|urlencode}}">{{media.location}}</a>. Originally posted on <a href="{{media.embed.response.original_url}}">{{media.embed.response.provider_name}}</a> by <a href="{{media.author_url}}">{{media.author_name}}</a>
+</p>
 <ul>
   <li><a href="/view/vote/{{media.id}}/1/" class="upvote">Vote up</a></li>
   <li><a href="/flag/{{media.id}}/" class="flag">Flag</a></li>
