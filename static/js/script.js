@@ -12,12 +12,21 @@ $(document).ready(
     $("#location").autocomplete("/locations/list/", { multiple: false, width:185 });
 	  
 	  //upvoting
+<<<<<<< HEAD
 	  $('.upvote').click(function() {
 	    num_votes = $.get(this.href,{},function vote_callback(result) {
 	      if (DEBUG)console.log(result);
+=======
+	  $('.upvote').click(function(e) {
+	  	e.preventDefault();
+		var clicked = $(this);
+	    var num_votes = $.get(this.href,{},function vote_callback(result) {
+	      //var x = $.parseJSON(result);
+	      console.log(result);
+>>>>>>> working on voting
 	      //how do you get the initially selected object here?
-	      //$('.upvote').html(result.num_votes+" votes");
-	      $('.upvote').css('color','green');
+	      //clicked.html(result.num_votes + " votes");
+	      //clicked.css('color','green');
 	    })
 	    return false;
 	  });
