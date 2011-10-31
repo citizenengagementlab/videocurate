@@ -120,6 +120,12 @@ def location_autocomplete_list(request):
         response_str = '\n'.join(locations)
     return HttpResponse(response_str, mimetype='text/plain')
 
+def locations(request):
+    locations = Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0)
+    
+    return render_to_response('tiles.html',{'locations':locations},
+        context_instance=RequestContext(request))
+
 def embed_cache(request):
     #check if the url is already a media object first, before hitting embeds for it
     if not request.POST:

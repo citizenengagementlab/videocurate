@@ -1,0 +1,22 @@
+{%extends "base.html"%}
+{% load humanize %}
+
+{%block title%}Locations{%endblock%}
+
+{%block content%}
+<div id="tiles">
+<ul>
+  {% for l in locations %}
+	<li>
+	  <h4><a href="/search?location={{l.name|urlencode}}">{{l.name}}</a></h4>
+	  <div class="info">{{l.num_media|intcomma}} videos</div>
+  </li>
+	{%endfor%}
+</ul>
+
+<h2>Don't see what you're looking for? <a href="/add">Add it</a></h2>
+</div>
+{%endblock%}
+
+{%block aside %}
+{%endblock%}

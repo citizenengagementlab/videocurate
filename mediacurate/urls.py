@@ -7,6 +7,7 @@ urlpatterns = patterns('mediacurate.views',
     url(r'^view/(?P<id>[\d]+)/$', 'view_by_id', name='view_by_id'),
     url(r'^view/(?P<id>[\d]+)/(?P<slug>[\w-]+)/$', 'view_by_slug', name='view_by_slug'),
     url(r'^flag/(?P<id>[\d]+)/$', 'flag'),
+    (r'^locations/','locations'),
     (r'^embed/cache', 'embed_cache'),
     
     #(r'^assignment/add/', 'assignment_add'),
