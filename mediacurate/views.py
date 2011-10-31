@@ -37,7 +37,6 @@ def home(request):
     
     tabs = [{'name':'Latest','list':latest},
             {'name':'Popular','list':popular},]
-            #{'name':'Related','list':related}]
     
     return render_to_response('view.html',
         {'title':'The best source for #occupy videos',

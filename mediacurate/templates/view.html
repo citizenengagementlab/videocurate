@@ -19,15 +19,17 @@
 <h1>
   {{media.title}}
 </h1>
-
+<h2><a href="/search?location={{media.location.name|urlencode}}">{{media.location}}</a>. Originally posted on <a href="{{media.embed.response.original_url}}">{{media.embed.response.provider_name}}</a> by <a href="{{media.author_url}}">{{media.author_name}}</a></h2>
+<ul>
+  <li><a href="/view/vote/{{media.id}}/1/" class="upvote">Vote up</a></li>
+  <li><a href="/flag/{{media.id}}/" class="flag">Flag</a></li>
+</ul>
 <div id="embed">
 {{media.embed.html|safe}}
 </div>
 
 <div id="info">
   <ul>
-    <li><a href="/view/vote/{{media.id}}/1/" class="upvote">Vote up</a></li>
-    <li><a href="/flag/{{media.id}}/" class="flag">Flag</a></li>
     <li>Tags:
       {% tags_for_object media as tags %}
       <ul class="tags">
@@ -40,6 +42,9 @@
 
 <div id="reviews" class="group">
   {% render_comment_list for media %}
+  
+  Add your own review:
+  {% render_comment_form for media %}
 </div>
 {%else%}
 <h1>Nothing yet, add the first video</h1>
@@ -64,7 +69,7 @@
   	  <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
   	  <div class="info"><span class="media_description">{{media.description}}</span>
   	  					{%if media.views%}<span class="media_views">{{media.views|intcomma}} views</span>{%endif%}
-  	  					
+  	  					<span class="media_upvotes">{{media.total_upvotes}} votes</span>
   	  </div>
   	</li>
   	{%empty%}
