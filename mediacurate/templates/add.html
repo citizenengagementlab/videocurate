@@ -1,4 +1,5 @@
 {%extends "base.html"%}
+{%load tagging_tags%}
 
 {%block title%}Add something{%endblock%}
 
@@ -46,12 +47,21 @@
             <li{{ field.row_attrs }} {% if field.errors %}class="error"{%endif%}>
               {{ field.label_tag }}
               {{ field }}
-              <div class="help_text">{{ field.help_text}}</div>
+              <div class="help_text"><p>{{ field.help_text}}</p></div>
               {{field.errors}}
             </li>
           {% endif %}
-          
+        
+          {% if field.name == "tags" %}
+            {% tag_cloud_for_model mediacurate.media as cloud_tags with steps=6 distribution=linear %}
+            <ul id="tag_cloud">
+          	  {% for tag in cloud_tags %}
+          	  <li><a href="/search/?tag={{tag}}" style="font-size:{{tag.font_size|add:"12"}}px;">{{tag}}</a></li>
+          		{% endfor %}
+          	</ul>
+          {%endif%}
           {% if fieldset.name == "URL" %}
+            <div id="supported_providers">Youtube, Vimeo, Flickr, Facebook, or <a href="http://embed.ly/providers" target="_blank">200 others</a>.</div>
             <input id="id_preview_button" type="button" value="preview" />
             <div id="preview" style="display:none;">
               <label>Preview</label>
