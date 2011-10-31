@@ -35,12 +35,15 @@ def home(request):
     latest = Media.objects.order_by('-date_added').exclude(id=main.id)[:5]
     popular = Media.objects.order_by('total_upvotes').exclude(id=main.id)[:5]
     
+    stats = {'media_count':Media.objects.count(),
+            'location_count':Location.objects.count()}
+    
     tabs = [{'name':'Latest','list':latest},
             {'name':'Popular','list':popular},]
     
     return render_to_response('view.html',
         {'title':'The best source for #occupy videos',
-        'media':main,'tabs':tabs},
+        'media':main,'tabs':tabs,'stats':stats},
         context_instance=RequestContext(request))
 
 def view_by_id(request,id):
@@ -55,11 +58,14 @@ def view_by_slug(request,id,slug):
     
     nearby = Media.objects.filter(location=media.location).order_by('-date_added').exclude(id=media.id)[:5]
     same_day = Media.objects.filter(date_uploaded=media.date_uploaded).order_by('-date_added').exclude(id=media.id)[:5]
+    
+    stats = {'media_count':Media.objects.count(),
+            'location_count':Location.objects.count()}
     tabs = [{'name':'Nearby','list':nearby,'link':'/search?'},
             {'name':'Same Day','list':same_day,'link':'/search?'}]
     
     return render_to_response('view.html',
-        {'media':media,'tabs':tabs},
+        {'media':media,'tabs':tabs,'stats':stats},
         context_instance=RequestContext(request))
 
 #@require_POST
