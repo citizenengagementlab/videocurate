@@ -17,10 +17,10 @@ $(document).ready(
 		var clicked = $(this);
 	    var num_votes = $.get(this.href,{},function vote_callback(result) {
 	      //var x = $.parseJSON(result);
-	      console.log(result);
+	      var data = $.parseJSON(result);
 	      //how do you get the initially selected object here?
-	      //clicked.html(result.num_votes + " votes");
-	      //clicked.css('color','green');
+	      clicked.html(data.num_votes + " votes");
+	      clicked.css('color','green');
 	    })
 	    return false;
 	  });
@@ -33,9 +33,9 @@ $(document).ready(
 	      + "<option value='OFFNS'>Offensive</option>" 
 	      + "<option value='SPAM'>Spam</option></select>").insertAfter(this);
 	      $('select.flag_type').change(function() {
-	        val = $('select.flag_type option:selected').val();
+	        var val = $('select.flag_type option:selected').val();
 	        if (DEBUG) console.log('flag '+val);
-	        url = $('.flag')[0].href;
+	        var url = $('.flag')[0].href;
 	        if (DEBUG) console.log(url);
 	        $.get(url,{reason:val},function flag_callback(result) {
 	          if (DEBUG) console.log('flag_callback');
