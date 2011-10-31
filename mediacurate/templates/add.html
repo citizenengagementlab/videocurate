@@ -47,7 +47,7 @@
             <li{{ field.row_attrs }} {% if field.errors %}class="error"{%endif%}>
               {{ field.label_tag }}
               {{ field }}
-              <div class="help_text"><p>{{ field.help_text}}</p></div>
+              <p class="help_text">{{ field.help_text}}</p>
               {{field.errors}}
             </li>
           {% endif %}
