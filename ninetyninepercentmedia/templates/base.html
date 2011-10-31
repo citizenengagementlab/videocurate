@@ -53,8 +53,10 @@
 		</section>
 	</div>
 	<div class="center">
+	  {%block main%}
 		<section id="main" class="group">{%block content%}{%endblock%}</section>
 		<aside id="secondary" class="group">{%block aside%}{%endblock%}</aside>
+		{%endblock%}
 	</div>
 	<div class="center">	
 		<footer id="pagefooter">
