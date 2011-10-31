@@ -1,7 +1,7 @@
 <ul id="comments">
   {% for comment in comment_list %}
     <li id="c{{ comment.id }}" class="comment">
-        <span class="comment_name">{{ comment.name }}</span> - <span class="comment_date">{{ comment.submit_date|date:"U" }}</span>
+        <span class="comment_name">{{ comment.name }}</span> - <span class="comment_date" title="{{ comment.submit_date|date:"U" }}"></span>
         <p>{{ comment.comment }}</p>
 	</li>
   {% endfor %}

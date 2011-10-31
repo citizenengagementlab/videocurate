@@ -11,6 +11,13 @@ $(document).ready(
 	  //location autocomplete
     $("#location").autocomplete("/locations/list/", { multiple: false, width:185 });
 	  
+	  //time display in local tz
+	  $('.comment_date').each(function() {
+	    var epoch = $(this).attr('title');
+	    var d = new Date(epoch*1000);
+	    $(this).html(d.toLocaleDateString() + " " + d.toLocaleTimeString());
+	  });
+	  
 	  //upvoting
 	  $('.upvote').click(function(e) {
 	  	e.preventDefault();
