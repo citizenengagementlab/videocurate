@@ -26,7 +26,7 @@ class AddForm(BetterForm):
     class Meta:
         fieldsets = (
             ('URL',{'fields':('url',),
-                    'description':'Paste the URL to preview',
+                    'description':'Paste <a id="provider_link" href="http://embed.ly/providers" title="Can be YouTube, Vimeo, Flickr, or over 200 others" target="_blank">almost any URL</a> to preview.',
                     'classes':['']}
             ),
             ('Basic Information <b>(Required)</b>',{'fields':('title','location','tags',),
