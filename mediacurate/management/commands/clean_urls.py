@@ -27,4 +27,4 @@ class Command(BaseCommand):
                     m.url = url
                     m.save()
                     num_changed += 1
-            print "cleaned",num_changed,"urls"
+        print "cleaned",num_changed,"urls"
