@@ -26,16 +26,16 @@
 {% if pagination %}
 <div class="pagination">
     <span class="step-links">
-        {% if pagination.has_previous %}
-            <a href="?page={{ pagination.previous_page_number }}">previous</a>
+        {% if page.has_previous %}
+            <a href="?page={{ page.previous_page_number }}">previous</a>
         {% endif %}
 
         <span class="current">
-            Page {{ page.number }} of {{ page.paginator.num_pages }}.
+            Page {{ page.number }} / {{ page.paginator.num_pages }}
         </span>
 
-        {% if contacts.has_next %}
-            <a href="?page={{ pagination.next_page_number }}">next</a>
+        {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}">next</a>
         {% endif %}
     </span>
 </div>

@@ -128,7 +128,7 @@ def keywords(request):
     
 def latest(request):
     media_list = Media.objects.order_by('-date_added')
-    paginator = Paginator(media_list, 25)
+    paginator = Paginator(media_list, 20)
     
     page = request.GET.get('page')
     if not page:
@@ -147,7 +147,7 @@ def latest(request):
         
 def popular(request):
     media_list = Media.objects.order_by('total_upvotes')
-    paginator = Paginator(media_list, 25)
+    paginator = Paginator(media_list, 20)
     
     page = request.GET.get('page')
     if not page:
