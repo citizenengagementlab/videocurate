@@ -47,19 +47,11 @@
             <li{{ field.row_attrs }} {% if field.errors %}class="error"{%endif%}>
               {{ field.label_tag }}
               {{ field }}
-              <p class="help_text">{{ field.help_text}}</p>
+              <p class="help_text">{{ field.help_text|safe }}</p>
               {{field.errors}}
             </li>
           {% endif %}
         
-          {% if field.name == "tags" %}
-            {% tag_cloud_for_model mediacurate.media as cloud_tags with steps=6 distribution=linear %}
-            <ul id="tag_cloud">
-          	  {% for tag in cloud_tags %}
-          	  <li><a href="/search/?tag={{tag}}" style="font-size:{{tag.font_size|add:"12"}}px;">{{tag}}</a></li>
-          		{% endfor %}
-          	</ul>
-          {%endif%}
           {% if fieldset.name == "URL" %}
             <input id="id_preview_button" type="button" value="preview" />
             <div id="preview" style="display:none;">
@@ -76,4 +68,13 @@
       {%if form.errors%}<div class="errors">{{form.errors}}</div>{%endif%}
       <input id="addform_submit" type="submit" value="submit"/>
     </form>
+{%endblock%}
+
+{%block aside %}
+  {% tag_cloud_for_model mediacurate.media as cloud_tags with steps=10 distribution=linear min_count=5 %}
+  <ul id="tag_cloud">
+	  {% for tag in cloud_tags %}
+	  <li><a href="/search/?tag={{tag}}" style="font-size:{{tag.font_size|add:"12"}}px;">{{tag}}</a></li>
+		{% endfor %}
+	</ul>
 {%endblock%}

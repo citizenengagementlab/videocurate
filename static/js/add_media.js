@@ -55,6 +55,12 @@ $(document).ready(function onload(){
     });
   $('fieldset.hidden').hide();
   
+  //no location specific button
+  $('#no_location').click(function() {
+    $('#id_location').val('No Location');
+    return false;
+  });
+  
   
   $("input#addform_submit").click(function() {
     //do some validation client side, so we don't have to reload the page for missing fields

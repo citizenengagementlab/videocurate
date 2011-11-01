@@ -7,17 +7,18 @@ from mediacurate.models import Media
 class AddForm(BetterForm):
     '''Used on the add page. Includes first review.'''
     url = forms.URLField()
-    title = forms.CharField(help_text="If the current title is confusing or not descriptive, please edit it.",
+    title = forms.CharField(help_text="If the current title is confusing or not descriptive, please edit it. Context is key.",
         error_messages={'required':'A title is required.'})
     location = forms.CharField(widget=LocationAutocomplete,
-        error_messages={'required':'Please enter a location.'})
+        error_messages={'required':'Please enter a location.'},
+        help_text="Where did this happen? City name or Occupy location first. <a href='#' id='no_location'>No location?</a>")
     author_name = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}))
     #author_url = forms.CharField(widget=forms.widgets.HiddenInput())
     author_url = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}))
     
-    name = forms.CharField(required=False,help_text="Tell us who you are.")
+    name = forms.CharField(required=False,help_text="Tell us who you are, so commenters can follow the discussion.")
     review = forms.CharField(widget=forms.widgets.Textarea(),required=False,help_text="The more information you provide, the more useful it is to others. What made you want to add this to the collection? Is there a particularly good portion that viewers should watch out for?")
-    tags = forms.CharField(widget=TagAutocomplete,required=True,help_text="Use existing tags before creating new ones.")
+    tags = forms.CharField(widget=TagAutocomplete,required=True,help_text="Use existing tags before creating new ones. The most common are on the right.")
     
     date_uploaded = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
     resolution = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
