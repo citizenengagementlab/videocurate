@@ -13,9 +13,11 @@ import urlparse
 
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from embeds.models import SavedEmbed
 from embeds.views import cache_embed
+from tagging.models import Tag
 from mediacurate.models import Media,Location,Flag
 from mediacurate.forms import AddForm
 
@@ -38,8 +40,8 @@ def home(request):
     stats = {'media_count':Media.objects.count(),
             'location_count':Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0).count()}
     
-    tabs = [{'name':'Latest','list':latest},
-            {'name':'Popular','list':popular},]
+    tabs = [{'name':'Latest','list':latest,'view_all_link':'/latest/'},
+            {'name':'Popular','list':popular,'view_all_link':'/popular/'},]
     
     return render_to_response('view.html',
         {'title':'The best source for #occupy videos',
@@ -119,6 +121,48 @@ def location_autocomplete_list(request):
     else:
         response_str = '\n'.join(locations)
     return HttpResponse(response_str, mimetype='text/plain')
+
+def keywords(request):
+    return render_to_response('tag_cloud.html',{},
+        context_instance=RequestContext(request))
+    
+def latest(request):
+    media_list = Media.objects.order_by('-date_added')
+    paginator = Paginator(media_list, 25)
+    
+    page = request.GET.get('page')
+    if not page:
+        page = 1
+    try:
+        media_pages = paginator.page(page)
+    except PageNotAnInteger:
+        media_pages = paginator.page(1)
+    except EmptyPage:
+        media_pages = paginator.page(paginator.num_pages)    
+        
+    return render_to_response('search.html',
+        {'query':'the latest','results':media_pages.object_list,
+        'pagination':paginator,'page':media_pages},
+        context_instance=RequestContext(request))
+        
+def popular(request):
+    media_list = Media.objects.order_by('total_upvotes')
+    paginator = Paginator(media_list, 25)
+    
+    page = request.GET.get('page')
+    if not page:
+        page = 1
+    try:
+        media_pages = paginator.page(page)
+    except PageNotAnInteger:
+        media_pages = paginator.page(1)
+    except EmptyPage:
+        media_pages = paginator.page(paginator.num_pages)    
+        
+    return render_to_response('search.html',
+        {'query':'the latest','results':media_pages.object_list,
+        'pagination':paginator,'page':media_pages},
+        context_instance=RequestContext(request))
 
 def locations(request):
     locations = Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0).order_by('name')

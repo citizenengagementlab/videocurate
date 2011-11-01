@@ -1,0 +1,17 @@
+{%extends "base.html"%}
+{%load tagging_tags%}
+
+{%block title%}Tag cloud{%endblock%}
+
+{%block main%}
+<div id="tiles">
+  {% tag_cloud_for_model mediacurate.media as cloud_tags with steps=12 distribution=log %}
+  <ul id="tag_cloud">
+	  {% for tag in cloud_tags %}
+	  <li {% if forloop.counter0|divisibleby:"6" %}style="clear:left"{%endif%}>
+	    <a href="/search/?tag={{tag}}" style="font-size:{{tag.font_size|add:"12"}}px;">{{tag}}</a>
+	  </li>
+		{% endfor %}
+	</ul>
+</div>
+{%endblock%}

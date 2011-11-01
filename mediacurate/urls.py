@@ -11,9 +11,11 @@ urlpatterns = patterns('mediacurate.views',
     
     #browse urls
     (r'^locations/$','locations'),
-#    (r'^latest/$','latest'),
-#    (r'^popular/$','popular'),
+    (r'^keywords/$','keywords'),
+    (r'^latest/$','latest'),
+    (r'^popular/$','popular'),
     
+    #assignment urls
     #(r'^assignment/add/', 'assignment_add'),
     
     #autocomplete urls

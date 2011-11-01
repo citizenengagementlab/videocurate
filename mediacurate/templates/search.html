@@ -5,9 +5,11 @@
 {%block title%}Search{%endblock%}
 
 {%block content%}
+{% if query %}
 <h1>
   Results for <span class="query">{{query}}</span>
 </h1>
+{% endif %}
 
 <ul>
   {% for r in results %}
@@ -20,6 +22,24 @@
 	  <h2>Don't see what you're looking for? <a href="/add">Add it</a></h2>
 	{%endfor%}
 </ul>
+
+{% if pagination %}
+<div class="pagination">
+    <span class="step-links">
+        {% if pagination.has_previous %}
+            <a href="?page={{ pagination.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page.number }} of {{ page.paginator.num_pages }}.
+        </span>
+
+        {% if contacts.has_next %}
+            <a href="?page={{ pagination.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{%endif%}
 
 {%endblock%}
 
