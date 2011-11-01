@@ -4,9 +4,10 @@
 
 <li class="group inline_view">
   <h4>
-    {{media.title}}
+     <a href="{{media.get_absolute_url}}">{{media.title}}</a>
   </h4>
-  <a class="hide_inline" href="#">hide video</a>
+  <h4><em><a class="hide_inline" href="#">hide video</a></em></h4>
+  
     
   <p>
   	<a href="/search?location={{media.location.name|urlencode}}">{{media.location}}</a>. Originally posted on <a href="{{media.embed.response.original_url}}">{{media.embed.response.provider_name}}</a> by <a href="{{media.author_url}}">{{media.author_name}}</a>
