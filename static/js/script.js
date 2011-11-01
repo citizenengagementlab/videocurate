@@ -9,6 +9,13 @@ DEBUG = true;
 $(document).ready(
 	function() {
 		
+		//ajax comments
+		media = '/static/ajaxcomments'
+    $('div#reviews form').submit(function() {
+      ajaxComment({'media': media});
+        return false;
+    });
+		
 		//inline results embed
 		$("ul#results a img").click(function(e) {
 		  var clicked = $(this);

@@ -112,10 +112,10 @@ INSTALLED_APPS = (
     'tagging_autocomplete',
     'form_utils',
     'django_countries',
+    'ajaxcomments',
     
     #internal apps
     'mediacurate',
-    
 )
 
 # debug toolbar

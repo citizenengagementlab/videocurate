@@ -1,5 +1,11 @@
 from django import forms
 from form_utils.forms import BetterForm
+from django.contrib.comments.forms import CommentDetailsForm
+from django.contrib.contenttypes.models import ContentType
+from django.utils.encoding import force_unicode
+from django.conf import settings
+import datetime
+
 from tagging_autocomplete.widgets import TagAutocomplete
 from mediacurate.widgets import LocationAutocomplete
 from mediacurate.models import Media
@@ -60,3 +66,21 @@ class AddForm(BetterForm):
             del cleaned_data["review"]
             
         return cleaned_data
+
+class SlimCommentForm(CommentDetailsForm):
+    def get_comment_create_data(self):
+           """
+           Subclass of contrib comment details form, but without email or url
+           """
+           return dict(
+               content_type = ContentType.objects.get_for_model(self.target_object),
+               object_pk    = force_unicode(self.target_object._get_pk_val()),
+               user_name    = self.cleaned_data["name"],
+              # user_email   = self.cleaned_data["email"],
+              # user_url     = self.cleaned_data["url"],
+               comment      = self.cleaned_data["comment"],
+               submit_date  = datetime.datetime.now(),
+               site_id      = settings.SITE_ID,
+               is_public    = True,
+               is_removed   = False,
+           )

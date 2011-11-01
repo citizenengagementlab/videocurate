@@ -6,5 +6,6 @@ git+https://github.com/bradjasper/django-jsonfield.git
 django-tagging
 django-tagging-autocomplete
 django-form-utils
+django-ajaxcomments
 svn+http://django-tagging-autocomplete.googlecode.com/svn/trunk/
 django-countries
