@@ -294,10 +294,32 @@ table { border-collapse: collapse; border-spacing: 0; }
 }
 /* @end     Layout */
 
+/**
+ * 	Custom mixins
+ */
+
+.pill(@color: @light) {
+	border: 1px solid rgba(0,0,0,.25);
+	border-radius: 5px;
+	background: lighten(@color, 5%);
+	background: -moz-linear-gradient(top, lighten(@color, 5%) 0%, darken(@color, 5%) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,lighten(@color, 5%)), color-stop(100%,darken(@color, 5%)));
+	background: -webkit-linear-gradient(top, lighten(@color, 5%) 0%,darken(@color, 5%) 100%);
+	background: -o-linear-gradient(top, lighten(@color, 5%) 0%,darken(@color, 5%) 100%);
+	background: -ms-linear-gradient(top, lighten(@color, 5%) 0%,darken(@color, 5%) 100%);
+	background: linear-gradient(top, lighten(@color, 5%) 0%,darken(@color, 5%) 100%);
+	padding: 3px 5px 2px;
+	display: inline-block;
+	
+}
+
+
+
 /* =============================================================================
    Primary styles
    Author: Benjamin Wilkins & Josh Levinger, Citizen Engagement Laboratory
    ========================================================================== */
+  
 html {
 	background-color: #FCFCFC;
 }
@@ -395,8 +417,17 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 	    margin:0;
 	    padding:0;
 	    list-style-type:none;
-	    li { display:inline; margin-right:10px; }
-	    ul.tags { display:inline; }
+	    .tag {
+			.pill(#666);
+			a:link, a:visited {
+				@color: #F5F5F5;
+				color: @color;
+				text-shadow: 0px -1px 0px rgba(0,0,0,.25);
+			}
+			a:hover, a:active {
+				text-decoration: none;
+			}
+		}
     }
     .flag_type { margin-left:5px; }
 	}
