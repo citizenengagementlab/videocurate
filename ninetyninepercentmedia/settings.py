@@ -14,6 +14,7 @@ ADMINS = (
      ('Josh Levinger', 'josh.l@engagementlab.org'),
      ('Ben Wilkins','ben.w@engagementlab.org')
 )
+EMAIL_SUBJECT_PREFIX = "[99PercentMedia] "
 
 MANAGERS = ADMINS
 
