@@ -63,8 +63,8 @@ def view_by_slug(request,id,slug):
     
     stats = {'media_count':Media.objects.count(),
             'location_count':Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0).count()}
-    tabs = [{'name':'Nearby','list':nearby,'link':'/search?'},
-            {'name':'Same Day','list':same_day,'link':'/search?'}]
+    tabs = [{'name':'Nearby','list':nearby,'view_all_link':'/search?location=%s' % media.location.name},
+            {'name':'Same Day','list':same_day,'view_all_link':'/search?date=%s' % media.date_uploaded.date()}]
     
     return render_to_response('view.html',
         {'media':media,'tabs':tabs,'stats':stats},
