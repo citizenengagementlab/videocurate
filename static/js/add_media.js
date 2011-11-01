@@ -27,16 +27,22 @@ $(document).ready(function onload(){
            + "<br>Or <a href='#' id='clear'>clear the fields</a> and start again.";
           $('#preview #preview_html').html(message);
         } else {
-          $('#preview #preview_html').html(data.html);
-          $('#addform #id_url').val(data.url);
-          $('#addform #id_title').val(data.title);
-          $('#addform #id_author_name').val(data.author_name);
-          $('#addform #id_author_url').val(data.author_url);
-          $('#addform #id_resolution').val(data.width+'x'+data.height);
-          $('#preview #preview_description').html("<b>Original Description:</b> "+data.description);
-          thirdparty_extras(data);
+          if (data.html == "") {
+            var message = "Sorry, we can't get an embed for that url. The owner may have disabled embedding on the hosting platform. <br>Want to <a href='#' id='clear'>clear the fields</a> and start again?";
+            $('#preview #preview_html').html(message);
+          } else {
+            //we're good to go
+            $('#preview #preview_html').html(data.html);
+            $('#addform #id_url').val(data.url);
+            $('#addform #id_title').val(data.title);
+            $('#addform #id_author_name').val(data.author_name);
+            $('#addform #id_author_url').val(data.author_url);
+            $('#addform #id_resolution').val(data.width+'x'+data.height);
+            $('#preview #preview_description').html("<b>Original Description:</b> "+data.description);
+            thirdparty_extras(data);
+          }
         }
-          $("#preview .spinner").hide();
+        $("#preview .spinner").hide();
       }
     );
     return false;
