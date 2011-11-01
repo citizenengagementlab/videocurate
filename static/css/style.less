@@ -310,6 +310,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 	background: linear-gradient(top, lighten(@color, 5%) 0%,darken(@color, 5%) 100%);
 	padding: 3px 5px 2px;
 	display: inline-block;
+	margin-bottom: 5px;
 	
 }
 
@@ -413,10 +414,17 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 	}
 	
 	#info {
-	  ul {
+	  .label {
+	  	vertical-align: top;
+	  	display: inline-block;
+	  	width: 75px;
+	  }
+	  ul.tags {
 	    margin:0;
 	    padding:0;
 	    list-style-type:none;
+	    display: inline-block;
+	    max-width: 85%;
 	    .tag {
 			.pill(#666);
 			a:link, a:visited {
