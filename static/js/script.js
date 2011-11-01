@@ -8,6 +8,20 @@ DEBUG = true;
 
 $(document).ready(
 	function() {
+		
+	  //Tag Cloud Simple Tagging
+	  
+	$("form #tag_cloud>li>a").click(function(e){
+		e.preventDefault();
+		var tag = $(this).html();
+		var tags = $("#id_tags");
+		console.log(tag);
+		console.log(tags);
+		tags.val(function(){
+			return tags.val()? tags.val() + ", " + tag : tag;
+		});
+		return false;
+	});
 	  //location autocomplete
     $("#location").autocomplete("/locations/list/", { multiple: false, width:185 });
 	  
