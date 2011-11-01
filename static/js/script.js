@@ -32,7 +32,7 @@ $(document).ready(
 		});
 		
   	//Tag Cloud Simple Tagging
-  	$("form #tag_cloud>li>a").click(function(e){
+  	$("form #tag_cloud ul>li>a").click(function(e){
   		e.preventDefault();
   		var tag = $(this).html();
   		var tags = $("#id_tags");
