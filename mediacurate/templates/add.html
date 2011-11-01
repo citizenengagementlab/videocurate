@@ -53,12 +53,15 @@
           {% endif %}
         
           {% if field.name == "tags" %}
-            {% tag_cloud_for_model mediacurate.media as cloud_tags with steps=10 distribution=linear min_count=1 %}
-            <ul id="tag_cloud">
+            <div id="tag_cloud">
+            {% tag_cloud_for_model mediacurate.media as cloud_tags with steps=10 distribution=linear min_count=5 %}
+            <p>Or pick from these commonly used tags:</p>
+            <ul>
           	  {% for tag in cloud_tags %}
           	  <li><a href="/search/?tag={{tag}}">{{tag}}</a></li>
           		{% endfor %}
           	</ul>
+          	</div>
         	{%endif%}
         
           {% if fieldset.name == "URL" %}

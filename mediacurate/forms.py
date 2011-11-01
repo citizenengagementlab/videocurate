@@ -18,7 +18,7 @@ class AddForm(BetterForm):
     
     name = forms.CharField(required=False,help_text="Tell us who you are, so commenters can follow the discussion.")
     review = forms.CharField(widget=forms.widgets.Textarea(),required=False,help_text="The more information you provide, the more useful it is to others. What made you want to add this to the collection? Is there a particularly good portion that viewers should watch out for?")
-    tags = forms.CharField(widget=TagAutocomplete,required=True,help_text="Use existing tags before creating new ones. The most common are below.")
+    tags = forms.CharField(widget=TagAutocomplete,required=True,help_text="Use existing tags before creating new ones, they will autocomplete as you type.")
     
     date_uploaded = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
     resolution = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
