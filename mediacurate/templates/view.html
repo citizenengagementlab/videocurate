@@ -69,8 +69,7 @@
     <li class="group">
   	  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>
   	  <h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
-  	  <div class="info"><span class="media_description">{{media.description}}</span>
-  	  					{%if media.views%}<span class="media_views">{{media.views|intcomma}} views</span>{%endif%}
+  	  <div class="info">{%if media.views%}<span class="media_views">{{media.views|intcomma}} views</span>{%endif%}
   	  					<span class="media_upvotes">{{media.total_upvotes}} votes</span>
   	  </div>
   	</li>
