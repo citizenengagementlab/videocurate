@@ -18,7 +18,7 @@ class AddForm(BetterForm):
     
     name = forms.CharField(required=False,help_text="Tell us who you are, so commenters can follow the discussion.")
     review = forms.CharField(widget=forms.widgets.Textarea(),required=False,help_text="The more information you provide, the more useful it is to others. What made you want to add this to the collection? Is there a particularly good portion that viewers should watch out for?")
-    tags = forms.CharField(widget=TagAutocomplete,required=True,help_text="Use existing tags before creating new ones. The most common are on the right.")
+    tags = forms.CharField(widget=TagAutocomplete,required=True,help_text="Use existing tags before creating new ones. The most common are below.")
     
     date_uploaded = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
     resolution = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
@@ -28,11 +28,11 @@ class AddForm(BetterForm):
         fieldsets = (
             ('URL',{'fields':('url',),
                     'description':'Paste <a id="provider_link" href="http://embed.ly/providers" title="Can be YouTube, Vimeo, Flickr, or over 200 others" target="_blank">almost any URL</a> to preview.',
-                    'classes':['']}
+                    'classes':['url']}
             ),
             ('Basic Information <b>(Required)</b>',{'fields':('title','location','tags',),
                     'description':"Where was this taken, and what is it about?",
-                    'classes':['']}
+                    'classes':['basic']}
             ),
             ('Data <b>(Not Editable)</b>',{'fields':('author_name','author_url','resolution','views','license','date_uploaded'),
                     'description':"This is information we pull from the host site.",

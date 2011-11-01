@@ -395,6 +395,20 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 			clear: both;
 			min-width: 75px;
 		}
+		fieldset.basic {
+		  ul#tag_cloud {
+		    margin-left:80px;
+		    li {
+		      display:inline;
+		      .pill(#666);
+    			a:link, a:visited {
+    				@color: #F5F5F5;
+    				color: @color;
+    				text-shadow: 0px -1px 0px rgba(0,0,0,.25);
+    			}
+		    }
+	    }
+		}
 		fieldset.hidden {
 		    margin-left:80px;
 		    input {
