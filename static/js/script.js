@@ -9,19 +9,39 @@ DEBUG = true;
 $(document).ready(
 	function() {
 		
-	  //Tag Cloud Simple Tagging
-	  
-	$("form #tag_cloud>li>a").click(function(e){
-		e.preventDefault();
-		var tag = $(this).html();
-		var tags = $("#id_tags");
-		console.log(tag);
-		console.log(tags);
-		tags.val(function(){
-			return tags.val()? tags.val() + ", " + tag : tag;
+		//inline results embed
+		$("ul#results a").click(function(e) {
+		  var clicked = $(this);
+      inline_url = clicked.attr('href')+"inline/";
+		  var num_votes = $.get(inline_url,{},function view_inline_callback(result) {
+	      if(DEBUG) console.log('view_inline_callback');
+	      inline_html = $(result);
+	      var parent = clicked.parents('li');
+	      parent.after(inline_html);
+	      parent.hide();
+	      
+	      $('a.hide_inline').click(function() {
+	        $(this).parents('.inline_view').hide();
+	        $(this).parents('li').prev().show();
+	      })
+	    })
+		  
+		  return false;
 		});
-		return false;
-	});
+		
+  	//Tag Cloud Simple Tagging
+  	$("form #tag_cloud>li>a").click(function(e){
+  		e.preventDefault();
+  		var tag = $(this).html();
+  		var tags = $("#id_tags");
+  		if(DEBUG) console.log(tag);
+  		if(DEBUG) console.log(tags);
+  		tags.val(function(){
+  			return tags.val()? tags.val() + ", " + tag : tag;
+  		});
+  		return false;
+  	});
+  	
 	  //location autocomplete
     $("#location").autocomplete("/locations/list/", { multiple: false, width:185 });
 	  
@@ -35,7 +55,7 @@ $(document).ready(
 	  //upvoting
 	  $('.upvote').click(function(e) {
 	  	e.preventDefault();
-		var clicked = $(this);
+  		var clicked = $(this);
 	    var num_votes = $.get(this.href,{},function vote_callback(result) {
 	      //var x = $.parseJSON(result);
 	      var data = $.parseJSON(result);

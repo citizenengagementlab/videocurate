@@ -69,6 +69,15 @@ def view_by_slug(request,id,slug):
     return render_to_response('view.html',
         {'media':media,'tabs':tabs,'stats':stats},
         context_instance=RequestContext(request))
+        
+def view_inline(request,id,slug):
+    try:
+        media = Media.objects.get(id=id,slug=slug)
+    except Media.DoesNotExist:
+        media = get_object_or_404(Media,id=id)
+    
+    return render_to_response('view_inline.html',{'media':media},
+        context_instance=RequestContext(request))
 
 #@require_POST
 def flag(request,id):

@@ -6,6 +6,7 @@ urlpatterns = patterns('mediacurate.views',
     (r'^search/$', 'search'),
     url(r'^view/(?P<id>[\d]+)/$', 'view_by_id', name='view_by_id'),
     url(r'^view/(?P<id>[\d]+)/(?P<slug>[\w-]+)/$', 'view_by_slug', name='view_by_slug'),
+    url(r'^view/(?P<id>[\d]+)/(?P<slug>[\w-]+)/inline/$', 'view_inline', name='view_inline'),
     url(r'^flag/(?P<id>[\d]+)/$', 'flag'),
     (r'^embed/cache', 'embed_cache'),
     
