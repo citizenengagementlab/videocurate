@@ -121,7 +121,7 @@ def location_autocomplete_list(request):
     return HttpResponse(response_str, mimetype='text/plain')
 
 def locations(request):
-    locations = Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0)
+    locations = Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0).order_by('name')
     
     return render_to_response('tiles.html',{'locations':locations},
         context_instance=RequestContext(request))
