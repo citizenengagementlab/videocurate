@@ -26,7 +26,7 @@ def home(request):
         main = Media.objects.filter(featured=True).latest()
     else:
         try:
-            main = Media.objects.order_by('total_upvotes','date_added')[0]
+            main = Media.objects.order_by('-total_upvotes','-date_added')[0]
         except IndexError:
             #there's nothing in the db yet, render a blank page
             return render_to_response('view.html',
@@ -35,7 +35,7 @@ def home(request):
                    context_instance=RequestContext(request))
 
     latest = Media.objects.order_by('-date_added').exclude(id=main.id)[:5]
-    popular = Media.objects.order_by('total_upvotes').exclude(id=main.id)[:5]
+    popular = Media.objects.order_by('-total_upvotes').exclude(id=main.id)[:5]
     
     stats = {'media_count':Media.objects.count(),
             'location_count':Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0).count()}
@@ -155,7 +155,7 @@ def latest(request):
         context_instance=RequestContext(request))
         
 def popular(request):
-    media_list = Media.objects.order_by('total_upvotes')
+    media_list = Media.objects.order_by('-total_upvotes')
     paginator = Paginator(media_list, 20)
     
     page = request.GET.get('page')
