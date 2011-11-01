@@ -340,6 +340,38 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
  * 	Form Styles
  */
 #main {
+	.errors>.errorlist>li {
+		border: 2px solid @light;
+		padding: 10px;
+		margin-bottom: 10px;
+		background: #FBE3E4;
+		color: #8A1F11;
+		border-color: #FBC2C4;
+	}
+	.messages {
+		margin: 0;
+		padding: 0;
+		li {
+			border: 2px solid @light;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+		.error {
+			background: #FBE3E4;
+			color: #8A1F11;
+			border-color: #FBC2C4;
+		}
+		.info {
+			background: #D5EDF8;
+			color: #205791;
+			border-color: #92CAE4;
+		}
+		.success {
+			background: #E6EFC2;
+			color: #264409;
+			border-color: #C6D880;
+		}
+	}
 	form {
 		legend {
 			color: @gray;
@@ -613,6 +645,7 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 		}
 	}
 }
+
 
 /* =============================================================================
    Non-semantic helper classes
