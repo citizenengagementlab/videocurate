@@ -290,7 +290,7 @@ def add_tags(request,id):
         m = get_object_or_404(Media,id=id)
         ctype = ContentType.objects.get_for_model(m)
         current_tags = Tag.objects.get_for_object(m)
-        tags = parse_tag_input(request.GET.get('tags'))
+        tags = parse_tag_input(request.POST.get('tags'))
     
         new_tags_list = []
         for t in tags:
