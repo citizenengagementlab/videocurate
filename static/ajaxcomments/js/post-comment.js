@@ -41,15 +41,12 @@ function ajaxComment(args) {
     
     url = $('div.comment-form form').attr('action');
     
-    console.log(comment);
-    
     // Use AJAX to post the comment.
     $.ajax({
         type: 'POST',
         url: url,
         data: comment,
         success: function(data) {
-            console.log('success')
             commentBusy = false;
         
             removeWaitAnimation()
@@ -64,9 +61,8 @@ function ajaxComment(args) {
             commentBusy = false;
             
             removeWaitAnimation()
-            console.log('failure');
-            //$('div.comment-form form').unbind('submit');
-            //$('div.comment-form form').submit();
+            $('div.comment-form form').unbind('submit');
+            $('div.comment-form form').submit();
         },
         dataType: 'json'
     });
@@ -111,12 +107,12 @@ function commentSuccess(data) {
     $('#comments').append(comment_html);
     $('div.comment:last').show('slow');
     
-    $('p.submit').after('\
-        <div class="comment-thanks">\
-            Thank you for your comment!\
+    $('ul#comments').after('\
+        <div class="messages comment-thanks">\
+            <ul><li class="success">Thank you for your comment!</li></ul>\
         </div>\
     ');
-    $('div.comment-thanks').fadeOut(4000);
+    $('div.comment-thanks').delay(5000).fadeOut(2000).slideUp(2000);
 }
 
 function commentFailure(data) {
