@@ -9,6 +9,21 @@ DEBUG = true;
 $(document).ready(
 	function() {
 		
+		//add tags
+		$('form#add_tags').submit(function() {
+		  $.post($(this).attr('action'),
+		      {'tags':$('form#add_tags input#id_tags').val()},
+		      function(response){
+		        if(DEBUG) console.log(response.success);
+		        for (t_id in response.success) {
+		          t = response.success[t_id];
+		          $("ul.tags").append("<li class='tag'><a href='/search?tag="+t+"'>"+t+"</a></li>");
+		        }
+		      },'json');
+		  $('form#add_tags input#id_tags').val("");
+		  return false;
+		});
+		
 		//ajax comments
 		media = '/static/ajaxcomments'
     $('div#reviews form').submit(function() {
@@ -102,7 +117,7 @@ $(document).ready(
 		
 		//frontpage add link
 		//don't pass embed url if none entered
-		$("#banner_add input[type=submit]").click(function(event) { 
+		$("form#add_form input[type=submit]").click(function(event) { 
 		  if ($("#embed_url").val() == "") {
 		    event.preventDefault();
 		    window.location.assign('/add');

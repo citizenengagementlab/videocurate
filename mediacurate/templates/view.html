@@ -40,6 +40,11 @@
         <li class="tag"><a href="/search?tag={{tag}}">{{tag}}</a></li>
         {%endfor%}
       </ul>
+      <form action="/tag/{{media.id}}/" id="add_tags">
+        {% csrf_token %}
+        <input id="id_tags" />
+        <input id="tag_submit" type="submit" value="add tag" />
+      </form>
 </div>
 
 <div id="reviews" class="group">
