@@ -128,10 +128,6 @@ $(document).ready(
 		  }
 		});
 				
-		//hide banner section on add or search pages
-		if ( window.location.href.match(/\/add|search/) ) {
-			$("#banner").hide();
-		}
 		//Copy GET Request URL to proper field on add page.		
 		function getEmbedUrl(){
 			var urlExplode = window.location.href.split("?");

@@ -4,11 +4,15 @@
 
 {%block title%}Search{%endblock%}
 
+{%block banner%}<!--hide the banner-->{%endblock%}
+
 {%block content%}
 {% if query %}
 <h1>
   Results for <span class="query">{{query}}</span>
 </h1>
+{%else%}
+<h1>No query entered</h1>
 {% endif %}
 
 <ul id="results" class="group">
