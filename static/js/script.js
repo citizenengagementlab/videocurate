@@ -68,6 +68,9 @@ $(document).ready(
   	
 	  //location autocomplete
     $("#location").autocomplete("/locations/list/", { multiple: false, width:185 });
+    
+    //add tag autocomplete
+    $("form#add_tags #id_tags").autocomplete("/tags/json", { multiple: true });
 	  
 	  //time display in local tz
 	  $('.comment_date').each(function() {
