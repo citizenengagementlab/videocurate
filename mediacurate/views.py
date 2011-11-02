@@ -286,23 +286,21 @@ def add(request):
                             context_instance=RequestContext(request))
                             
 def add_tags(request,id):
-    m = get_object_or_404(Media,id=id)
-    ctype = ContentType.objects.get_for_model(m)
-    current_tags = Tag.objects.get_for_object(m)
-    tags = parse_tag_input(request.GET.get('tags'))
+    if request.method == "POST":
+        m = get_object_or_404(Media,id=id)
+        ctype = ContentType.objects.get_for_model(m)
+        current_tags = Tag.objects.get_for_object(m)
+        tags = parse_tag_input(request.GET.get('tags'))
     
-    new_tags_list = []
-    for t in tags:
-        if t not in current_tags:
-            tag,new_tag = Tag.objects.get_or_create(name=t)
-            ti,new = TaggedItem.objects.get_or_create(tag=tag,content_type=ctype,object_id=m.pk)
+        new_tags_list = []
+        for t in tags:
+            if t not in current_tags:
+                tag,new_tag = Tag.objects.get_or_create(name=t)
+                ti,new = TaggedItem.objects.get_or_create(tag=tag,content_type=ctype,object_id=m.pk)
             
-            if new:
-                new_tags_list.append(t)
+                if new:
+                    new_tags_list.append(t)
 
-    return HttpResponse(json.dumps({'success':new_tags_list}), mimetype="application/json")
-    
-    #if request.method == "POST":
-    #    
-    #else:
-    #    return HttpResponse("POST a new tag")
+        return HttpResponse(json.dumps({'success':new_tags_list}), mimetype="application/json")
+    else:
+        return HttpResponse("POST a new tag")
