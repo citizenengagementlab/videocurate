@@ -47,9 +47,11 @@
 </div>
 
 <div id="reviews" class="group">
+  <span class="label"><h4>Viewer reviews: <a href="#comment_form">add your own</a></h4></span>
   {% render_comment_list for media %}
   
-  <span class="label">Add your own review:</span>
+  <a id="comment_form"></a>
+  <span class="label"><h4>Add your own review:</h4></span>
   {% render_comment_form for media %}
 </div>
 {%else%}
