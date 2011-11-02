@@ -7,8 +7,6 @@
 
 {%block content%}
 
-<div id="stats">{{stats.media_count}} photos and videos from {{stats.location_count}} locations</div>
-
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -18,33 +16,34 @@
 {% endif %}
 
 {% if media %}
-<h1>
+<h1 id="mediatitle">
   {{media.title}}
 </h1>
-<p>
-	<a href="/search?location={{media.location.name|urlencode}}">{{media.location}}</a>. Originally posted on <a href="{{media.embed.response.original_url}}">{{media.embed.response.provider_name}}</a> by <a href="{{media.author_url}}">{{media.author_name}}</a>
-</p>
-<ul>
-  <li><a href="/view/vote/{{media.id}}/1/" class="upvote">Vote up</a></li>
-  <li><a href="/flag/{{media.id}}/" class="flag">Flag</a></li>
-</ul>
+
 <div id="embed">
 {{media.embed.html|safe}}
 </div>
 
+<p id="attribution">
+	<a href="/search?location={{media.location.name|urlencode}}">{{media.location}}</a>. Originally posted on <a href="{{media.embed.response.original_url}}">{{media.embed.response.provider_name}}</a> by <a href="{{media.author_url}}">{{media.author_name}}</a>
+</p>
+<ul id="votebuttons">
+  <li><a href="/view/vote/{{media.id}}/1/" class="upvote">Vote</a><span class="votes">{{media.total_upvotes}}</span></li>
+  <li><a href="/flag/{{media.id}}/" class="flag">Flag</a></li>
+</ul>
 <div id="info">
-  <span class="label">Tags:</span>
-      {% tags_for_object media as tags %}
-      <ul class="tags">
-        {%for tag in tags %}
-        <li class="tag"><a href="/search?tag={{tag}}">{{tag}}</a></li>
-        {%endfor%}
-      </ul>
-      <form action="/tag/{{media.id}}/" id="add_tags">
-        {% csrf_token %}
-        <input id="id_tags" />
-        <input id="tag_submit" type="submit" value="add tag" />
-      </form>
+  	<span class="label">Tags:</span>
+	{% tags_for_object media as tags %}
+	<ul class="tags">
+		{%for tag in tags %}
+		<li class="tag"><a href="/search?tag={{tag}}">{{tag}}</a></li>
+    	{%endfor%}
+	</ul>
+	<form action="/tag/{{media.id}}/" id="add_tags">
+		{% csrf_token %}
+		<input id="id_tags" />
+		<input id="tag_submit" type="submit" value="add tag" />
+	</form>
 </div>
 
 <div id="reviews" class="group">
