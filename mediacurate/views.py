@@ -41,8 +41,8 @@ def home(request):
     stats = {'media_count':Media.objects.count(),
             'location_count':Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0).count()}
     
-    tabs = [{'name':'Latest','list':latest,'view_all_link':'/latest/'},
-            {'name':'Popular','list':popular,'view_all_link':'/popular/'},]
+    tabs = [{'name':'Popular','list':popular,'view_all_link':'/popular/'},
+            {'name':'Latest','list':latest,'view_all_link':'/latest/'}]
     
     return render_to_response('view.html',
         {'title':'The best source for #occupy videos',
