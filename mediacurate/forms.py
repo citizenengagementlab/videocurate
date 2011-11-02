@@ -18,9 +18,9 @@ class AddForm(BetterForm):
     location = forms.CharField(widget=LocationAutocomplete,
         error_messages={'required':'Please enter a location.'},
         help_text="Where did this happen? City name or Occupy location first. <a href='#' id='no_location'>No location?</a>")
-    author_name = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}))
+    author_name = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
     #author_url = forms.CharField(widget=forms.widgets.HiddenInput())
-    author_url = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}))
+    author_url = forms.CharField(widget=forms.widgets.TextInput(attrs={'readonly':True}),required=False)
     
     name = forms.CharField(required=False,help_text="Tell us who you are, so commenters can follow the discussion.")
     review = forms.CharField(widget=forms.widgets.Textarea(),required=False,help_text="The more information you provide, the more useful it is to others. What made you want to add this to the collection? Is there a particularly good portion that viewers should watch out for?")

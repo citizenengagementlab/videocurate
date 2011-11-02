@@ -16,13 +16,11 @@
 {%endblock%}
 
 {%block content%}
-  {% if messages %}
   <ul class="messages">
     {% for message in messages %}
     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
     {% endfor %}
   </ul>
-  {% endif %}
   
   <h2>Add Form</h2>
   
@@ -45,6 +43,7 @@
             <li{{ field.row_attrs }} {% if field.errors %}class="error"{%endif%}>
               {{ field.label_tag }}
               {{ field }}
+              {% if field.name == "url" %}<input id="id_preview_button" type="button" value="preview" />{%endif%}
               <p class="help_text">{{ field.help_text|safe }}</p>
               {{field.errors}}
             </li>
@@ -63,7 +62,6 @@
         	{%endif%}
         
           {% if fieldset.name == "URL" %}
-            <input id="id_preview_button" type="button" value="preview" />
             <div id="preview" style="display:none;">
               <label>Preview</label>
               <div class="spinner">wait for it...</div>

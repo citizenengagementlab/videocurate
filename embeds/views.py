@@ -36,6 +36,9 @@ def cache_embed(request,url,maxwidth):
         return HttpResponse(json.dumps(response), mimetype="application/json")
     except SavedEmbed.DoesNotExist:
         pass
+    except TypeError:
+        response = {'error':'Error embedding %s.' % url}
+        return HttpResponseServerError(json.dumps(response), mimetype="application/json")
 
     #if we've never seen it before, call the embedly API
     client = Embedly(key=settings.EMBEDLY_KEY, user_agent=USER_AGENT)
@@ -44,7 +47,8 @@ def cache_embed(request,url,maxwidth):
     else:
        oembed = client.oembed(url)
     if oembed.error:
-        return HttpResponseServerError('Error embedding %s.\n %s' % url)
+        response = {'error':'Error embedding %s.' % url}
+        return HttpResponseServerError(json.dumps(response), mimetype="application/json")
 
     #save result to database
     row, created = SavedEmbed.objects.get_or_create(url=url, maxwidth=maxwidth,

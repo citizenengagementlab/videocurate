@@ -46,10 +46,10 @@ class Media(models.Model):
     
     url = models.URLField()
     embed = models.ForeignKey(SavedEmbed)
-    resolution = models.CharField(help_text="maximum resolution as widthXheight",blank=True, max_length=10)
+    resolution = models.CharField(help_text="maximum resolution as widthXheight",blank=True,null=True, max_length=10)
     
-    author_name = models.CharField(max_length=100)
-    author_url = models.URLField()
+    author_name = models.CharField(max_length=100,blank=True,null=True)
+    author_url = models.URLField(blank=True,null=True)
     license = models.CharField(choices = LICENSE_CHOICES, max_length=10, default="UNK")
     views = models.IntegerField(help_text="views at original provider",blank=True,null=True)
     

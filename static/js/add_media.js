@@ -1,5 +1,7 @@
 DEBUG = true;
 
+var url = new RegExp(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/);
+
 $(document).ready(function onload(){
   //enable the preview button
   $("input#id_url").keypress(function(e){
@@ -9,31 +11,49 @@ $(document).ready(function onload(){
       e.preventDefault();
     }
   });
+  $('input#id_url').blur(function(e) {
+    //check to see if it's a url first
+    if (url.test($("input#id_url").val())) { 
+      $("input#id_preview_button").click();
+      e.preventDefault();
+    }
+  });
+  $("input#id_url").bind('paste', function(e) {
+    //check to see if it's a url first
+    if (url.test($("input#id_url").val())) { 
+      setTimeout(function() {
+        $("input#id_preview_button").click();
+        e.preventDefault();
+      }, 100);
+    }
+  });
+  
   $("input#id_preview_button").click(function() {
     theURL=$("#id_url").val();
     if (theURL == "") { $("label[for=id_url]").addClass("error"); return false; }
     else { $("label[for=id_url]").removeClass("error"); }
     $("#preview").show();
-    $.post("/embed/cache/",{url:theURL,maxwidth:"620"},
-      function embedly_callback(data) {
+    $.ajax({
+      type:'POST',
+      url:"/embed/cache/",
+      data:{url:theURL,maxwidth:"620"},
+      dataType:'json',
+      success: function embedly_callback(data) {
+        $('ul.messages').hide();
+
         if (DEBUG) console.log('embedly callback');
-        if (DEBUG) console.log(data);
-        
+        if (DEBUG) console.log(data);        
         if(data.exists) {
           if (DEBUG) console.log('already have the video');
-          
-          var message = "Sweet video; it's so good, we already have a copy. Want to add your review and tags "
-           + "<a href='/search?url="+escape(data.original_url)+"'>here</a>?" 
-           + "<br>Or <a href='#' id='clear'>clear the fields</a> and start again.";
-          $('#preview #preview_html').html(message);
+          showMessage("Sweet video; it's so good, we already have a copy. Want to add your review and tags "
+           + "<a href='/search?url="+escape(data.original_url)+"'>here</a>?","info");
         } else {
           if (data.html == "") {
-            var message = "Sorry, we can't get an embed for that url. The owner may have disabled embedding on the hosting platform. <br>Want to <a href='#' id='clear'>clear the fields</a> and start again?";
-            $('#preview #preview_html').html(message);
+            showMessage("Sorry, we can't get an embed for that url.<br>Check to see if the url is complete, or has a typo. The owner may also have disabled embedding on the hosting platform.","info");
           } else {
             //we're good to go
             $('#preview #preview_html').html(data.html);
-            $('#addform #id_url').val(data.url);
+            if(data.url) { $('#addform #id_url').val(data.url); }
             $('#addform #id_title').val(data.title);
             $('#addform #id_author_name').val(data.author_name);
             $('#addform #id_author_url').val(data.author_url);
@@ -43,8 +63,11 @@ $(document).ready(function onload(){
           }
         }
         $("#preview .spinner").hide();
+      },
+      error: function embedly_error(data) {
+        showMessage("Sorry, we weren't able to embed that url. Check to see if the url is complete, or has a typo.","error");
       }
-    );
+    });
     return false;
   });
   
@@ -85,6 +108,23 @@ $(document).ready(function onload(){
   });
 
 });
+
+function showMessage(message,message_class) {
+  clear_text = "<br>Want to <a href='#' class='clear'>clear the fields</a> and start again?";
+  msg_html = "<li class='"+message_class+"'>"+message+clear_text+"</li>";
+  $('ul.messages').append(msg_html);
+  $('ul.messages').show();
+  setClear();
+}
+function setClear() {
+  $('a.clear').click(function() { 
+    clearForm();
+    return false;
+  });
+}
+function clearForm() {
+  $('form#addform')[0].reset();
+}
 
 /* functionality to get info that embedly doesn't return*/
 function thirdparty_extras(data) {
