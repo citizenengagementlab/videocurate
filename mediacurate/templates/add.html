@@ -54,7 +54,7 @@
             {% tag_cloud_for_model mediacurate.media as cloud_tags with steps=10 distribution=linear min_count=5 %}
             <p>Or pick from these commonly used tags:</p>
             <ul>
-          	  {% for tag in cloud_tags %}
+          	  {% for tag in cloud_tags|dictsortreversed:"count"|slice:":10" %}
           	  <li><a href="/search/?tag={{tag}}">{{tag}}</a></li>
           		{% endfor %}
           	</ul>
