@@ -575,7 +575,6 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 		padding: 0 5% 0 0;
 		font-size: 4em;
 		text-transform: uppercase;
-		text-align: right;
 		letter-spacing: -4px;
 		color: @darkred;
 	}
@@ -591,10 +590,7 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 			margin-bottom: 14px;
 		}
 	}
-	#add_wrapper {
-		width: 80%;
-		margin: 0 auto;
-	}
+
 	form {
 		color: @dark;
 		width: 100%;
@@ -608,18 +604,40 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 			padding: 10px;
 			-moz-box-sizing: border-box;
 			-webkit-box-sizing: border-box;
-			box-sizing:border-box;
-			background: #FFF;
-			border: 1px solid @light;
+			box-sizing: border-box;
+
+			border: 1px solid @gray;
 			margin: 0;
 			&[type="text"] {
-				width: 80%;
+				width: 84%;
+				border-radius: 10px 0 0  10px;
+				background: #FFF;
+					background: -moz-linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 40%);
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.1)), color-stop(10%,rgba(0,0,0,0)), color-stop(40%,rgba(0,0,0,0)));
+					background: -webkit-linear-gradient(top,  rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 40%);
+					background: -o-linear-gradient(top,  rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 40%);
+					background: -ms-linear-gradient(top,  rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 40%);
+					background: linear-gradient(top,  rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 40%);
+
 			}
 			&[type="submit"] {
 				width: 15%;
+				border-radius: 0 10px 10px 0;
+					background: -moz-linear-gradient(top,  rgba(0,0,0,0) 60%, rgba(0,0,0,0) 90%, rgba(0,0,0,0.1) 100%);
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(60%,rgba(0,0,0,0)), color-stop(90%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.1)));
+					background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 60%,rgba(0,0,0,0) 90%,rgba(0,0,0,0.1) 100%);
+					background: -o-linear-gradient(top,  rgba(0,0,0,0) 60%,rgba(0,0,0,0) 90%,rgba(0,0,0,0.1) 100%);
+					background: -ms-linear-gradient(top,  rgba(0,0,0,0) 60%,rgba(0,0,0,0) 90%,rgba(0,0,0,0.1) 100%);
+					background: linear-gradient(top,  rgba(0,0,0,0) 60%,rgba(0,0,0,0) 90%,rgba(0,0,0,0.1) 100%);
+				background-color: @red;
+				color: #FFF;
+				-webkit-transition: background-color .25s ease;
+				-moz-transition: background-color .25s ease;
+				transition: background-color .25s ease;
+
 			}
 			&[type="submit"]:hover {
-				background-color: lighten(@red, 45%);
+				background-color: @darkred;
 			}
 		}
 	}
