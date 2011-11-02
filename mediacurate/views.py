@@ -17,7 +17,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from embeds.models import SavedEmbed
 from embeds.views import cache_embed
-from tagging.models import Tag
+from tagging.models import Tag,TaggedItem
+from tagging.utils import parse_tag_input
 from mediacurate.models import Media,Location,Flag
 from mediacurate.forms import AddForm
 
@@ -96,24 +97,30 @@ def search(request):
     #TODO: look into using haystack or django-filter
     allowed_params = {'keyword':{'field':'title','lookup':'__icontains'},
                       'location':{'field':'location__name','lookup':'__startswith'},
-                      'tag':{'field':'tags','lookup':'__icontains'},
                       'date':{'field':'date_uploaded','lookup':''},
                       'url':{'field':'url','lookup':'__exact'}
                      }
     query = {} #will be passed to filter
     query_display = [] #for template display
     for (param,filters) in allowed_params.items():
-        if request.GET.get(param):
-            val = request.GET.get(param)
+        val = request.GET.get(param)
+        if val:
             lookup_string = filters['field']+filters['lookup']
             query[lookup_string] = val
             
             query_display.append("%s: %s" % (param,val))
-    if len(query.keys()) == 0:
-        #so we don't return all items
+            
+    if len(query.keys()) == 0 and not request.GET.get('tag'):
         results = None
     else:
         results = Media.objects.filter(**query)
+    
+    #have to do tag searching outside of param loop, because it's not a Media field
+    if request.GET.get('tag'):
+        tag_name = request.GET.get('tag')
+        tagged_ids = TaggedItem.objects.filter(tag__name=tag_name).values_list('object_id',flat=True)
+        results = results.filter(id__in=tagged_ids)
+        query_display.append("tagged: %s" % tag_name)
     
     return render_to_response('search.html',
         {'query':', '.join(query_display),'results':results},
@@ -251,9 +258,11 @@ def add(request):
                 'author_url':form.cleaned_data['author_url'],
                 'license':form.cleaned_data['license'],
                 'views':form.cleaned_data['views'],
-                'tags':form.cleaned_data['tags'],
             }
             media = Media(**media_dict)
+            media.save()
+            #have to do this after first save, so we get an object_id
+            Tag.objects.update_tags(media,form.cleaned_data['tags'])
             media.save()
             
             if form.cleaned_data['review']:
@@ -275,3 +284,25 @@ def add(request):
                             {'form':form,
                             'message':message},
                             context_instance=RequestContext(request))
+                            
+def add_tags(request,id):
+    m = get_object_or_404(Media,id=id)
+    ctype = ContentType.objects.get_for_model(m)
+    current_tags = Tag.objects.get_for_object(m)
+    tags = parse_tag_input(request.GET.get('tags'))
+    
+    new_tags_list = []
+    for t in tags:
+        if t not in current_tags:
+            tag,new_tag = Tag.objects.get_or_create(name=t)
+            ti,new = TaggedItem.objects.get_or_create(tag=tag,content_type=ctype,object_id=m.pk)
+            
+            if new:
+                new_tags_list.append(t)
+
+    return HttpResponse(json.dumps({'success':new_tags_list}), mimetype="application/json")
+    
+    #if request.method == "POST":
+    #    
+    #else:
+    #    return HttpResponse("POST a new tag")

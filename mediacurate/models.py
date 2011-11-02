@@ -7,6 +7,7 @@ from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
 
 from embeds.models import SavedEmbed
+import tagging
 from tagging.fields import TagField
 import secretballot
 
@@ -52,7 +53,6 @@ class Media(models.Model):
     license = models.CharField(choices = LICENSE_CHOICES, max_length=10, default="UNK")
     views = models.IntegerField(help_text="views at original provider",blank=True,null=True)
     
-    tags = TagField(blank=True,db_index=True)
     featured = models.BooleanField(default=False,help_text="make this appear on the homepage")
     
     class Meta:
@@ -84,8 +84,8 @@ class Media(models.Model):
             return '%s on %s: "%s"' % (c.name,c.submit_date.date(),c.comment)
         else:
             return None
-        
-
+            
+tagging.register(Media,tag_descriptor_attr='tags')
 secretballot.enable_voting_on(Media)
 secretballot.enable_voting_on(Comment)
  

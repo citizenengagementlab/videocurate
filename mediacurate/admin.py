@@ -8,9 +8,9 @@ class MediaAdmin(admin.ModelAdmin):
     
     list_display = ('title','location','url','date_added','resolution','get_total_upvotes','featured')
     list_filter = ('date_uploaded','location','featured')
-    search_fields = ('title','location__name','tags')
+    search_fields = ('title','location__name',)
     fieldsets = (
-        ('Site',{'fields':('title','slug','location','tags')}),
+        ('Site',{'fields':('title','slug','location',)}),
         ('Host',{'fields':('url','embed','date_uploaded','resolution','license','views')}),
     )
 
