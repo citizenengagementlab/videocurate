@@ -5,7 +5,9 @@
 
 {%block title%}{%if title%}{{title}}{%else%}{{media.title}}{%endif%}{%endblock%}
 
+{% if not banner %}
 {%block banner%}<!--hide the banner-->{%endblock%}
+{%endif%}
 
 {%block content%}
 

@@ -46,6 +46,7 @@ def home(request):
     
     return render_to_response('view.html',
         {'title':'The best source for #occupy videos',
+        'banner':True,
         'media':main,'tabs':tabs,'stats':stats},
         context_instance=RequestContext(request))
 
