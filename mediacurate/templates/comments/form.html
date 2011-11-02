@@ -14,6 +14,9 @@
           {{ field.label_tag }} {{ field }}
         </p>
       {%endif%}
+      <!--override the email and url values, to avoid validation-->
+      <input type="hidden" name="email" value="no_email@example.com" />
+      <input type="hidden" name="url" value="http://www.example.com" />
     {% endif %}
   {% endfor %}
   <p class="submit">

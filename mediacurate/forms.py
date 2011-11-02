@@ -68,8 +68,6 @@ class AddForm(BetterForm):
         return cleaned_data
 
 class SlimCommentForm(CommentDetailsForm):
-    CommentDetailsForm.base_fields.pop('email')
-    CommentDetailsForm.base_fields.pop('url')
     def get_comment_create_data(self):
            """
            Subclass of contrib comment details form, but without email or url
@@ -86,3 +84,5 @@ class SlimCommentForm(CommentDetailsForm):
                is_public    = True,
                is_removed   = False,
            )
+SlimCommentForm.base_fields.pop('email')
+SlimCommentForm.base_fields.pop('url')
