@@ -297,7 +297,6 @@ def add_tags(request,id):
             if t not in current_tags:
                 tag,new_tag = Tag.objects.get_or_create(name=t)
                 ti,new = TaggedItem.objects.get_or_create(tag=tag,content_type=ctype,object_id=m.pk)
-            
                 if new:
                     new_tags_list.append(t)
 
