@@ -41,7 +41,7 @@
 			</form>
 		</div>
 	</header>
-	{%block banner %}
+	{% if banner %}
 	<div class="center">
 		<section id="banner">
 			<h2>Help Document the Movement</h2>
@@ -61,7 +61,7 @@
 			</div>
 		</section>
 	</div>
-	{%endblock%}
+	{%endif%}
 	<div class="center">
 	  {%block main%}
 		<section id="main" class="group">{%block content%}{%endblock%}</section>

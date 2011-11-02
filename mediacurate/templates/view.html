@@ -5,10 +5,6 @@
 
 {%block title%}{%if title%}{{title}}{%else%}{{media.title}}{%endif%}{%endblock%}
 
-{% if not banner %}
-{%block banner%}<!--hide the banner-->{%endblock%}
-{%endif%}
-
 {%block content%}
 
 <div id="stats">{{stats.media_count}} photos and videos from {{stats.location_count}} locations</div>
