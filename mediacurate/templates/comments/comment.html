@@ -1,0 +1,4 @@
+  <li id="c{{ comment.id }}" class="comment">
+    <span class="comment_name">{{ comment.name|capfirst }}</span> - <span class="comment_date" title="{{ comment.submit_date|date:"U" }}"></span>
+    <div class="comment_text">{{ comment.comment|urlize|linebreaks }}</div>
+  </li>
