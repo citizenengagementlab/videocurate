@@ -76,7 +76,8 @@ $(document).ready(
 	  $('.comment_date').each(function() {
 	    var epoch = $(this).attr('title');
 	    var d = new Date(epoch*1000);
-	    $(this).html(d.toLocaleDateString() + " " + d.toLocaleTimeString());
+	    $(this).html(d.toString('M/d/yyyy h:mm tt'));
+	    //$(this).html(d.toLocaleDateString() + " " + d.toLocaleTimeString());
 	  });
 	  
 	  //upvoting
