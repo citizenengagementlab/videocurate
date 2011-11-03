@@ -10,7 +10,8 @@ $(document).ready(
 	function() {
 		
 		//add tags
-		$('form#add_tags').submit(function() {
+		$('form#add_tags').submit(function(e) {
+		  e.preventDefault();
 		  $.post($(this).attr('action'),
 		      {'tags':$('form#add_tags input#id_tags').val()},
 		      function(response){
@@ -26,13 +27,15 @@ $(document).ready(
 		
 		//ajax comments
 		media = '/static/ajaxcomments'
-    $('div#reviews form').submit(function() {
+    $('div#reviews form').submit(function(e) {
+      e.preventDefault();
       ajaxComment({'media': media});
         return false;
     });
 		
 		//inline results embed
 		$("ul#results a.thumb").click(function(e) {
+		  e.preventDefault();
 		  var clicked = $(this);
       inline_url = clicked.attr('href')+"inline/";
 		  var num_votes = $.get(inline_url,{},function view_inline_callback(result) {
@@ -95,7 +98,8 @@ $(document).ready(
 	  });
 	  
 	  //flagging
-	  $('.flag').click(function() {
+	  $('.flag').click(function(e) {
+	    e.preventDefault();
 	    if ($(this).next('.flag_type').length) { return false; }
 	    $("<select class='flag_type'><option value='NONE'>Why?</option>"
 	      + "<option value='INAPP'>Inappropriate</option>" 
@@ -121,9 +125,9 @@ $(document).ready(
 		
 		//frontpage add link
 		//don't pass embed url if none entered
-		$("form#add_form input[type=submit]").click(function(event) { 
+		$("form#add_form input[type=submit]").click(function(e) {
+	    e.preventDefault();
 		  if ($("#embed_url").val() == "") {
-		    event.preventDefault();
 		    window.location.assign('/add');
 		    //don't use replace, that breaks the back button
 		  }
