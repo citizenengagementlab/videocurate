@@ -5,30 +5,31 @@ var url = new RegExp(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z
 $(document).ready(function onload(){
   //enable the preview button
   $("input#id_url").keypress(function(e){
+    e.preventDefault();
     //if the user hits return, process the preview button, not the form submit
     if(e.which == 13) {
       $("input#id_preview_button").click();
-      e.preventDefault();
     }
   });
   $('input#id_url').blur(function(e) {
+    e.preventDefault();
     //check to see if it's a url first
     if (url.test($("input#id_url").val())) { 
       $("input#id_preview_button").click();
-      e.preventDefault();
     }
   });
   $("input#id_url").bind('paste', function(e) {
+    e.preventDefault();
     //check to see if it's a url first
     if (url.test($("input#id_url").val())) { 
       setTimeout(function() {
         $("input#id_preview_button").click();
-        e.preventDefault();
       }, 100);
     }
   });
   
-  $("input#id_preview_button").click(function() {
+  $("input#id_preview_button").click(function(e) {
+    e.preventDefault();
     theURL=$("#id_url").val();
     if (theURL == "") { $("label[for=id_url]").addClass("error"); return false; }
     else { $("label[for=id_url]").removeClass("error"); }
@@ -85,13 +86,15 @@ $(document).ready(function onload(){
   $('fieldset.hidden').hide();
   
   //no location specific button
-  $('#no_location').click(function() {
+  $('#no_location').click(function(e) {
+    e.preventDefault();
     $('#id_location').val('No Location');
     return false;
   });
   
   
-  $("input#addform_submit").click(function() {
+  $("input#addform_submit").click(function(e) {
+    e.preventDefault();
     //do some validation client side, so we don't have to reload the page for missing fields
     required_fields = ["url","title","location","tags"]
     has_error = false;
@@ -117,7 +120,8 @@ function showMessage(message,message_class) {
   setClear();
 }
 function setClear() {
-  $('a.clear').click(function() { 
+  $('a.clear').click(function(e) {
+    e.preventDefault();
     clearForm();
     return false;
   });
