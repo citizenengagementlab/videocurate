@@ -11,6 +11,7 @@ $(document).ready(
 		
 		//add tags
 		$('a#show_add_tags').click(function(e) {
+		  e.preventDefault();
 		  $('form#add_tags').show();
 		  $('a#show_add_tags').hide();
 		});
