@@ -75,13 +75,13 @@ class Media(models.Model):
     def get_absolute_url(self):
         return reverse('view_by_slug',kwargs={'id':self.id,'slug':self.slug})
         
-    def description(self):
-        "Returns text of first comment, if available"
+    def first_comment(self):
+        "Returns first comment, if available"
         content_type = ContentType.objects.get(app_label="mediacurate",model="media")
         comment_list = Comment.objects.filter(content_type=content_type,object_pk=self.pk).order_by('submit_date')
         if comment_list:
             c = comment_list[0]
-            return '%s on %s: "%s"' % (c.name,c.submit_date.date(),c.comment)
+            return c
         else:
             return None
             
