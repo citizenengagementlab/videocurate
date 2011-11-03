@@ -20,7 +20,7 @@
 		<h4><a href="{{r.get_absolute_url}}">{{r.title}}</a></h4>
 		<div class="info">{%if r.description%}{{r.description}}<br>{%endif%}
 		  {%if r.views%}{{r.views|intcomma}} views{%endif%}
-		  {{r.total_upvotes}} <img src="{{MEDIA_URL}}images/upfist_small.png"/></div>
+		  {{r.total_upvotes}} votes</div>
 	</li>
 	{%empty%}
 	  <h2>Don't see what you're looking for? <a href="/add">Add it</a></h2>
