@@ -150,7 +150,7 @@ function youtube_extras(data) {
       entry = response.feed.entry[0];
       extra.views = entry.yt$statistics.viewCount;
       extra.license = entry.media$group.media$license.$t;
-      extra.date_uploaded = entry.updated.$t;
+      extra.date_uploaded = entry.published.$t;
       //need to find max width/height
       append_extras(extra);
       return extra;
