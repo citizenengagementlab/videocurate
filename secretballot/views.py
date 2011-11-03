@@ -6,7 +6,11 @@ from django.db.models import get_model
 from django.db.models.base import ModelBase
 from django.contrib.contenttypes.models import ContentType
 from secretballot.models import Vote
+from django.db.models import Sum
+import json
+from django.views.decorators.cache import never_cache
 
+@never_cache
 def vote(request, content_type, object_id, vote, can_vote_test=None,
               redirect_url=None, template_name=None, template_loader=loader,
               extra_context=None, context_processors=None, mimetype=None):
@@ -26,6 +30,7 @@ def vote(request, content_type, object_id, vote, can_vote_test=None,
     else:
         raise ValueError('content_type must be an instance of ContentType, a model, or "app.modelname" string')
 
+    did_vote = False
     # do the action
     if vote:
 
@@ -41,6 +46,7 @@ def vote(request, content_type, object_id, vote, can_vote_test=None,
         vobj,new = Vote.objects.get_or_create(content_type=content_type,
                                               object_id=object_id, token=token,
                                               defaults={'vote':vote})
+        did_vote = new
         if not new:
             vobj.vote = vote
             vobj.save()
@@ -67,8 +73,10 @@ def vote(request, content_type, object_id, vote, can_vote_test=None,
         body = t.render(c)
     else:
         votes = Vote.objects.filter(content_type=content_type,
-                                    object_id=object_id).count()
-        body = "{'num_votes':%d}" % votes
+                                    object_id=object_id)
+        num_votes = votes.count()
+        rating = votes.aggregate(Sum('vote'))['vote__sum']
+        body = json.dumps({'voted':did_vote,'num_votes': num_votes, 'rating': rating})
 
     return HttpResponse(body, mimetype=mimetype)
 

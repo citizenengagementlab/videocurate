@@ -1,11 +1,14 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from django.conf import settings
 
-VOTE_CHOICES = (
+DEFAULT_VOTE_CHOICES = (
     (+1, '+1'),
     (-1, '-1'),
 )
+
+VOTE_CHOICES = getattr(settings, 'VOTE_CHOICES', DEFAULT_VOTE_CHOICES)
 
 class Vote(models.Model):
     token = models.CharField(max_length=50)
