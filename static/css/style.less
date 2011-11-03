@@ -747,6 +747,32 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 	float: right;
 	li {
 		float: left;
+		.votes {
+			color: @dark;
+			display: inline-block;
+			padding: 2px 10px 1px;
+			border: 1px solid @gray;
+			background: #EEEEEE;
+			border-radius: 5px;
+			position: relative;
+			margin-left: 5px;
+			-webkit-box-shadow: inset 0px 0px 3px rgba(0,0,0,.25);
+		}
+		.votes::before, .votes::after {
+			display: inline-block;
+			content: "";
+			border: 5px solid transparent;
+			position: absolute;
+			height: 0;
+			width: 0;
+			top: 5px;
+			left: -10px;
+			border-right-color: @gray;
+		}
+		.votes::after {
+			border-right-color: #EEEEEE;
+			left: -8px;
+		}
 	}
 }
 #attribution {
