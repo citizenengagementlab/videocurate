@@ -105,7 +105,7 @@ $(document).ready(function onload(){
         $("label[for="+selector+"]").addClass("error");
       }
     }
-    if !(has_error) {
+    if (!has_error) {
       $("form#addform").submit();
     }
   });
