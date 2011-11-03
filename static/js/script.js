@@ -71,6 +71,7 @@ $(document).ready(
   		if(DEBUG) console.log(tag);
   		if(DEBUG) console.log(tags);
   		tags.val(function(){
+  			//ternerary operator checking if we should prepend ", "
   			return tags.val()? tags.val() + ", " + tag : tag;
   		});
   		return false;

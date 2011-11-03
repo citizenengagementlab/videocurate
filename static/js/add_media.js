@@ -7,6 +7,7 @@ $(document).ready(function onload(){
   $("input#id_url").keypress(function(e){
     //if the user hits return, process the preview button, not the form submit
     if(e.which == 13) {
+       e.preventDefault();
       $("input#id_preview_button").click();
     }
   });
@@ -120,6 +121,11 @@ function setClear() {
   $('a.clear').click(function(e) {
     e.preventDefault();
     clearForm();
+    var messages = $("ul.messages");
+    messages.slideUp(function(){
+    	messages.empty();
+    })
+    	
     return false;
   });
 }
