@@ -5,21 +5,18 @@ var url = new RegExp(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z
 $(document).ready(function onload(){
   //enable the preview button
   $("input#id_url").keypress(function(e){
-    e.preventDefault();
     //if the user hits return, process the preview button, not the form submit
     if(e.which == 13) {
       $("input#id_preview_button").click();
     }
   });
   $('input#id_url').blur(function(e) {
-    e.preventDefault();
     //check to see if it's a url first
     if (url.test($("input#id_url").val())) { 
       $("input#id_preview_button").click();
     }
   });
   $("input#id_url").bind('paste', function(e) {
-    e.preventDefault();
     //check to see if it's a url first
     if (url.test($("input#id_url").val())) { 
       setTimeout(function() {
