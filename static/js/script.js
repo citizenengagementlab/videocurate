@@ -32,9 +32,9 @@ $(document).ready(
     });
 		
 		//inline results embed
-		$("ul#results a img").click(function(e) {
+		$("ul#results a.thumb").click(function(e) {
 		  var clicked = $(this);
-      inline_url = clicked.parent('a').attr('href')+"inline/";
+      inline_url = clicked.attr('href')+"inline/";
 		  var num_votes = $.get(inline_url,{},function view_inline_callback(result) {
 	      if(DEBUG) console.log('view_inline_callback');
 	      inline_html = $(result);

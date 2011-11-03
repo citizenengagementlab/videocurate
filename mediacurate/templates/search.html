@@ -16,7 +16,7 @@
 <ul id="results" class="group">
   {% for r in results %}
 	<li class="group">
-		<a class="thumb" href="{{r.get_absolute_url}}"><img src="{{r.embed.response.thumbnail_url}}" width="100"></a>
+		<a class="thumb" href="{{r.get_absolute_url}}"><span class="play"></span><img src="{{r.embed.response.thumbnail_url}}" width="100"></a>
 		<h4><a href="{{r.get_absolute_url}}">{{r.title}}</a></h4>
 		<div class="info">{%if r.description%}{{r.description}}<br>{%endif%}
 		  {%if r.views%}{{r.views|intcomma}} views{%endif%}

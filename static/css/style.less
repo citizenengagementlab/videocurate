@@ -576,6 +576,20 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 		a.thumb {
 			float: left;
 			margin: 0 10px 10px 0;
+			position:relative;
+			&:hover span {
+        background: url(../images/play_btn.png) no-repeat;
+        -moz-opacity:.80;
+        opacity:.80;
+        filter:alpha(opacity=80);
+        display:block;
+        position:absolute;
+        top:25%;
+        left:25px;  
+        z-index:100;
+        width:100px;
+        height:100px;
+        }
 		}
 		.info { 
 		  float:left;
