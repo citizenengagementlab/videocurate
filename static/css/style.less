@@ -240,6 +240,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 #mainnav {
 	.column(12);
+	z-index: 1000;
 	margin-top: -20px;
 	margin-bottom: 20px;
 	ul {
@@ -300,6 +301,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 }
 
 #tiles {
+	z-index: -1;
   ul {
     margin:0;
     padding:0;
@@ -871,9 +873,9 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
    Please define your styles before this section.
    ==========================================================================
 /* Contain floats: nicolasgallagher.com/micro-clearfix-hack/ */ 
-.group:before, .group:after { content: ""; display: table; }
-.group:after { clear: both; }
-.group { zoom: 1; }
+.group:before, .group:after, .center:before, .center:after { content: ""; display: table; }
+.group:after, .center:after { clear: both; }
+.group, .center { zoom: 1; }
 
 
 
