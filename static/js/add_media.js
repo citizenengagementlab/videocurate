@@ -123,7 +123,7 @@ function showMessage(message,message_class) {
     	messages.empty();
     })
     //redirect, to clear the url parameters
-    //window.location.assign('/add');
+    window.location.assign('/add');
     return false;
   });
 }
