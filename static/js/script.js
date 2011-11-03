@@ -135,6 +135,8 @@ $(document).ready(
 		  if ($("#embed_url").val() == "") {
 		    window.location.assign('/add');
 		    //don't use replace, that breaks the back button
+		  } else {
+		    $("form#add_form").submit();
 		  }
 		});
 				
