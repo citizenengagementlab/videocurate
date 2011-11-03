@@ -188,39 +188,63 @@ function vimeo_extras(data) {
                   });
 }
 function flickr_extras(data) {
+  api_key = 'fd34c2ff0085800fd5c78c24c2b26f66';
+  
   //use regex to determine photo_id
-  flickr_regex = RegExp('photos/[^/]+/([0-9]+)')
-  photo_id = flickr_regex.exec(data.original_url)[1]
-  api_key = 'fd34c2ff0085800fd5c78c24c2b26f66'
-  flickr_url = "http://www.flickr.com/services/rest/?method=flickr.photos.getInfo&format=json" +
-              "&photo_id=" + photo_id +
-              "&api_key=" + api_key;
-  flickr_extra = $.ajax({url:flickr_url,
-                    dataType:'jsonp',
-                    jsonp:'jsoncallback',
-                    success: function flickr_callback(response,status,jqXHR) {
-                      if (DEBUG) console.log('flickr callback');
-                      if (DEBUG) console.log(response);
-                      flickr_license = response.photo.license;
-                      //see http://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html
-                      switch(flickr_license) {
-                        case 0: license = "unk";
-                        case 1: license = "cc-by-nc-sa";
-                        case 2: license = "cc-by-nc";
-                        case 3: license = "cc-by-nc-nd";
-                        case 4: license = "cc-by";
-                        case 5: license = "cc-by-sa";
-                        case 6: license = "cc-by-nd";
-                        case 7: license = "none";
-                        default: license = "unk";
+  photo_regex = RegExp('photos/[^/]+/([0-9]+)');
+  if (photo_regex.test(data.original_url)) {
+    photo_id = photo_regex.exec(data.original_url)[1]
+    if (DEBUG) console.log('photo_id:'+photo_id);
+    flickr_url = "http://www.flickr.com/services/rest/?method=flickr.photos.getInfo&format=json" +
+                "&photo_id=" + photo_id +
+                "&api_key=" + api_key;
+                flickr_extra = $.ajax({url:flickr_url,
+                      dataType:'jsonp',
+                      jsonp:'jsoncallback',
+                      success: function flickr_photo_callback(response,status,jqXHR) {
+                        if (DEBUG) console.log('flickr photo callback');
+                        if (DEBUG) console.log(response);
+                        flickr_license = response.photo.license;
+                        //see http://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html
+                        switch(flickr_license) {
+                          case 0: license = "unk";
+                          case 1: license = "cc-by-nc-sa";
+                          case 2: license = "cc-by-nc";
+                          case 3: license = "cc-by-nc-nd";
+                          case 4: license = "cc-by";
+                          case 5: license = "cc-by-sa";
+                          case 6: license = "cc-by-nd";
+                          case 7: license = "none";
+                          default: license = "unk";
+                        }
+                        append_extras({
+                          views:response.photo.views,
+                          license:license,
+                          date_uploaded:response.photo.dates.taken //uses exif data, parse in python
+                        })
                       }
-                      append_extras({
-                        views:response.photo.views,
-                        license:license,
-                        date_uploaded:response.photo.dates.taken //uses exif data, parse in python
-                      })
-                    }
-                  });
+                    });
+    }
+    set_regex = RegExp('sets/([0-9]+)');
+    if (set_regex.test(data.original_url)) {
+      set_id = set_regex.exec(data.original_url)[1]
+      if (DEBUG) console.log('set_id:'+set_id);
+        flickr_url = "http://www.flickr.com/services/rest/?method=flickr.photosets.getInfo&format=json" +
+                    "&photoset_id=" + set_id +
+                    "&api_key=" + api_key;
+        flickr_extra = $.ajax({url:flickr_url,
+                      dataType:'jsonp',
+                      jsonp:'jsoncallback',
+                      success: function flickr_set_callback(response,status,jqXHR) {
+                        if (DEBUG) console.log('flickr set callback');
+                        if (DEBUG) console.log(response);
+                        append_extras({
+                          views:response.photoset.count_views,
+                          date_uploaded:response.photoset.date_create
+                        })
+                      }
+                    });
+    }
 }
 function append_extras(extra) {
   // save the extra data to the input fields

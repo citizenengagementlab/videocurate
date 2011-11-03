@@ -239,7 +239,11 @@ def add(request):
             try:
                 date_uploaded = dateutil.parser.parse(form.cleaned_data['date_uploaded']) #TEMP, may fail
             except ValueError,e:
-                return HttpResponseServerError("I don't know how to parse this date:",form.cleaned_data['date_uploaded'],"from",provider_name)
+                try:
+                    date_uploaded = datetime.fromtimestamp(float(form.cleaned_data['date_uploaded']))
+                except ValueError,e:
+                    date_uploaded = datetime.now()
+                    messages.debug("I don't know how to parse this date: %s from %s" % (form.cleaned_data['date_uploaded'],provider_name))
                 
             #could start with copy of form.cleaned_data, but that would pull in shared form fields
             media_dict = {
