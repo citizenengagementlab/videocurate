@@ -193,7 +193,7 @@ def embed_cache(request):
     #strip extra parameters from common sites to avoid duplicates
     parsed = urlparse.urlparse(url)
     #youtube
-    if (parsed.netloc == "www.youtube.com") or (parsed.netloc == "youtu.be"):
+    if (parsed.netloc == "www.youtube.com"):
         qs = urlparse.parse_qs(parsed.query)
         v = qs['v'][0]
         url = urlparse.urlunparse(('http', #ignore https
@@ -202,6 +202,15 @@ def embed_cache(request):
                                    parsed.params,
                                    'v='+v, #only save the video id
                                    parsed.fragment))
+    if (parsed.netloc == "youtu.be"):
+        #convert youtu.be to youtube url
+        v = parsed.path[1:]
+        url = urlparse.urlunparse(('http',
+                                    'www.youtube.com',
+                                    'watch',
+                                    '',
+                                    'v='+v,
+                                    ''))
     #vimeo
         
     
