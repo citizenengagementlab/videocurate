@@ -26,7 +26,7 @@
 		<div class="center">
 			<h1 id="logo">
 				<a href="/">99% Media</a>
-				<span id="tagline">Collaboratively curated for the movement<br>{{stats.media_count}} photos and videos from {{stats.location_count}} locations</span>
+				<span id="tagline">Collaboratively curated for the movement{% if stats%}<br>{{stats.media_count}} photos and videos from {{stats.location_count}} locations</span>{%endif%}
 			</h1>
 			<form action="/search">
 				<fieldset>
