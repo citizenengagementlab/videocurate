@@ -38,16 +38,13 @@ def home(request):
     latest = Media.objects.order_by('-date_added').exclude(id=main.id)[:5]
     popular = Media.objects.order_by('-total_upvotes').exclude(id=main.id)[:5]
     
-    stats = {'media_count':Media.objects.count(),
-            'location_count':Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0).count()}
-    
     tabs = [{'name':'Popular','list':popular,'view_all_link':'/popular/'},
             {'name':'Latest','list':latest,'view_all_link':'/latest/'}]
     
     return render_to_response('view.html',
         {'title':'Collaboratively Curated for the Movement',
         'banner':True,
-        'media':main,'tabs':tabs,'stats':stats},
+        'media':main,'tabs':tabs},
         context_instance=RequestContext(request))
 
 def view_by_id(request,id):
@@ -63,13 +60,11 @@ def view_by_slug(request,id,slug):
     nearby = Media.objects.filter(location=media.location).order_by('-date_added').exclude(id=media.id)[:5]
     same_day = Media.objects.filter(date_uploaded=media.date_uploaded).order_by('-date_added').exclude(id=media.id)[:5]
     
-    stats = {'media_count':Media.objects.count(),
-            'location_count':Location.objects.annotate(num_media=Count('media')).filter(num_media__gt=0).count()}
     tabs = [{'name':'Nearby','list':nearby,'view_all_link':'/search?location=%s' % media.location.name},
             {'name':'Same Day','list':same_day,'view_all_link':'/search?date=%s' % media.date_uploaded.date()}]
     
     return render_to_response('view.html',
-        {'media':media,'tabs':tabs,'stats':stats},
+        {'media':media,'tabs':tabs},
         context_instance=RequestContext(request))
         
 def view_inline(request,id,slug):

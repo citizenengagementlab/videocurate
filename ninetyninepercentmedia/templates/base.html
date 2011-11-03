@@ -1,3 +1,4 @@
+{%load mediacurate_tags %}
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
@@ -26,7 +27,7 @@
 		<div class="center">
 			<h1 id="logo">
 				<a href="/">99% Media</a>
-				<span id="tagline">Collaboratively curated for the movement{% if stats%}<br>{{stats.media_count}} photos and videos from {{stats.location_count}} locations</span>{%endif%}
+				<span id="tagline">Collaboratively curated for the movement<br>{% current_media_count %} photos and videos from {% current_location_count %} locations</span>
 			</h1>
 			<form action="/search">
 				<fieldset>
