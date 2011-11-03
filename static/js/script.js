@@ -87,6 +87,7 @@ $(document).ready(
 	  $('.upvote').click(function(e) {
 	  	e.preventDefault();
   		var clicked = $(this);
+  		clicked.css("background-image", "url(/static/images/spinner.gif)");
 	    var num_votes = $.ajax({
 	      url:this.href,
 	      cache: false,
@@ -94,8 +95,8 @@ $(document).ready(
 	      data:{},
 	      success: function vote_callback(result) {
 	        if (DEBUG) console.log(result);
-	        clicked.html(result.num_votes + " votes");
-	        if (result.voted) { clicked.css('color','green'); }
+        	$(".votes").html(result.num_votes);
+      		clicked.css("background-image", "url(/static/images/check.png)");
 	      }
 	    })
 	    return false;
