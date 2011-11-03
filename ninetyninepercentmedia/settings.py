@@ -116,6 +116,7 @@ INSTALLED_APPS = (
     'form_utils',
     'django_countries',
     'ajaxcomments',
+    'django_antichaos',
     
     #internal apps
     'mediacurate',
