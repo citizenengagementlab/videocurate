@@ -105,9 +105,8 @@ $(document).ready(function onload(){
         $("label[for="+selector+"]").addClass("error");
       }
     }
-    return !(has_error);
-    //false to stop event propagation
-    //true to allow
+    if !(has_error);
+      $("form#addform").submit();
   });
 
 });
