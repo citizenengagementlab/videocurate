@@ -115,22 +115,17 @@ function showMessage(message,message_class) {
   msg_html = "<li class='"+message_class+"'>"+message+clear_text+"</li>";
   $('ul.messages').append(msg_html);
   $('ul.messages').show();
-  setClear();
-}
-function setClear() {
-  $('a.clear').click(function(e) {
+  $('a.clear').click(function clearForm(e) {
     e.preventDefault();
-    clearForm();
+    $('form#addform')[0].reset();
     var messages = $("ul.messages");
     messages.slideUp(function(){
     	messages.empty();
     })
-    	
+    //redirect, to clear the url parameters
+    //window.location.assign('/add');
     return false;
   });
-}
-function clearForm() {
-  $('form#addform')[0].reset();
 }
 
 /* functionality to get info that embedly doesn't return*/
