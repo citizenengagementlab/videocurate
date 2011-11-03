@@ -138,6 +138,7 @@ $(document).ready(
 		  } else {
 		    $("form#add_form").submit();
 		  }
+		$(this).parent().submit();
 		});
 				
 		//Copy GET Request URL to proper field on add page.		
