@@ -174,8 +174,7 @@ $(document).ready(
 			var embed_url = getEmbedUrl();
 			if (embed_url) {
 				$("#id_url").val(embed_url);
-				$("#id_preview_button").click()
-					.hide();
+				$("#id_preview_button").click();
 			}
 		}
 		
