@@ -172,7 +172,7 @@ def popular(request):
         media_pages = paginator.page(paginator.num_pages)    
         
     return render_to_response('search.html',
-        {'query':'the latest','results':media_pages.object_list,
+        {'query':'the most popular','results':media_pages.object_list,
         'pagination':paginator,'page':media_pages},
         context_instance=RequestContext(request))
 
