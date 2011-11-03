@@ -36,14 +36,31 @@
 					<input type="text" name="keyword" id="search" placeholder="keyword" />
 					<input type="text" name="location" id="location" placeholder="location" />
 					<input type="submit" value="Search" />
-				  <ul>
-    			  <li><a href="/keywords">Keyword list</a></li>
-    			  <li><a href="/locations">Location list</a></li>
-    			</ul>
 				</fieldset>
 			</form>
 		</div>
 	</header>
+	<div class="center">
+		<nav id="mainnav">
+			<ul>
+				<li>
+					Browse:
+				</li>
+				<li>
+					<a href="/locations">Location</a>
+				</li>
+				<li>
+					<a href="/keywords">Tag</a>
+				</li>
+				<li>
+					<a href="/latest">Latest</a>
+				</li>
+				<li>
+					<a href="/popular">Popular</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
 	{% if banner %}
 	<div class="center">
 		<section id="banner">

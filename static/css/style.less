@@ -220,6 +220,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 .center {
 	width: 960px;
 	margin: 0 auto;
+	position: relative;
 }
 
 #topbar {
@@ -234,6 +235,26 @@ table { border-collapse: collapse; border-spacing: 0; }
 	}
 	form {
 		.column(6);
+	}
+}
+
+#mainnav {
+	.column(12);
+	margin-top: -20px;
+	margin-bottom: 20px;
+	ul {
+		float: right;
+		li {
+			display: inline-block;
+			a {
+				margin-left: 20px;
+				text-decoration: underline;
+			}
+		}
+		li:first-child {
+			text-align: right;
+			//font-weight: bold;
+		}
 	}
 }
 
