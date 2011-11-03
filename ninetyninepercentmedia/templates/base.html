@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="{{MEDIA_URL}}css/jquery.autocomplete.css" type="text/css" />
 	<script src="{{MEDIA_URL}}js/jquery.autocomplete.js"></script>
 	<script src="{{ MEDIA_URL }}ajaxcomments/js/post-comment.js" type="text/javascript"></script>
+	<script src="{{ MEDIA_URL }}js/date.js" type="text/javascript"></script>
 {%block style%}{%endblock%}
 </head>
 
@@ -25,7 +26,7 @@
 		<div class="center">
 			<h1 id="logo">
 				<a href="/">99% Media</a>
-				<span id="tagline">Collaboratively Curated for the Movement</span>
+				<span id="tagline">Collaboratively curated for the movement<br>{{stats.media_count}} photos and videos from {{stats.location_count}} locations</span>
 			</h1>
 			<form action="/search">
 				<fieldset>
@@ -43,7 +44,6 @@
 	</header>
 	{% if banner %}
 	<div class="center">
-		<div id="stats">{{stats.media_count}} photos and videos from {{stats.location_count}} locations</div>
 		<section id="banner">
 			<h2>Help Document the Movement</h2>
 			<ul>

@@ -45,7 +45,7 @@ def home(request):
             {'name':'Latest','list':latest,'view_all_link':'/latest/'}]
     
     return render_to_response('view.html',
-        {'title':'The best source for #occupy videos',
+        {'title':'Collaboratively Curated for the Movement',
         'banner':True,
         'media':main,'tabs':tabs,'stats':stats},
         context_instance=RequestContext(request))
