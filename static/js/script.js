@@ -133,7 +133,11 @@ $(document).ready(
 	  });
 	  
 		//set embed width to 100%
-		$("#embed").children().attr("width", "100%")
+		$("#embed").children()
+			.attr("width", "100%")
+			.children()
+			.filter("embed")
+			.attr("width", "100%");
 		
 		//frontpage add link
 		//don't pass embed url if none entered
