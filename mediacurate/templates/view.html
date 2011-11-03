@@ -45,7 +45,7 @@
 		<li class="tag"><a href="/search?tag={{tag}}">{{tag}}</a></li>
   	{%endfor%}
 	</ul>
-	<a href="#" id="show_add_tags">+ add tags</a>
+  	<a href="#" id="show_add_tags">+&nbsp;add&nbsp;tags</a>	
 	<form action="/tag/{{media.id}}/" id="add_tags" style="display:none">
 		{% csrf_token %}
 		<input id="id_tags" />

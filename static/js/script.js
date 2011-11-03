@@ -12,7 +12,9 @@ $(document).ready(
 		//add tags
 		$('a#show_add_tags').click(function(e) {
 		  e.preventDefault();
-		  $('form#add_tags').show();
+		  $('form#add_tags').show()
+		  	.children().filter("#id_tags")
+		  	.focus();
 		  $('a#show_add_tags').hide();
 		});
 		$('form#add_tags').submit(function(e) {
