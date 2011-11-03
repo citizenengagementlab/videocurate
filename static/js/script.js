@@ -10,6 +10,10 @@ $(document).ready(
 	function() {
 		
 		//add tags
+		$('a#show_add_tags').click(function(e) {
+		  $('form#add_tags').show();
+		  $('a#show_add_tags').hide();
+		});
 		$('form#add_tags').submit(function(e) {
 		  e.preventDefault();
 		  $.post($(this).attr('action'),
@@ -22,6 +26,8 @@ $(document).ready(
 		        }
 		      },'json');
 		  $('form#add_tags input#id_tags').val("");
+		  $('form#add_tags').hide();
+		  $('a#show_add_tags').show();
 		  return false;
 		});
 		

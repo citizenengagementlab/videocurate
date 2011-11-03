@@ -43,9 +43,10 @@
 	<ul class="tags">
 		{%for tag in tags %}
 		<li class="tag"><a href="/search?tag={{tag}}">{{tag}}</a></li>
-    	{%endfor%}
+  	{%endfor%}
 	</ul>
-	<form action="/tag/{{media.id}}/" id="add_tags">
+	<a href="#" id="show_add_tags">+ add tags</a>
+	<form action="/tag/{{media.id}}/" id="add_tags" style="display:none">
 		{% csrf_token %}
 		<input id="id_tags" />
 		<input id="tag_submit" type="submit" value="add tags" />
