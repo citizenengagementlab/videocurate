@@ -217,6 +217,10 @@ def embed_cache(request):
     try:
         m = Media.objects.get(url=url)
         return HttpResponse(json.dumps({'exists':'true','local_url':m.get_absolute_url()}), mimetype="application/json")
+    except Media.MultipleObjectsReturned:
+        m = Media.objects.filter(url=url)
+        first = m[0]
+        return HttpResponse(json.dumps({'exists':'true','local_url':first.get_absolute_url()}), mimetype="application/json")
     except Media.DoesNotExist:
         return cache_embed(request,url,request.POST.get('maxwidth'))
     
