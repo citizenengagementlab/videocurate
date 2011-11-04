@@ -501,7 +501,9 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 		}
 		
 	}
-	
+	#mediatitle {
+		padding-right: 75px;
+	}
 	#info {
 	  .label {
 	  	vertical-align: top;
@@ -777,8 +779,16 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	float: right;
+	position: absolute;
+	bottom: 10px;
+	right: 0;
+	background: transparent url(../images/like.png) no-repeat;
+	height: 38px;
+	width: 75px;
 	li {
+		position:absolute;
+		bottom: 0;
+		right: 0;
 		float: left;
 		.votes {
 			color: @dark;
@@ -827,13 +837,8 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 	}
 }
 #attribution {
-	float: left;
-	display: inline-block;
-	padding-top: 5px;
-}
-#attribution, #votebuttons {
-	position: relative;
-	margin: -22px 0px 10px 0px;
+	padding: 5px 75px 10px 0;
+	margin: -22px 0px 0px 0px;
 }
 #info {
 	clear: both;
@@ -876,7 +881,7 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 /* Contain floats: nicolasgallagher.com/micro-clearfix-hack/ */ 
 .group:before, .group:after, .center:before, .center:after { content: ""; display: table; }
 .group:after, .center:after { clear: both; }
-.group, .center { zoom: 1; }
+.group, .center { zoom: 1; position: relative; }
 
 
 
