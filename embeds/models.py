@@ -1,5 +1,6 @@
 from django.db import models
 from jsonfield.fields import JSONField
+import ast
 
 OEMBED_TYPES = (
     ('video',)*2,
@@ -28,3 +29,9 @@ class SavedEmbed(models.Model):
 
     def __unicode__(self):
         return self.url
+        
+    def get_response_dict(self):
+        #method to get response dict
+        #most useful for management utils, which for some reason don't call jsonfield.to_python
+        #use literal_eval instead of eval for safety
+        return ast.literal_eval(self.response)
