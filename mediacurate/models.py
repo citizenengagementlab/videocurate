@@ -24,7 +24,9 @@ class Location(models.Model):
     
     def __unicode__(self):
         return self.name
-    
+    def get_absolute_url(self):
+        return "/search?location=%s" % self.name
+            
     # if we want to use geodjango, for more complicated queries like proximity
     # unncessecary for initial launch
 #    latlon = geo_models.PointField(srid=4326)
