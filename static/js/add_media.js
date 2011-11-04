@@ -88,7 +88,25 @@ $(document).ready(function onload(){
         $("#preview .spinner").hide();
       },
       error: function embedly_error(data) {
+        if (DEBUG) console.log('embedly error');
+        
+        url = $('#addform #id_url').val();
+        if (url.indexOf('youtube')) {
+          youtube_query = url.split('=')[1] //probably good enough, gets the whole query string
+          youtube_extra = $.get("https://gdata.youtube.com/feeds/api/videos?",
+            {q:youtube_query,max_results:1,v:2,alt:'json'},
+            function youtube_callback(response) {
+              if (DEBUG) console.log('youtube check embedding');
+              extra = {}
+              entry = response.feed.entry[0];
+              if (entry.yt$noembed) {
+                showMessage("Sorry, the person who uploaded that video to YouTube explicitly disabled embedding.","error");
+              }
+              return extra;
+            });
+        } else {
         showMessage("Sorry, we weren't able to embed that url. Check to see if the url is complete, or has a typo.","error");
+        }
       }
     });
     return false;
