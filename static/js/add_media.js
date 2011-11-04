@@ -2,6 +2,22 @@ DEBUG = true;
 
 var url = new RegExp(/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/);
 
+function getEmbedUrl() {
+  //gets the embed url from the parameters
+  var urlExplode = window.location.href.split("?");
+  var getMap = urlExplode[1];
+  if( getMap ) {
+    var keyVals = getMap.split("&");
+    var getVariables;
+    for(var i = 0; i < keyVals.length; i++) {
+      var getVariable = keyVals[i].split("=");
+      if(getVariable[0] === "embed_url") {
+        return unescape(getVariable[1]);
+      }
+    }
+  }
+}
+
 $(document).ready(function onload(){
   //enable the preview button
   $("input#id_url").keypress(function(e){
@@ -69,6 +85,14 @@ $(document).ready(function onload(){
     });
     return false;
   });
+  
+  //if embed_url parameter, click preview immediately
+  embed_url = getEmbedUrl();
+  if(embed_url) {
+    if (DEBUG) console.log("loaded page with embed_url "+embed_url+" doing preview immediately");
+    $("#id_url").val(embed_url);
+    $("#id_preview_button").click();
+  }
   
   //hide metadata by default
   $('<a href="#" class="show_hidden">Show Metadata</a>').insertBefore('fieldset.hidden');
