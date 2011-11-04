@@ -1,12 +1,12 @@
 django>=1.3
 python-dateutil==1.5
-git+https://github.com/embedly/embedly-python.git
-git+https://github.com/redsolution/django-secretballot@martmedia
-git+https://github.com/bradjasper/django-jsonfield.git
+git+git://github.com/embedly/embedly-python.git
+git+git://github.com/redsolution/django-secretballot@martmedia
+git+git://github.com/bradjasper/django-jsonfield.git
 django-tagging
 django-tagging-autocomplete
 django-form-utils
 django-ajaxcomments
 svn+http://django-tagging-autocomplete.googlecode.com/svn/trunk/
 django-countries
-git+https://github.com/jlev/django-antichaos.git@patch-1
+git+git://github.com/jlev/django-antichaos.git@patch-1

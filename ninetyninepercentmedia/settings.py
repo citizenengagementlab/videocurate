@@ -83,7 +83,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'ninetyninepercentmedia.urls'
@@ -103,11 +103,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.flatpages',
     'django.contrib.humanize',
-    
-    #development
-    'django_evolution',
-    'debug_toolbar',
-    
+
     #external dependencies
     'embeds',
     'secretballot',
@@ -117,7 +113,7 @@ INSTALLED_APPS = (
     'django_countries',
     'ajaxcomments',
     'django_antichaos',
-    
+
     #internal apps
     'mediacurate',
 )
@@ -128,11 +124,22 @@ DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False
 }
 
-try:    
+try:
     from settings_private import *
 except ImportError:
     print '''Can't find settings_private.py
-    Proceeding with default values for DATABASES, SECRET_KEY, and EMBEDLY_KEY
+    Proceeding with default values for DATABASES, and EMBEDLY_KEY
     You probably want to define your own'''
-    SECRET_KEY = 'seekr3t_5e7'
     EMBEDLY_KEY = ''
+
+# Allow private_setings.py to define LOCAL_INSTALLED_APPS.
+INSTALLED_APPS = tuple(list(INSTALLED_APPS) + list(LOCAL_INSTALLED_APPS))
+
+# Generate a local secret key.
+if not 'SECRET_KEY' in locals():
+    from random import choice
+    SECRET_KEY = ''.join([choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
+    fname = os.path.join(os.path.dirname(__file__), 'settings_private.py')
+    f = open(fname, 'a')
+    f.write("SECRET_KEY = '%s'" % SECRET_KEY)
+    f.close()

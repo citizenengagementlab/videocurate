@@ -1,0 +1,27 @@
+To install (tested only on Ubuntu 10.04):
+
+1. Install and create virtualenv:
+
+    $ apt-get install virtualenv
+    $ virtualenv env
+
+3. Enable virtualenv. Run all commands in this environment:
+
+4. Install requirements:
+
+    (videocurate)$ pip install -r requirements.txt
+
+5. Copy local settings file:
+
+    (videocurate)$ cd ninetyninepercentmedia
+    (videocurate)$ cp settings_private_template.py settings_private.py
+
+6.  Edit private_settings.py to add your desired values.  Defaults should work at first.
+
+7.  (videocurate)$ python manage.py syncdb
+
+5. Run development server:
+
+    (videocurate)$ python manage.py runserver
+
+That's it!  You can now access the site at http://127.0.0.1:8000
