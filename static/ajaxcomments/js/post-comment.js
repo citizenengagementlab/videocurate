@@ -99,8 +99,8 @@ function commentSuccess(data) {
     ';
 */    
     comment_html = '<li class="comment">\
-      <span class="comment_name">'+name+'</span> - <span class="comment_date">Just now</span>\
-        <p>'+comment+'</p></li>';
+      <span class="comment_name">'+name+'</span><span class="comment_date">Just now</span>\
+        <div class="comment_text"><p>'+comment+'</p></div></li>';
       
     $('#id_comment').val('');
     
