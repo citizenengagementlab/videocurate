@@ -45,7 +45,7 @@ $(document).ready(function onload(){
         if(data.exists) {
           if (DEBUG) console.log('already have the video');
           showMessage("Sweet video; it's so good, we already have a copy. Want to add your review and tags "
-           + "<a href='/search?url="+escape(data.original_url)+"'>here</a>?","info");
+           + "<a href='"+escape(data.local_url)+"'>here</a>?","info");
         } else {
           if (data.html == "") {
             showMessage("Sorry, we can't get an embed for that url.<br>Check to see if the url is complete, or has a typo. The owner may also have disabled embedding on the hosting platform.","info");
