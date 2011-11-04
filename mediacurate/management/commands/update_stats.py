@@ -13,7 +13,7 @@ class Command(BaseCommand):
     
     def handle(self, *args, **options):
         try:
-            api = gdata.youtube.service.YouTubeService(developer_key=YOUTUBE_API_KEY)
+            api = gdata.youtube.service.YouTubeService(developer_key=settings.YOUTUBE_API_KEY)
         except AttributeError:
             print "no youtube api key, you are likely to get 403 errors"
             api = gdata.youtube.service.YouTubeService()
@@ -30,12 +30,13 @@ class Command(BaseCommand):
                         continue
                     try:
                         v = api.GetYouTubeVideoEntry(video_id=video_id)
-                    except Exception,e:
-                        if e['status'] == 403:
+                    except gdata.service.RequestError,inst:
+                        error = inst[0]
+                        if error['status'] == 403:
                             print "too many api requests, wait 10"
                             time.sleep(10)
                         else:
-                            print e
+                            print error
                             print "unable to get youtube data for video_id",video_id
                             print "original url",m.url
                             continue
