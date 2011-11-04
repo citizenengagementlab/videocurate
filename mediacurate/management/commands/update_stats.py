@@ -20,7 +20,7 @@ class Command(BaseCommand):
                     video_id = qs['v'][0]
                     try:
                         v = api.GetYouTubeVideoEntry(video_id=video_id)
-                    except RequestError:
+                    except gdata.youtube.service.RequestError:
                         print "unable to get youtube data for video_id",video_id
                         print "original url",m.url
                         continue
