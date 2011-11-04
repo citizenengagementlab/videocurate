@@ -29,7 +29,7 @@ def cache_embed(request,url,maxwidth):
     #then the database
     try:
         saved = SavedEmbed.objects.get(url=url, maxwidth=maxwidth)
-        response = saved.response
+        response = saved.get_response_dict()
         response['html'] = saved.html
         response['cache'] = 'database'
         cache.set(key, response) #and save it to memcache

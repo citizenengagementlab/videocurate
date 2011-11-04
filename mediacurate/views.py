@@ -243,7 +243,7 @@ def add(request):
             embed = SavedEmbed.objects.get(url=form.cleaned_data['url'])
             
             #TODO: convert date_uploaded to consistent format
-            provider_name = embed.response['provider_name']
+            provider_name = embed.get_response_dict()['provider_name']
             try:
                 date_uploaded = dateutil.parser.parse(form.cleaned_data['date_uploaded']) #TEMP, may fail
             except ValueError,e:
