@@ -68,7 +68,15 @@ $(document).ready(function onload(){
           } else {
             //we're good to go
             $('#preview #preview_html').html(data.html);
-            if(data.url) { $('#addform #id_url').val(data.url); }
+            if(data.url & data.provider_name === "YouTube") {
+              //overwrite the youtube url with the cleaned up one
+              //to avoid duplicates
+              $('#addform #id_url').val(data.url);
+            }
+            else {
+              //use the original one
+              $('#addform #id_url').val(data.original_url);
+            }
             $('#addform #id_title').val(data.title);
             $('#addform #id_author_name').val(data.author_name);
             $('#addform #id_author_url').val(data.author_url);
