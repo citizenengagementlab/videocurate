@@ -404,11 +404,32 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, 
 	  padding-left:0px;
 	  list-style-type:none;
 	  li.comment { 
-	    padding:5px 0px;
-      /*border-bottom:1px solid @light;*/
-      font-style:italic;
-      p { font-style:normal; }
-    }
+	    padding:5px 0px 15px;
+	    border-bottom: 1px solid #eee;
+	    box-shadow: 0 2px 0 #FFF;
+		min-height: 30px;
+  	    span.comment_name, span.comment_date {
+		    display: block;
+		    margin: 0pt;
+		    padding: 0pt;
+		    width: 25%;
+		    float: left;
+		    clear: both;
+		    font-weight: bold;
+		}
+		span.comment_date {
+			font-style: italic;
+			font-weight: normal;
+		}
+		
+		.comment_text {
+		    padding: 0 0 0 25%;
+		    p {
+		    	margin-top: 0;
+		    	margin-bottom: 0;
+		    }
+		}
+      }
 	}
 	form {
 		legend {
