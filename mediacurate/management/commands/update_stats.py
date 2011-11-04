@@ -20,7 +20,8 @@ class Command(BaseCommand):
                     video_id = qs['v'][0]
                     try:
                         v = api.GetYouTubeVideoEntry(video_id=video_id)
-                    except gdata.youtube.service.RequestError:
+                    except Exception,e:
+                        print e
                         print "unable to get youtube data for video_id",video_id
                         print "original url",m.url
                         continue
@@ -28,7 +29,7 @@ class Command(BaseCommand):
                     changed = False
                     
                     views = v.statistics.view_count
-                    if int(m.views) < int(views):
+                    if views and (int(m.views) < int(views)):
                         print "updating views on",m.url,"from",m.views,"to",views
                         m.views = views
                         changed = True
