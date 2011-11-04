@@ -39,6 +39,12 @@ def cache_embed(request,url,maxwidth):
     except TypeError:
         response = {'error':'Error embedding %s.' % url}
         return HttpResponseServerError(json.dumps(response), mimetype="application/json")
+    except SyntaxError:
+        #probably has old embed with no response
+        saved.delete()
+        saved.save()
+        #clear it, so we don't get it from the cache again
+        return HttpResponseServerError("no embed response for %s" % url)
 
     #if we've never seen it before, call the embedly API
     client = Embedly(key=settings.EMBEDLY_KEY, user_agent=USER_AGENT)
