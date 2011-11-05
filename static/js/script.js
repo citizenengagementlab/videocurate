@@ -7,6 +7,13 @@
 var DEBUG = true;
 
 $(document).ready(function() {
+	
+	//Provide focus to comment for when use clicks "add your own review"
+	$('a[href="#comment_form"]').click(function(e){
+		e.preventDefault();
+		$("html,body").animate({scrollTop: $(".comment-form").offset().top}, "normal");
+		$("#id_name").focus();
+	});
 
 	//add tags
 	$('a#show_add_tags').click(function(e) {
@@ -170,7 +177,7 @@ $(document).ready(function() {
 		"float" : "left"
 	}).parents("#secondary").children(".tabs").children(".tab:first-child").children("h3").children("a").addClass("active");
 
-	//Click handler
+	//Click handler for slide events
 	$("#secondary .tabs h3>a").click(function(e) {
 		e.preventDefault();
 		if($(this).hasClass("active")) {
