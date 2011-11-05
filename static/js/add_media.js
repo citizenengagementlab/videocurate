@@ -64,7 +64,7 @@ $(document).ready(function onload(){
            + "<a href='"+escape(data.local_url)+"'>here</a>?","info");
         } else {
           if (data.html == "") {
-            showMessage("Sorry, we can't get an embed for that url.<br>Check to see if the url is complete, or has a typo. The owner may also have disabled embedding on the hosting platform.","info");
+            showMessage("Sorry, we can't get an embed for that url.<br>Check to see if the url is complete, or has a typo.","error");
           } else {
             //we're good to go
             $('#preview #preview_html').html(data.html);
@@ -91,7 +91,7 @@ $(document).ready(function onload(){
         if (DEBUG) console.log('embedly error');
         
         url = $('#addform #id_url').val();
-        if (url.indexOf('youtube')) {
+        if (url.indexOf('youtube') > 0) {
           youtube_query = url.split('=')[1] //probably good enough, gets the whole query string
           youtube_extra = $.get("https://gdata.youtube.com/feeds/api/videos?",
             {q:youtube_query,max_results:1,v:2,alt:'json'},
@@ -101,8 +101,9 @@ $(document).ready(function onload(){
               entry = response.feed.entry[0];
               if (entry.yt$noembed) {
                 showMessage("Sorry, the person who uploaded that video to YouTube explicitly disabled embedding.","error");
+                return false;
               }
-              return extra;
+              showMessage("Sorry, we weren't able to embed that url. It doesn't appear to be a valid YouTube video page.","error");
             });
         } else {
         showMessage("Sorry, we weren't able to embed that url. Check to see if the url is complete, or has a typo.","error");
