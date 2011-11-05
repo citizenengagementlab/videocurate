@@ -195,8 +195,7 @@ def embed_cache(request):
     #youtube
     if (parsed.netloc == "www.youtube.com"):
         qs = urlparse.parse_qs(parsed.query)
-        vs = qs['v']
-        if vs:
+        if qs.has_key('v') and len(qs['v']>0):
             v = qs['v'][0]
         else:
             v = ""
