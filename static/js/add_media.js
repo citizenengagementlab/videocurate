@@ -193,18 +193,27 @@ function thirdparty_extras(data) {
   }
 }
 function youtube_extras(data) {
-  youtube_query = data.url.split('=')[1] //probably good enough, gets the whole query string
+  if(DEBUG) console.log(data);
+  if (data.url) {
+    //use the parsed url
+    var url = data.url;
+  } else {
+    //use the original
+    var url = data.original_url;
+  } 
+  youtube_query = url.split('=')[1] //probably good enough, gets the whole query string
   youtube_extra = $.get("https://gdata.youtube.com/feeds/api/videos?",
     {q:youtube_query,max_results:1,v:2,alt:'json'},
     function youtube_callback(response) {
       if (DEBUG) console.log('youtube callback');
       if (DEBUG) console.log(response);
       extra = {}
-      entry = response.feed.entry[0];
-      extra.views = entry.yt$statistics.viewCount;
-      extra.license = entry.media$group.media$license.$t;
-      extra.date_uploaded = entry.published.$t;
-      //need to find max width/height
+      if (response.feed.entry) {
+        entry = response.feed.entry[0];
+        extra.views = entry.yt$statistics.viewCount;
+        extra.license = entry.media$group.media$license.$t;
+        extra.date_uploaded = entry.published.$t;
+      }
       append_extras(extra);
       return extra;
     });
