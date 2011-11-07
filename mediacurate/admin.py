@@ -4,7 +4,7 @@ from mediacurate.models import *
 class MediaAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_uploaded'
     ordering = ('date_added',)
-    raw_id_fields = ('embed',)
+    raw_id_fields = ('embed','location')
     
     list_display = ('title','location','url','date_added','resolution','get_total_upvotes','featured')
     list_filter = ('date_uploaded','location','featured')
