@@ -87,7 +87,7 @@
   <ul id="{{tab.name|slugify}}" class="group">
     {%for media in tab.list %}
     <li class="group">
-  	  <a href="{{media.get_absolute_url}}"><img src="{{media.embed.response.thumbnail_url}}" width="100"></a>
+  	  <a href="{{media.get_absolute_url}}">{%if media.embed.response.thumbnail_url%}<img src="{{media.embed.response.thumbnail_url}}" width="100">{%else%}No thumbnail{%endif%}</a>
   	  <div class="meta group">
   	  	<h4><a href="{{media.get_absolute_url}}">{{media.title}}</a></h4>
   	  	<div class="info">{%if media.views%}<span class="media_views">{{media.views|intcomma}} view{{media.views|pluralize}}</span>{%endif%}
