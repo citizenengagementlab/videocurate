@@ -21,7 +21,12 @@
 	  {{media.title}}
 	</h1>
 	<p id="attribution">
-		Originally posted on <a href="{{media.embed.response.original_url}}">{{media.embed.response.provider_name}}</a> by <a href="{{media.author_url}}">{{media.author_name}}</a>
+		Originally posted {%if media.embed.response.provider_name%}
+		to <a href="{{media.embed.response.original_url}}">{{media.embed.response.provider_name}}</a>{%else%}
+		{%if media.embed.response.original_url%}to <a href="{{media.embed.response.original_url}}">{{media.embed.response.original_url}}</a>{%endif%}
+		{%endif%}
+		{%if media.date_uploaded%} on {{media.date_uploaded|date:"SHORT_DATE_FORMAT"}}{%endif%}
+		by <a href="{{media.author_url}}">{{media.author_name}}</a>
 	</p>
 	<ul id="votebuttons">
 	  <li><a href="/view/vote/{{media.id}}/1/" class="upvote">Vote</a><span class="votes">{{media.total_upvotes}}</span></li>
