@@ -42,7 +42,7 @@ LICENSE_CHOICES = (
 class Media(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     date_uploaded = models.DateTimeField()
-    title = models.CharField(max_length=100,db_index=True) #youtube limits to 100 characters
+    title = models.CharField(max_length=255,db_index=True) #youtube limits to 100 characters, but we are ok with longer
     slug = models.SlugField()
     location = models.ForeignKey(Location,db_index=True)
     

@@ -14,7 +14,7 @@ class AddForm(BetterForm):
     '''Used on the add page. Includes first review.'''
     url = forms.URLField()
     title = forms.CharField(help_text="If the current title is confusing or not descriptive, please edit it. Context is key.",
-        error_messages={'required':'A title is required.'})
+        error_messages={'required':'A title is required.'},max_length=255)
     location = forms.CharField(widget=LocationAutocomplete,
         error_messages={'required':'Please enter a location.'},
         help_text="Where did this happen? City name or Occupy location first. <a href='#' id='no_location'>No location?</a>")
