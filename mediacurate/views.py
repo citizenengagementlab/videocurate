@@ -309,6 +309,7 @@ def add(request):
                 review = Comment(**comment_dict)
                 review.save()
             messages.success(request, "Thanks for adding <a href='%s'>%s</a>. Want to add another?" % (media.get_absolute_url(), media.title))
+            messages.info(request,"<a href='/volunteer/'>Join our volunteer network</a> to help us on an ongoing basis.")
             #redirect, so we can clear url parameters
             return HttpResponseRedirect('/add')
     return render_to_response('add.html',
