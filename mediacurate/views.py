@@ -124,7 +124,10 @@ def search(request):
 
 def location_autocomplete_list(request):
     #return list of locations in db, #occupy first
-    query = request.GET['q']
+    try:
+        query = request.GET['q']
+    except KeyError:
+        return HttpResponseBadRequest("need a query parameter")
     occupy_locations = Location.objects.filter(Q(name__istartswith="Occupy "+query)).values_list('name', flat=True)
     locations = Location.objects.filter(Q(name__istartswith=query)).values_list('name', flat=True)
     
