@@ -5,6 +5,14 @@
 {%block title%}Search{%endblock%}
 
 {%block content%}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 {% if query %}
 <h1>
   Results for <span class="query">{{query}}</span>
