@@ -7,6 +7,7 @@ from django.template.defaultfilters import slugify
 from django.db.models import Q, Count
 from django.contrib import messages
 from datetime import datetime
+from datetime import time
 import dateutil.parser
 import json
 import urlparse
@@ -58,7 +59,9 @@ def view_by_slug(request,id,slug):
         media = get_object_or_404(Media,id=id)
     
     nearby = Media.objects.filter(location=media.location).order_by('-date_added').exclude(id=media.id)[:5]
-    same_day = Media.objects.filter(date_uploaded=media.date_uploaded).order_by('-date_added').exclude(id=media.id)[:5]
+    same_day = Media.objects.filter(date_uploaded__year=media.date_uploaded.year,
+                                    date_uploaded__month=media.date_uploaded.month,
+                                    date_uploaded__day=media.date_uploaded.day).order_by('-date_added').exclude(id=media.id)[:5]
     
     tabs = [{'name':'Nearby','list':nearby,'view_all_link':'/search?location=%s' % media.location.name},
             {'name':'Same Day','list':same_day,'view_all_link':'/search?date=%s' % media.date_uploaded.date()}]
@@ -93,7 +96,7 @@ def search(request):
     #TODO: look into using haystack or django-filter
     allowed_params = {'keyword':{'field':'title','lookup':'__icontains'},
                       'location':{'field':'location__name','lookup':'__startswith'},
-                      'date':{'field':'date_uploaded','lookup':''},
+                      'date':{'field':'date_uploaded','lookup':'__range'},
                       'url':{'field':'url','lookup':'__exact'}
                      }
     query = {} #will be passed to filter
@@ -102,7 +105,17 @@ def search(request):
         val = request.GET.get(param)
         if val:
             lookup_string = filters['field']+filters['lookup']
-            query[lookup_string] = val
+            if param == "date":
+                #use range lookup, because django datetime is verbose
+                try:
+                    date = dateutil.parser.parse(val)
+                except ValueError:
+                   messages.error(request,"Couldn't determine a date from your query: "+val)
+                   continue
+                query[lookup_string] = (datetime.combine(date, time.min),
+                                         datetime.combine(date, time.max))
+            else:
+                query[lookup_string] = val
             
             query_display.append("%s: %s" % (param,val))
             
