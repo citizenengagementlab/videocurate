@@ -8,6 +8,12 @@ var DEBUG = true;
 
 $(document).ready(function() {
 	
+	//show search fields on click
+	$('#show_search').click(function show(e) {
+	  e.preventDefault();
+	  $('#inline_search_form').toggle();
+	});
+	
 	//Provide focus to comment for when use clicks "add your own review"
 	$('a[href="#comment_form"]').click(function(e){
 		e.preventDefault();
@@ -38,6 +44,7 @@ $(document).ready(function() {
 		$('a#show_add_tags').show();
 		return false;
 	});
+	
 	//ajax comments
 	var media = '/static/ajaxcomments';
 	$('div#reviews form').submit(function(e) {
@@ -47,6 +54,7 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+	
 	//inline results embed
 	$("ul#results a.thumb").click(function(e) {
 		e.preventDefault();
@@ -71,6 +79,7 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+	
 	//Tag Cloud Simple Tagging
 	$("form #tag_cloud ul>li>a").click(function(e) {
 		e.preventDefault();
@@ -86,10 +95,11 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+	
 	//location autocomplete
 	$("#location").autocomplete("/locations/list/", {
 		multiple : false,
-		width : 185
+		width : 150
 	});
 
 	//add tag autocomplete
@@ -104,6 +114,7 @@ $(document).ready(function() {
 		$(this).html(d.toString('M/d/yyyy h:mm tt'));
 		//$(this).html(d.toLocaleDateString() + " " + d.toLocaleTimeString());
 	});
+	
 	//upvoting
 	$('.upvote').click(function(e) {
 		e.preventDefault();
@@ -123,6 +134,7 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+	
 	//flagging
 	$('.flag').click(function(e) {
 		e.preventDefault();
@@ -150,6 +162,7 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+	
 	//set embed width to 100%
 	$("#embed").children().attr("width", "100%").children().filter("embed").attr("width", "100%");
 
