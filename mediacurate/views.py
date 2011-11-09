@@ -94,7 +94,7 @@ def flag(request,id):
 def search(request):
     #simple search
     #TODO: look into using haystack or django-filter
-    allowed_params = {'keyword':{'field':'title','lookup':'__icontains'},
+    allowed_params = {'title':{'field':'title','lookup':'__icontains'},
                       'location':{'field':'location__name','lookup':'__startswith'},
                       'date':{'field':'date_uploaded','lookup':'__range'},
                       'url':{'field':'url','lookup':'__exact'}
