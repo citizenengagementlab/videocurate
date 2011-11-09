@@ -16,7 +16,7 @@ from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
-from django.views.decorators.cache import cache_control
+from django.views.decorators.cache import cache_control,cache_page
 
 from embeds.models import SavedEmbed
 from embeds.views import cache_embed
@@ -25,6 +25,7 @@ from tagging.utils import parse_tag_input
 from mediacurate.models import Media,Location,Flag
 from mediacurate.forms import AddForm
 
+@cache_page(60*5)
 @cache_control(must_revalidate=True, max_age=5*60)
 def home(request):
     if Media.objects.filter(featured=True).count() > 0:
