@@ -21,16 +21,18 @@
 				<h1 id="logo"><a href="/">99% Media</a><span class="tagline">Collaboratively curated for the movement</span><span class="tagline tagline-2">
 					<br>
 					<span class="num">{% current_media_count %}</span> images and videos from <span class="num">{% current_location_count %}</span> locations</span></h1>
-				<form action="/search">
-					<fieldset>
-						<legend>
-							Search
-						</legend>
-						<input type="text" name="keyword" id="search" placeholder="keyword" />
-						<input type="text" name="location" id="location" placeholder="location" />
-						<input type="submit" value="Search" />
-					</fieldset>
-				</form>
+					
+					<div id="add_wrapper">
+						<form action="/add/" id="add_form">
+							<fieldset>
+								<legend>Add any Link</legend>
+								<label for="embed_url"></label>
+								<input type="text" name="embed_url" id="embed_url" placeholder="Paste in the url..." />
+								<input type="submit" value="Add &raquo;"/>
+							</fieldset>
+						</form>
+					</div>
+					
 			</div>
 		</header>
 		<div id="beta"><img src="{{MEDIA_URL}}images/beta_ribbon.png" style="position:absolute; top:0; left:0;"></div>
@@ -38,7 +40,7 @@
 			<nav id="mainnav">
 				<ul>
 					<li>
-						<span>Browse:</span>
+						<span>Find by:</span>
 					</li>
 					<li>
 						<a href="/locations/">Location</a>
@@ -52,13 +54,26 @@
 					<li>
 						<a href="/popular/">Popular</a>
 					</li>
+					<li>
+						<a href="/search/" id="show_search">Search</a>
+					</li>
 				</ul>
+				<form action="/search" id="inline_search_form" style="display:none;">
+					<fieldset>
+						<legend>
+							Search
+						</legend>
+						<input type="text" name="title" id="search" placeholder="title" />
+						<input type="text" name="location" id="location" placeholder="location" />
+						<input type="submit" value="Go" />
+					</fieldset>
+				</form>
 			</nav>
 		</div>
-		{% if banner %}
 		<div class="center">
 			<section id="banner">
-				<h2>Help Document the Movement</h2>
+				{% if banner %}
+				<h2>Help Document The Movement</h2>
 				<ul>
 					<li>
 						Find the best media online
@@ -70,21 +85,9 @@
 						Tag, review, comment and vote
 					</li>
 				</ul>
-				<div id="add_wrapper">
-					<form action="/add/" id="add_form">
-						<fieldset>
-							<legend>
-								Add a Video
-							</legend>
-							<label for="embed_url"></label>
-							<input type="text" name="embed_url" id="embed_url" placeholder="Paste in a url..." />
-							<input type="submit" value="Add &raquo;"/>
-						</fieldset>
-					</form>
-				</div>
+				{%endif%}
 			</section>
 		</div>
-		{%endif%}
 		<div class="center">
 			{%block main%}
 			<section id="main" class="group">

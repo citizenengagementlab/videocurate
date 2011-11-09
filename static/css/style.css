@@ -663,7 +663,7 @@ h6:first-child {
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
 }
 #main #info ul.tags .tag a:hover, #main #info ul.tags .tag a:active {
-  text-decoration: none;
+  text-decoration: none; 
 }
 #main #info .flag_type {
   margin-left: 5px;
@@ -675,16 +675,24 @@ h6:first-child {
   border: none;
 }
 #topbar form legend {
-  display: none;
+  color:#F5F5F5;
+  position:absolute;
+  top:15px;
+  left:-100px;
+  font-size:16px;
 }
 #topbar form fieldset {
   float: right;
+  position:relative;
 }
 #topbar form input {
   margin-top: 12px;
   padding: 5px 10px;
   border: none;
   background: #FFF;
+}
+#topbar form input[type="text"] {
+  width:250px;
 }
 #topbar form input[type="submit"], #topbar form input[type="button"] {
   width: auto;
@@ -706,6 +714,26 @@ h6:first-child {
 }
 #topbar ul li a {
   color: #dddddd;
+}
+form#inline_search_form {
+  width:360px;
+  margin-top:3px;
+  position:absolute;
+  right:7px;
+  top:27px;
+}
+form#inline_search_form legend {
+  display:none;
+}
+form#inline_search_form input[type=text] {
+  width: 150px;
+  margin-right: 3px;
+}
+form#inline_search_form input[type=submit] {
+  width: auto;
+  background: #E11F25;
+  border: 1px solid #A40004;
+  color: white;
 }
 #banner, #main, #secondary {
   margin-bottom: 20px;
