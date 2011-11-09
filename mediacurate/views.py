@@ -262,7 +262,10 @@ def add(request):
             #create the objects with form.cleaned_data
             #can't use form.save() here, because it's not a modelform...
             
-            location,new = Location.objects.get_or_create(name=form.cleaned_data['location'])
+            try:
+                location,new = Location.objects.get_or_create(name=form.cleaned_data['location'])
+            except Location.MultipleObjectsReturned:
+                location = objects.filter(name=form.cleaned_data['location'])[0] #use the first one, avoid duplicates
             embed = SavedEmbed.objects.get(url=form.cleaned_data['url'])
             
             #TODO: convert date_uploaded to consistent format
