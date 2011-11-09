@@ -15,6 +15,8 @@ import urlparse
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
 from embeds.models import SavedEmbed
 from embeds.views import cache_embed
@@ -23,12 +25,21 @@ from tagging.utils import parse_tag_input
 from mediacurate.models import Media,Location,Flag
 from mediacurate.forms import AddForm
 
+@cache_page(60*5) #cache the homepage for five minutes
 def home(request):
     if Media.objects.filter(featured=True).count() > 0:
         main = Media.objects.filter(featured=True).latest()
     else:
         try:
-            main = Media.objects.order_by('-total_upvotes','-date_added')[0]
+            if cache.get('vote_median'):
+                vote_median = cache.get('vote_median')
+            else:
+                total = Media.objects.all().count()
+                middle = Media.objects.order_by('total_upvotes')[total/2]
+                vote_median = middle.total_upvotes
+                cache.set('vote_median',vote_median,12*60*60) #cache it for an hour
+            main = Media.objects.filter(votes__gte=vote_median).order_by('?')[0]
+            #main = Media.objects.order_by('-total_upvotes','-date_added')[0]
         except IndexError:
             #there's nothing in the db yet, render a blank page
             return render_to_response('view.html',
