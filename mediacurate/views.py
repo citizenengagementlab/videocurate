@@ -6,8 +6,7 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.db.models import Q, Count
 from django.contrib import messages
-from datetime import datetime
-from datetime import time
+from datetime import datetime,timedelta,time
 import dateutil.parser
 import json
 import urlparse
@@ -22,6 +21,7 @@ from embeds.models import SavedEmbed
 from embeds.views import cache_embed
 from tagging.models import Tag,TaggedItem
 from tagging.utils import parse_tag_input
+from secretballot.models import Vote
 from mediacurate.models import Media,Location,Flag
 from mediacurate.forms import AddForm
 
@@ -49,7 +49,19 @@ def home(request):
                    context_instance=RequestContext(request))
 
     latest = Media.objects.order_by('-date_added').exclude(id=main.id)[:5]
-    popular = Media.objects.order_by('-total_upvotes').exclude(id=main.id)[:5]
+    #popular = Media.objects.order_by('-total_upvotes').exclude(id=main.id)[:5]
+    
+    #get popular by votes in last week, to avoid stale content
+    if cache.get('popular_list'):
+        popular = cache.get('popular_list')
+    else:
+        today = datetime.today()
+        last_week = today - timedelta(days=7)
+        recent_votes = Vote.objects.filter(date_added__range=(last_week,today)).\
+                    filter(content_type=ContentType.objects.get(app_label="mediacurate",model="media"))
+        recent_voted_media = recent_votes.values_list('object_id',flat=True)
+        popular = Media.objects.filter(id__in=recent_voted_media).order_by('-total_upvotes').exclude(id=main.id)[:5]
+        cache.set('popular_list',popular,12*60*60)
     
     tabs = [{'name':'Popular','list':popular,'view_all_link':'/popular/'},
             {'name':'Latest','list':latest,'view_all_link':'/latest/'}]
