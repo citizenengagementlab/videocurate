@@ -7,6 +7,23 @@
 var DEBUG = true;
 
 $(document).ready(function() {
+	//social media sharing tools
+	$('.sharebutton').click(function(e){
+	  e.preventDefault();
+	  var url = $(this).attr('href');
+	  var id = $(this).attr('id');
+	  if (DEBUG) console.log(id+" "+url);
+	  switch(id) {
+	    case 'twitter_share':
+	      var share_url = 'http://twitter.com/intent/tweet?via=99percentmedia&url=' + encodeURIComponent(url);
+	      break;
+	    case 'facebook_share':
+	      var share_url = "http://facebook.com/sharer/sharer.php?"
+                    + "&u=" + encodeURIComponent(url);
+        break;
+	  }
+	  window.open(share_url,'Share','height=400,width=500');
+	})
 	
 	//show search fields on click
 	$('#show_search').click(function show(e) {

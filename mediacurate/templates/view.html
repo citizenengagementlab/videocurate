@@ -5,6 +5,18 @@
 
 {%block title%}{%if title%}{{title}}{%else%}{{media.title}}{%endif%}{%endblock%}
 
+{%block meta%}
+{%if media%}
+<meta property="og:title" content="{{media.title}}">
+<meta property="og:type" content="article">
+<meta property="og:description" content="{{media.first_comment}}">
+{% if media.embed.response.type == "video" %}
+<meta property="og:video" content="{{media.embed.response.original_url}}">
+{%endif%}
+
+{%endif%}
+{%endblock%}
+
 {%block content%}
 
 {% if messages %}
@@ -29,7 +41,9 @@
 		by <a href="{{media.author_url}}">{{media.author_name}}</a>
 	</p>
 	<ul id="votebuttons">
-	  <li><a href="/view/vote/{{media.id}}/1/" class="upvote">Vote</a><span class="votes">{{media.total_upvotes}}</span></li>
+		<li><a href="/view/vote/{{media.id}}/1/" class="upvote grey">Vote</a><span class="votes">{{media.total_upvotes}}</span></li>
+		<li><a href="http://99percentmedia.org/{{media.get_absolute_url}}" class="grey sharebutton" id="facebook_share" title="Share on Facebook"><img src="{{MEDIA_URL}}images/facebook_icon.png"></a></li>
+		<li><a href="http://99percentmedia.org/{{media.get_absolute_url}}" class="grey sharebutton" id="twitter_share" title="Share on Twitter"><img src="{{MEDIA_URL}}images/twitter_icon.png"></a></li>
 	</ul>
 </div>
 

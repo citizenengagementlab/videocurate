@@ -933,17 +933,15 @@ form#inline_search_form input[type=submit] {
   margin: 0;
   padding: 0;
   position: absolute;
-  bottom: 10px;
-  right: 0;
-  background: transparent url(../images/like.png) no-repeat;
-  height: 38px;
-  width: 75px;
-}
-#votebuttons li {
-  position: absolute;
   bottom: 0;
   right: 0;
+  /*background: transparent url(../images/like.png) no-repeat;*/
+  width: 110px;
+}
+#votebuttons li {
+  display:inline;
   float: left;
+  margin-left:5px;
 }
 #votebuttons li .votes {
   color: #333333;
@@ -981,13 +979,25 @@ form#inline_search_form input[type=submit] {
   display: inline-block;
   height: 16px;
   width: 16px;
+}
+#votebuttons li .grey {
   opacity: .5;
   -webkit-transition: opacity .2s;
   -moz-transition: opacity .2s;
   transition: opacity .2s;
 }
-#votebuttons li .upvote:active, #votebuttons li .upvote:hover {
+#votebuttons li :active, #votebuttons li :hover {
   opacity: 1;
+}
+#sharebuttons {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  height: 22px;
 }
 #attribution {
   padding: 5px 75px 10px 0;
