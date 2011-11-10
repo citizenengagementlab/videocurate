@@ -11,6 +11,7 @@ DEFAULT_VOTE_CHOICES = (
 VOTE_CHOICES = getattr(settings, 'VOTE_CHOICES', DEFAULT_VOTE_CHOICES)
 
 class Vote(models.Model):
+    date_added = models.DateTimeField(auto_now_add=True)
     token = models.CharField(max_length=50)
     vote = models.SmallIntegerField(choices=VOTE_CHOICES)
 
