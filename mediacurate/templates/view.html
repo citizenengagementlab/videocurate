@@ -7,6 +7,8 @@
 
 {%block meta%}
 {%if media%}
+<meta property="og:url" content="http://www.99percentmedia.org/{{media.get_absolute_url}}">
+<meta property="og:image" content="{{media.embed.response.thumbnail_url}}">
 <meta property="og:title" content="{{media.title}}">
 <meta property="og:type" content="article">
 <meta property="og:description" content="{{media.first_comment}}">
