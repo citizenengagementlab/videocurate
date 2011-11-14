@@ -66,7 +66,7 @@ def home(request):
     tabs = [{'name':'Popular','list':popular,'view_all_link':'/popular/'},
             {'name':'Latest','list':latest,'view_all_link':'/latest/'}]
     
-    return render_to_response('view.html',
+    return render_to_response('home.html',
         {'title':'Collaboratively Curated for the Movement',
         'banner':True,
         'media':main,'tabs':tabs},
