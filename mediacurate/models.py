@@ -11,6 +11,7 @@ import tagging
 from tagging.fields import TagField
 import secretballot
 
+import urlparse
 from django.core.urlresolvers import reverse
 
 class Location(models.Model):
@@ -86,6 +87,31 @@ class Media(models.Model):
             return c
         else:
             return None
+            
+    def fb_video_url(self):
+        '''Returns link for sharing this media on facebook.
+        Defaults to embed.response.original_url, but should be /v/ link for youtube
+        '''
+        original_url = self.embed.response['original_url']
+        
+        parsed = urlparse.urlparse(original_url)
+        if (parsed.netloc == "www.youtube.com"):
+            qs = urlparse.parse_qs(parsed.query)
+            if (qs.has_key('v') and len(qs['v'])>0):
+                v = qs['v'][0]
+                v_url = urlparse.urlunparse(('http','www.youtube.com',
+                                               'v/'+v,None,None,None))
+                #construct a youtube /v/ url
+                return v_url
+        elif (parsed.netloc == "youtu.be"):
+            qs = urlparse.parse_qs(parsed.query)
+            v = parsed.path[1:]
+            v_url = urlparse.urlunparse(('http','www.youtube.com',
+                                           'v/'+v,None,None,None))
+            #construct a youtube /v/ url
+            return v_url
+        else:
+            return original_url
             
 tagging.register(Media,tag_descriptor_attr='tags')
 secretballot.enable_voting_on(Media)
