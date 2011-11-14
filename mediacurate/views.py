@@ -289,7 +289,7 @@ def add(request):
             try:
                 location,new = Location.objects.get_or_create(name=form.cleaned_data['location'])
             except Location.MultipleObjectsReturned:
-                location = objects.filter(name=form.cleaned_data['location'])[0] #use the first one, avoid duplicates
+                location = Location.objects.filter(name=form.cleaned_data['location'])[0] #use the first one, avoid duplicates
             embed = SavedEmbed.objects.get(url=form.cleaned_data['url'])
             
             #TODO: convert date_uploaded to consistent format
