@@ -33,8 +33,9 @@ class SavedEmbed(models.Model):
     def get_response_dict(self):
         #method to get response dict
         #most useful for management utils, which for some reason don't call jsonfield.to_python
+        return self.response
         #use literal_eval instead of eval for safety
-        if type(self.response) == type(dict()):
-            return self.response
-        else:
-            return ast.literal_eval(self.response)
+        #if (type(self.response) == type(dict())):
+        #    return self.response
+        #else:
+        #    return ast.literal_eval(self.response)
