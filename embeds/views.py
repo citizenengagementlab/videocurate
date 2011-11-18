@@ -65,6 +65,7 @@ def cache_embed(request,url,maxwidth):
         row.type=oembed.type
         row.provider_name=oembed.provider_name
         row.response=json.dumps(oembed.data)
+        row.save()
 
     if oembed.type == 'photo':
         html = '<img src="%s" width="%s" height="%s" />' % (oembed.url,
