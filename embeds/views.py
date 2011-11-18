@@ -22,7 +22,8 @@ def cache_embed(request,url,maxwidth):
     #try memcache first
     key = make_cache_key(url, maxwidth)
     cached_response = cache.get(key)
-    if cached_response and type(cached_response) == type(dict()):    
+    if cached_response and type(cached_response) == type(dict()):
+        #print "got from cache"
         cached_response['cache'] = 'memcache'
         return HttpResponse(json.dumps(cached_response), mimetype="application/json")
 
@@ -33,10 +34,11 @@ def cache_embed(request,url,maxwidth):
         response['html'] = saved.html
         response['cache'] = 'database'
         cache.set(key, response) #and save it to memcache
+        #print "got from database"
         return HttpResponse(json.dumps(response), mimetype="application/json")
     except SavedEmbed.DoesNotExist:
         pass
-    except TypeError:
+    except TypeError,e:
         response = {'error':'Error embedding %s.' % url}
         return HttpResponseServerError(json.dumps(response), mimetype="application/json")
     except SyntaxError:
@@ -53,7 +55,7 @@ def cache_embed(request,url,maxwidth):
     else:
        oembed = client.oembed(url)
     if oembed.error:
-        print oembed.error
+        #print oembed.error
         response = {'error':'Error embedding %s' % url,'reason':oembed.error}
         return HttpResponseServerError(json.dumps(response), mimetype="application/json")
 
@@ -61,12 +63,12 @@ def cache_embed(request,url,maxwidth):
     try:
         row = SavedEmbed.objects.get(url=url, maxwidth=maxwidth)
     except SavedEmbed.DoesNotExist:
-        row = SavedEmbed()
+        row = SavedEmbed(response=json.dumps(oembed.data))
         row.url = url
         row.maxwidth = maxwidth
         row.type=oembed.type
         row.provider_name=oembed.provider_name
-        row.response=json.dumps(oembed.data)
+        #row.response=json.dumps(oembed.data)
         row.save()
 
     if oembed.type == 'photo':
@@ -81,6 +83,7 @@ def cache_embed(request,url,maxwidth):
         row.save()
 
     #and to memcache
+    #print "good, saving"
     cache.set(key, row.response, 86400)
     response = row.response
     response['html'] = row.html #overwrite for custom oembed types
