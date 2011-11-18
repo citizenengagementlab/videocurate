@@ -58,10 +58,13 @@ def cache_embed(request,url,maxwidth):
         return HttpResponseServerError(json.dumps(response), mimetype="application/json")
 
     #save result to database
-    row, created = SavedEmbed.objects.get_or_create(url=url, maxwidth=maxwidth,
-                    defaults={'type': oembed.type})
-    row.provider_name = oembed.provider_name
-    row.response = json.dumps(oembed.data)
+    try:
+        row = SavedEmbed.objects.get(url=url, maxwidth=maxwidth)
+    except SavedEmbed.DoesNotExist:
+        row = SavedEmbed()
+        row.type=oembed.type
+        row.provider_name=oembed.provider_name
+        row.response=json.dumps(oembed.data)
 
     if oembed.type == 'photo':
         html = '<img src="%s" width="%s" height="%s" />' % (oembed.url,
