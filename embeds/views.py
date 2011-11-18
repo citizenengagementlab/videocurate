@@ -61,10 +61,11 @@ def cache_embed(request,url,maxwidth):
     try:
         row = SavedEmbed.objects.get(url=url, maxwidth=maxwidth)
     except SavedEmbed.DoesNotExist:
-        row = SavedEmbed()
-        row.type=oembed.type
-        row.provider_name=oembed.provider_name
-        row.response=json.dumps(oembed.data)
+        row = SavedEmbed(dict(url=url,
+                            maxwidth=maxwidth,
+                            type=oembed.type,
+                            provider_name=oembed.provider_name,
+                            response=json.dumps(oembed.data)))
         row.save()
 
     if oembed.type == 'photo':
