@@ -39,7 +39,7 @@ def cache_embed(request,url,maxwidth):
     except SavedEmbed.DoesNotExist:
         pass
     except TypeError,e:
-        response = {'error':'Error embedding %s.' % url}
+        response = {'error':'Error embedding %s\n%s.' % (url,e)}
         return HttpResponseServerError(json.dumps(response), mimetype="application/json")
     except SyntaxError:
         #probably has old embed with no response
