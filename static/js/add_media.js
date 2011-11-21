@@ -213,6 +213,10 @@ function youtube_extras(data) {
         extra.views = entry.yt$statistics.viewCount;
         extra.license = entry.media$group.media$license.$t;
         extra.date_uploaded = entry.published.$t;
+        if (entry.yt$noembed) {
+          showMessage("Sorry, the person who uploaded that video to YouTube explicitly disabled embedding.","error");
+          return false;
+        }
       }
       append_extras(extra);
       return extra;
