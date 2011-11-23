@@ -58,7 +58,7 @@
 	<div>
 		<span class="label">Location:</span>
 		<a href="/search?location={{media.location.name|urlencode}}">{{media.location}}</a>
-		{% if media.license != "unknown"%}<br><span class="label">License:</span>{{media.get_license_display}}{%endif%}
+		{% if media.license and media.license != "UNK"%}<br><span class="label">License:</span>{{media.get_license_display}}{%endif%}
 		<div id="flags">
 			<a href="/flag/{{media.id}}/" class="flag">Flag</a>
 		</div>	</div>
