@@ -3,3 +3,6 @@
 settings_private.*
 *.db
 /build/*
+static/antichaos
+
+static/antichaos
