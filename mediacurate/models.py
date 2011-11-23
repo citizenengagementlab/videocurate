@@ -37,7 +37,7 @@ LICENSE_CHOICES = (
     ('CC','Creative Commons'),
     ('NONE','No restrictions'),
     ('PROP','Proprietary, no reuse allowed'),
-    ('youtube','Standard Youtube'),
+    ('youtube','Youtube'),
     ('UNK','Unknown'),
 )
 
