@@ -182,6 +182,8 @@ $(document).ready(function() {
 	
 	//set embed width to 100%
 	$("#embed").children().attr("width", "100%").children().filter("embed").attr("width", "100%");
+	//remove height on images, use in browser resizing
+	$("#embed").children('img').attr("height", "");
 
 	//frontpage add link
 	//don't pass embed url if none entered
