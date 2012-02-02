@@ -62,9 +62,13 @@ def home(request):
         today = datetime.today()
         date_threshold = today - timedelta(days=3)
         recent_votes = Vote.objects.filter(date_added__range=(date_threshold,today)).\
-                    filter(content_type=ContentType.objects.get(app_label="mediacurate",model="media"))
-        recent_voted_media = recent_votes.values_list('object_id',flat=True).distinct()
-        popular = Media.objects.filter(id__in=recent_voted_media).order_by('-total_upvotes').exclude(id=main.id)[:5]
+                    filter(content_type=ContentType.objects.get(app_label="mediacurate",model="media")).\
+                    values('object_id').annotate(total=Sum('vote')).\
+                    order_by('-total')[:5].values()
+        recent_voted_ids = []
+        for m in list(recent_votes):
+          recent_voted_ids.append(m['object_id'])
+        popular = Media.objects.filter(id__in=recent_voted_ids).order_by('-total_upvotes').exclude(id=main.id)
         cache.set('popular_list',popular,12*60*60)
     
     tabs = [{'name':'Popular','list':popular,'view_all_link':'/popular/'},
