@@ -68,7 +68,7 @@ def home(request):
         recent_voted_ids = []
         for m in list(recent_votes):
           recent_voted_ids.append(m['object_id'])
-        popular = Media.objects.filter(id__in=recent_voted_ids).order_by('-total_upvotes').exclude(id=main.id)
+        popular = Media.objects.filter(id__in=recent_voted_ids).exclude(id=main.id)
         cache.set('popular_list',popular,12*60*60)
     
     tabs = [{'name':'Popular','list':popular,'view_all_link':'/popular/'},
