@@ -10,12 +10,15 @@ from datetime import datetime,timedelta,time
 import dateutil.parser
 import json
 import urlparse
+import random
 
 from django.contrib.comments.models import Comment
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.cache import cache
 from django.views.decorators.cache import cache_control,cache_page
+
+from django.db.models import Avg, Count, Sum
 
 from embeds.models import SavedEmbed
 from embeds.views import cache_embed
@@ -32,15 +35,17 @@ def home(request):
         main = Media.objects.filter(featured=True).latest()
     else:
         try:
+            total = Media.objects.all().count()
+            #use median, not average (if not too slow...)
             if cache.get('vote_median'):
                 vote_median = cache.get('vote_median')
             else:
-                total = Media.objects.all().count()
                 middle = Media.objects.order_by('total_upvotes')[total/2]
                 vote_median = middle.total_upvotes
                 cache.set('vote_median',vote_median,12*60*60) #cache it for an hour
-            main = Media.objects.filter(votes__gte=vote_median).order_by('?')[0]
-            #main = Media.objects.order_by('-total_upvotes','-date_added')[0]
+            
+            above_median = Vote.objects.values('object_id').annotate(total=Sum('vote')).filter(total__gte=vote_median)
+            main = Media.objects.get(id=above_median[random.randint(0,above_median.count()-1)]['object_id'])
         except IndexError:
             #there's nothing in the db yet, render a blank page
             return render_to_response('view.html',
@@ -49,7 +54,6 @@ def home(request):
                    context_instance=RequestContext(request))
 
     latest = Media.objects.order_by('-date_added').exclude(id=main.id)[:5]
-    #popular = Media.objects.order_by('-total_upvotes').exclude(id=main.id)[:5]
     
     #get popular by votes in last week, to avoid stale content
     if cache.get('popular_list'):
